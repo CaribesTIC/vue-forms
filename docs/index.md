@@ -1,18 +1,27 @@
 ---
-home: true
-heroImage: /logo.png
-heroAlt: Logo image
-heroText: LaraVuel
-tagline: API-SPA
-actionText: Comenzar
-actionLink: /guide/introduction
+layout: home
+
+hero:
+  name: Vue Forms
+  text: Componentes de Formulario
+  tagline: A partir de elementos primitivos
+  image:
+    src: /logo.png
+    alt: VueForms
+  actions:
+    - theme: brand
+      text: Comenzar
+      link: /guide/introduction
+    - theme: alt
+      text: GitHub
+      link: https://github.com/CaribesTIC/vue-forms
+      
+
 features:
-  - title: Pinia
-    details: Minimal setup with markdown-centered project structure helps you focus on writing.
-  - title: Tailwind
-    details: Enjoy the dev experience of Vue + webpack, use Vue components in markdown, and develop custom themes with Vue.
-  - title: Typescript
-    details: VitePress generates pre-rendered static HTML for each page, and runs as an SPA once a page is loaded.
+  - title: BaseInput
+    details: Componente reutilizable a partir del elemento <input>    
+  - title: SelectInput
+    details: Componente reutilizable a partir del elemento <select>
 footer: MIT Licensed | Copyleft © 2022-present Ernesto Canquiz
 ---
 

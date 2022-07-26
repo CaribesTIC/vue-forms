@@ -2,9 +2,11 @@
 
 >[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l2-start)
 
-El objetivo de esta lección es crear un componente `BaseInput.vue`. Cada vez que construimos formularios en Vue, la creación de componentes reutilizables para cada tipo de entrada específico nos permitirá replicarlos, modificarlos y también ampliarlos fácilmente. Esto también asegura que todos nuestros formularios de solicitud sean consistentes.
+El objetivo de esta lección es crear un componente `BaseInput.vue`.
 
----
+Cada vez que construyamos formularios en Vue, la creación de componentes reutilizables para cada tipo de entrada específico nos permitirá replicarlos, modificarlos y también ampliarlos fácilmente.
+
+Esto también asegura que todos nuestros formularios de solicitud sean consistentes.
 
 ## Crear el Archivo
 
@@ -25,12 +27,14 @@ Comenzaremos copiando el elemento `input` con su `label`, tal como están actual
 </template>
 ```
 
->En Vue 3 podemos tener múltiples nodos raíz. Esto significa que podemos tener el `label` y el `input` en el nivel raíz sin necesidad de envolverlos en un único elemento raíz como un `div`, como teníamos que hacer en Vue 2.
+>En Vue 3 podemos tener múltiples nodos raíz. Esto significa que podemos tener el `label` y el `input` en el nivel raíz sin necesidad de envolverlos en un único elemento raíz como un `div` - como teníamos que hacer en Vue 2.
+
+---
 
 Lo primero que debemos hacer es permitir que nuestro componente reciba un `label` del padre. Para hacer esto, vamos a crear una propiedad `label`. Esta propiedad se usará no solo para nuestro `label`, sino también como `placeholder`, por lo que es muy conveniente que solo tengamos que definirlo una vez en el padre.
 
 📃`BaseInput.vue`
-```vue
+```vue{4,5,6,7}
 <script>
 export default {
   props: {
@@ -43,10 +47,12 @@ export default {
 </script>
 ```
 
+---
+
 Ahora podemos usar nuestra nueva propiedad `label` a través de la interpolación dentro del elemento `label` de nuestra plantilla.
 
 📃`BaseInput.vue`
-```vue
+```vue{2}
 <template>
   <label>{{ label }}</label>
   <input
@@ -60,14 +66,14 @@ Ahora podemos usar nuestra nueva propiedad `label` a través de la interpolació
 
 Mientras estamos en eso, vamos a eliminar la directiva `v-model` ya que ya no la usaremos dentro del componente. Volveremos a usar `v-model` más adelante.
 
-También eliminaremos `type`, porque el padre lo proporcionará como parte de las propiedades; recuerde que queremos mantener el componente lo más flexible posible.
+También eliminaremos `type`, porque el padre lo proporcionará como parte de los atributos; recuerde que queremos mantener el componente lo más flexible posible.
 
 El usuario de este componente puede querer que sea de tipo `email` o `password`, y el valor predeterminado para la entrada ya es de tipo `text`, si no se declara.
 
-Finalmente, vinculemos el atributo `placeholder` a nuestra propiedad `label` también. Esto asegurará que tanto el texto de "hint" dentro del `input como el `label` real estén coordinados y sean reactivos.
+Finalmente, vinculemos también el atributo `placeholder` a nuestra propiedad `label`. Esto asegurará que tanto el texto de `placeholder`, dentro del `input`, como el `label` estén coordinados y sean reactivos.
 
 📃`BaseInput.vue`
-```vue
+```vue{2,5,12,13,14,15}
 <template>
   <label v-if="label">{{ label }}</label>
   <input
@@ -90,7 +96,7 @@ export default {
 
 ## `v-model`: Vinculando a el valor
 
-Ahora que nuestro componente tiene su estructura básica, podemos pasar a agregar la capacidad para que nuestro componente esté listo para el `v-model`.
+>Ahora que nuestro componente tiene su estructura básica, podemos pasar a agregar la capacidad para que nuestro componente esté listo para el `v-model`.
 
 De forma predeterminada en Vue 3, `v-model` espera que una propiedad llamada `modelValue` esté en su componente compatible con `v-model`. Avancemos y agreguemos esta nueva propiedad, y luego vincúlela al atributo `value` de nuestro `input`.
 
@@ -100,7 +106,7 @@ Existe una buena posibilidad de que el padre intente vincular un texto o una cad
 
 
 📃`BaseInput.vue`
-```vue
+```vue{4,17,18,19,20}
 <template>
   <label v-if="label">{{ label }}</label>
   <input
@@ -138,7 +144,7 @@ Avancemos y agreguemos un oyente de eventos de entrada a nuestro elemento `<inpu
 
 
 📃`BaseInput.vue`
-```vue
+```vue{6}
 <template>
   <label v-if="label">{{ label }}</label>
   <input
@@ -171,10 +177,13 @@ Tenga en cuenta que estamos pasando el `$event.target.value` como la carga útil
 
 ---
 
-Hablando del padre, regresemos a nuestro formulario y usemos nuestro nuevo componente `BaseInput` en lugar de nuestros elementos nativos para probar nuestro código. Reemplacemos las entradas de `Title`, `Description` y `Location` en nuestro formulario con nuestro nuevo componente.
+Hablando del padre, regresemos a nuestro formulario y usemos nuestro nuevo componente `BaseInput` en lugar de nuestros elementos nativos para probar nuestro código.
+
+Reemplacemos las entradas de `Title`, `Description` y `Location` en nuestro formulario con nuestro nuevo componente.
 
 📃`ComponentsForm.vue`
-```vue
+
+```html{14,15,16,17,18,20,21,22,23,24,28,29,30,31,32}
 <form>
   <label>Select a category</label>
   <select v-model="event.category">
@@ -266,11 +275,11 @@ export default {
 </script>
 ```
 
-Nuestros componentes parecen estar "funcionando", pero parece haber un problema con los estilos.
+Nuestros componentes parecen estar "funcionando", **pero parece haber un problema con los estilos**.
 
 Si inspeccionamos más el componente, parece que nuestro atributo `type` no se encuentra por ninguna parte. Queremos poder asignar atributos como `type` en el `input` del componente cuando los configuramos en la instancia en el padre.
 
-Echemos un vistazo a cómo lograr esto.
+Echemos un vistazo a cómo lograr esto...
 
 ## Asignando los `$attrs` al `input`
 
@@ -288,7 +297,7 @@ En los componentes multirraíz, como nuestro `BaseInput`, Vue no puede averiguar
 ```
 En el caso de nuestro componente `BaseInput`, queremos poder inyectar atributos directamente en la entrada, por lo que debemos vincular manualmente el objeto `$attrs`. Avancemos y hagámoslo ahora agregando `v-bind="$attrs"` a nuestro elemento `input`.
 
-```vue
+```html{2}
 <input
   v-bind="$attrs"
   :value="modelValue"
