@@ -1,6 +1,10 @@
-# Base Input
+# Componente Input
 
->[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l2-start)
+:::info
+[Código inicial de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l2-start)
+:::
+
+## `BaseInput.vue`
 
 El objetivo de esta lección es crear un componente `BaseInput.vue`.
 
@@ -31,7 +35,7 @@ Comenzaremos copiando el elemento `input` con su `label`, tal como están actual
 
 ---
 
-Lo primero que debemos hacer es permitir que nuestro componente reciba un `label` del padre. Para hacer esto, vamos a crear una propiedad `label`. Esta propiedad se usará no solo para nuestro `label`, sino también como `placeholder`, por lo que es muy conveniente que solo tengamos que definirlo una vez en el padre.
+Lo primero que debemos hacer es permitir que nuestro componente reciba un `label` del padre. Para hacer esto, vamos a crear una propiedad `label`. Esta propiedad se usará no solo para nuestro elemento `<label>`, sino también como `placeholder`, por lo que es muy conveniente que solo tengamos que definirlo una vez en el padre.
 
 📃`BaseInput.vue`
 ```vue{4,5,6,7}
@@ -49,7 +53,7 @@ export default {
 
 ---
 
-Ahora podemos usar nuestra nueva propiedad `label` a través de la interpolación dentro del elemento `label` de nuestra plantilla.
+Ahora podemos usar nuestra nueva propiedad `label` a través de la interpolación dentro del elemento `<label>` de nuestro plantilla.
 
 📃`BaseInput.vue`
 ```vue{2}
@@ -70,7 +74,7 @@ También eliminaremos `type`, porque el padre lo proporcionará como parte de lo
 
 El usuario de este componente puede querer que sea de tipo `email` o `password`, y el valor predeterminado para la entrada ya es de tipo `text`, si no se declara.
 
-Finalmente, vinculemos también el atributo `placeholder` a nuestra propiedad `label`. Esto asegurará que tanto el texto de `placeholder`, dentro del `input`, como el `label` estén coordinados y sean reactivos.
+Finalmente, vinculemos también el atributo `placeholder` a nuestra propiedad `label`. Esto asegurará que tanto el texto de `placeholder`, dentro del elemento `<input>`, como el `label` estén coordinados y sean reactivos.
 
 📃`BaseInput.vue`
 ```vue{2,5,12,13,14,15}
@@ -98,7 +102,7 @@ export default {
 
 >Ahora que nuestro componente tiene su estructura básica, podemos pasar a agregar la capacidad para que nuestro componente esté listo para el `v-model`.
 
-De forma predeterminada en Vue 3, `v-model` espera que una propiedad llamada `modelValue` esté en su componente compatible con `v-model`. Avancemos y agreguemos esta nueva propiedad, y luego vincúlela al atributo `value` de nuestro `input`.
+De forma predeterminada en Vue 3, `v-model` espera que una propiedad llamada `modelValue` esté en su componente compatible con `v-model`. Avancemos y agreguemos esta nueva propiedad, y luego vincúlela al atributo `value` de nuestro elemento `<input>`.
 
 Lo usaremos por defecto como una cadena vacía, pero especificaremos `String` y `Number` como los tipos permitidos.
 
@@ -132,7 +136,7 @@ export default {
 </script>
 ```
 
-Ahora que tenemos nuestra propiedad `modelValue` establecida y vinculada al atributo `input` del elemento `input`, veamos la segunda parte del enlace bidireccional del `v-model`: emitir un evento.
+Ahora que tenemos nuestra propiedad `modelValue` establecida y vinculada al atributo `input` del elemento `<input>`, veamos la segunda parte del enlace bidireccional del `v-model`: emitir un evento.
 
 ## `v-model`: Emitiendo el evento update:modelValue
 
@@ -140,7 +144,7 @@ Todos los componentes que pueden ser `v-modeled` deben emitir un evento para que
 
 En Vue 3, de forma predeterminada, todos los contratos `v-model` esperan que su componente emita un evento `update:modelValue`, independientemente del tipo de entrada o entradas que contenga su componente.
 
-Avancemos y agreguemos un oyente de eventos de entrada a nuestro elemento `<input/>` y emitamos un evento `update:modelValue` cada vez que ocurra un evento de entrada.
+Avancemos y agreguemos un detector de eventos `@input` a nuestro elemento `<input/>` y emitamos un evento `update:modelValue` cada vez que ocurra un evento de entrada.
 
 
 📃`BaseInput.vue`
@@ -171,7 +175,7 @@ export default {
 </script>
 ```
 
-Agregar un oyente `@input` a nuestro elemento de entrada nos permite activar el evento requerido cada vez que el usuario escribe algo en el campo de entrada.
+Agregar un detector `@input` a nuestro elemento de entrada nos permite activar el evento requerido cada vez que el usuario escribe algo en el campo de entrada.
 
 Tenga en cuenta que estamos pasando el `$event.target.value` como la carga útil del evento. Este es el valor que el `v-modelo` recibirá en el padre.
 
@@ -275,9 +279,9 @@ export default {
 </script>
 ```
 
-Nuestros componentes parecen estar "funcionando", **pero parece haber un problema con los estilos**.
+Nuestros componentes parecen estar _"funcionando"_, **pero parece haber un problema con los estilos**.
 
-Si inspeccionamos más el componente, parece que nuestro atributo `type` no se encuentra por ninguna parte. Queremos poder asignar atributos como `type` en el `input` del componente cuando los configuramos en la instancia en el padre.
+Si inspeccionamos más el componente, parece que nuestro atributo `type` no se encuentra por ninguna parte. Queremos poder asignar atributos como `type` en el elemento `<input>` del componente cuando los configuramos en la instancia en el padre.
 
 Echemos un vistazo a cómo lograr esto...
 
@@ -295,7 +299,7 @@ En los componentes multirraíz, como nuestro `BaseInput`, Vue no puede averiguar
   at <ComponentsForm> 
   at <App>
 ```
-En el caso de nuestro componente `BaseInput`, queremos poder inyectar atributos directamente en la entrada, por lo que debemos vincular manualmente el objeto `$attrs`. Avancemos y hagámoslo ahora agregando `v-bind="$attrs"` a nuestro elemento `input`.
+En el caso de nuestro componente `BaseInput`, queremos poder inyectar atributos directamente en la entrada, por lo que debemos vincular manualmente el objeto `$attrs`. Avancemos y hagámoslo ahora agregando `v-bind="$attrs"` a nuestro elemento `<input>`.
 
 ```html{2}
 <input
@@ -307,17 +311,15 @@ En el caso de nuestro componente `BaseInput`, queremos poder inyectar atributos 
 >
 ```
 
-Con este pequeño cambio, los elementos `input` ahora recibirán correctamente el enlace `type` del padre y se aplicarán nuestras clases CSS.
+Con este pequeño cambio, los elementos `<input>` ahora recibirán correctamente el enlace `type` del padre y se aplicarán nuestras clases CSS.
 
 ---
 **A continuación...**
 
 En esta lección, aprendimos cómo construir nuestro primer componente de formulario, `BaseInput`, y cómo crear correctamente un componente que esté listo para `v-model`.
 
-:::danger
-¿Notó que en realidad nunca importamos el componente BaseInput antes de usarlo en nuestro formulario? No se preocupe por eso por ahora, en la lección 4 repasaremos la magia que ocurre detrás de escena para lograr esto.
-:::
-
 En nuestra próxima lección, construiremos nuestro próximo componente, `BaseSelect`.
 
-¡Te veo allí!
+:::info
+[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l2-end)
+:::

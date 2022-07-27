@@ -1,7 +1,7 @@
 export default {
   title: 'Vue-Form',
   description: 'Vue Form.',
-  base: '/vue-form/', //  The default path during deployment / secondary address / base can be used/
+  base: '/vue-forms/', //  The default path during deployment / secondary address / base can be used/
   themeConfig: {
     nav: [
       { text: 'Inicio', link: '/' },
@@ -15,7 +15,8 @@ export default {
           { text: 'Introducción', link: '/guide/introduction' },
           { text: 'Preparar Entorno', link: '/guide/prepare-environment' },
           { text: 'Formulario Simple', link: '/guide/simple-form' },
-          { text: 'Base Input', link: '/guide/base-input' }      
+          { text: 'Componente Input', link: '/guide/base-input' },
+          { text: 'Componente Select', link: '/guide/base-select' }     
         ]
       }        
     ]
