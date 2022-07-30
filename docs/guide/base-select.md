@@ -271,7 +271,7 @@ De vuelta al `ComponentsForm.vue`, tenemos un elemento `<select>` en la parte su
 Reemplacemos los elementos `<label>` y `<select>` por nuestro componente `BaseSelect`.
 
 
-📃`SimpleForm.vue`
+📃`ComponentsForm.vue`
 ```html
 <BaseSelect
   :options="categories"

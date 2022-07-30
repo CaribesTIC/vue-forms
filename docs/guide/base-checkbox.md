@@ -136,8 +136,8 @@ Ahora que nuestro componente está listo, podemos volver a `ComponentsForm.vue` 
   />
 </div>
 ```
-
-Solo falta establecerlo como complemento global, igual que hicimos en la lección anterior.
+## Complemento Global
+Solo falta importarlo globalmente, igual como se dijo en la [lección anterior](../guide/importing-components.html).
 
 ```js{6,10}
 import { createApp } from 'vue'

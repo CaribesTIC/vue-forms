@@ -18,10 +18,14 @@ hero:
       
 
 features:
-  - title: BaseInput
-    details: Componente reutilizable a partir del elemento <input>    
-  - title: SelectInput
+  - title: Componente Input
+    details: Componente reutilizable a partir del elemento <input type="text">    
+  - title: Componente Select
     details: Componente reutilizable a partir del elemento <select>
+  - title: Componente Checkbox
+    details: Componente reutilizable a partir del elemento <input type="checkbox">
+  - title: Componente Radio
+    details: Componente reutilizable a partir del elemento <input type="radio">
 footer: MIT Licensed | Copyleft © 2022-present Ernesto Canquiz
 ---
 

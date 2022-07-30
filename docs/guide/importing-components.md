@@ -1,4 +1,4 @@
-## Importando Componentes
+# Importando Componentes
 
 :::info
 [Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l4-start)

@@ -19,6 +19,7 @@ export default {
           { text: 'Componente Select', link: '/guide/base-select' },
           { text: 'Importando Componentes', link: '/guide/importing-components' },
           { text: 'Componente Checkbox', link: '/guide/base-checkbox' },
+          { text: 'Componente Radio', link: '/guide/base-radio' },
         ]
       }        
     ]
