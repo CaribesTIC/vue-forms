@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: Vue Forms
-  text: Componentes de Formulario
-  tagline: A partir de elementos primitivos
+  text: Componentes para Formulario
+  tagline: Cómo crearlos partir de elementos primitivos
   image:
     src: /logo.png
     alt: VueForms
@@ -26,6 +26,8 @@ features:
     details: Componente reutilizable a partir del elemento <input type="checkbox">
   - title: Componente Radio
     details: Componente reutilizable a partir del elemento <input type="radio">
+  - title: Componente RadioGroup
+    details: Componente reutilizable para agrupar los RadioGroup por nombre   
 footer: MIT Licensed | Copyleft © 2022-present Ernesto Canquiz
 ---
 

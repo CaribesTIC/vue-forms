@@ -5,7 +5,7 @@ export default {
   themeConfig: {
     nav: [
       { text: 'Inicio', link: '/' },
-      { text: 'Guía', link: '/guide/' },
+      { text: 'Guía', link: '/guide/introduction' },
       { text: 'GitHub', link: 'https://github.com/CaribesTIC/vue-forms' }      
     ],
     sidebar: [{        
@@ -20,6 +20,7 @@ export default {
           { text: 'Importando Componentes', link: '/guide/importing-components' },
           { text: 'Componente Checkbox', link: '/guide/base-checkbox' },
           { text: 'Componente Radio', link: '/guide/base-radio' },
+          { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
         ]
       }        
     ]
