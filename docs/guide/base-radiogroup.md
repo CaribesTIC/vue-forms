@@ -18,7 +18,7 @@ Como mencionamos en la última lección, realmente no tiene sentido cuando los b
 
 Habiendo dicho esto, dado que siempre queremos tener nuestros elementos `BaseRadio` agrupados, tiene sentido crear un componente que contenga la lógica para esta agrupación: `BaseRadioGroup`.
 
-¡Vamos a sumergirnos!
+**¡Vamos a sumergirnos!**
 
 ## Creando nuestro `BaseRadioGroup`
 
@@ -351,7 +351,7 @@ Eliminemos la bandera `vertical` de nuestro `BaseRadioGroup` de `ComponentsForm.
 
 Con la finalización de nuestro componente `BaseRadioGroup`, finalizamos la creación de nuestros componentes de formulario base. ¡Buen trabajo en lograrlo hasta el final!
 
-En la siguiente lección, daremos un pequeño giro y veremos cómo podemos manejar el envío de formularios correctamente en Vue aprovechando el poder de una biblioteca ampliamente utilizada para realizar solicitudes HTTP: **_Axios_**.
+En la siguiente lección, daremos un pequeño giro y veremos cómo podemos manejar el envío de formularios correctamente en Vue aprovechando el poder de una biblioteca ampliamente utilizada para realizar solicitudes HTTP: **Axios**.
 
 :::info
 [Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l7-end)

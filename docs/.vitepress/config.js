@@ -21,6 +21,7 @@ export default {
           { text: 'Componente Checkbox', link: '/guide/base-checkbox' },
           { text: 'Componente Radio', link: '/guide/base-radio' },
           { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
+          { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
         ]
       }        
     ]
