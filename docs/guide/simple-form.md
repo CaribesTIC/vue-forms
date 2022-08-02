@@ -6,15 +6,14 @@
 
 A lo largo de este curso, estamos creando un conjunto de componentes de formulario base reutilizables y explorando las mejores prácticas en el camino. Para construirlos, necesitaremos un formulario de demostración para usar como punto de partida, que dividiremos en estos componentes base. 
 
-:::warning
-El componente `HelloWorld.vue` no lo necesitamos, así que hay que borrarlo.
-:::
-
 He preparado uno para que podamos saltar directamente a él.
 
 El formulario ya incluye `v-model` en un estado reactivo y una matriz `categories` para impulsar el elemento de selección.
 
-📃SimpleForm.vue
+Lo llamaremos `SimpleForm.vue` y lo guardaremos en la carpeta `views/`.
+
+
+📃`SimpleForm.vue`
 
 ```vue
 <template>
@@ -134,3 +133,58 @@ export default {
 }
 </script>
 ```
+
+:::info
+El componente `HelloWorld.vue` no lo necesitamos, así que lo podemos eliminar.
+:::
+
+Avancemos y remplacemos el contenido del archivo `@/src/App.vue` con el siguiente código:
+
+📃`App.vue`
+```vue
+<template>
+  <div id="app">
+    <SimpleForm />
+  </div>
+</template>
+
+<script>
+import SimpleForm from '@/views/SimpleForm.vue'
+
+export default {
+  components: {
+    SimpleForm
+  }
+}
+</script>
+```
+
+Ya tenemos un formulario simple funcioando que podemos probar en el navegador. Este será nuestro respaldo y a partir de él hagamos una copia el cual llamaremos `ComponentsForm.vue` guardándolo en la misma carpeta `views/`, en este último es donde haremos las modificaciones respectivas. 
+
+Finalmente, importemos el componente recien creado y comentemos el componente anterior:
+
+📃`App.vue`
+```vue
+<template>
+  <div id="app">
+    <!--SimpleForm /-->
+    <hr>
+    <ComponentsForm />
+  </div>
+</template>
+
+<script>
+//import SimpleForm from '@/views/SimpleForm.vue'
+import ComponentsForm from '@/views/ComponentsForm.vue'
+export default {
+  components: {
+    //SimpleForm,
+    ComponentsForm
+  }
+}
+</script>
+
+</script>
+```
+
+Todo debe estar funcionando igual, así que ya estamos listos para crear nuestro primer componente.

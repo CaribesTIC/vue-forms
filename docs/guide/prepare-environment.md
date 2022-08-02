@@ -1,15 +1,27 @@
 # Preparar Entorno
 
+## Instalando Vue 3 con Vite
+
+Para arrancar con este curso crearemos un proyecto nuevo de Vue 3 con Vite. Por lo tanto, ya debemos tener instalado [Node](https://nodejs.org/es/).
+
+Así que, nos dirigimos a la carpeta donde queremos crear el proyecto y ejecutamos el siguiente comando:
+
 ```
 npm init vite@latest
 ```
+:::info
+Para este curso estamos usando [npm](https://www.npmjs.com/) para el manejo de paquetes. Siéntase libre de usar [yarn](https://yarnpkg.com) si lo desea. 
+:::
 
+Nos preguntará por el nombre del nuevo proyecto. Nosotros le pondremos `vue-form-app`. Puede colocar el mismo o cambiarlo a su gusto.
 ```
 $ npm init vite@latest
 ? Project name: › vue-form-app
 ```
 
-```
+Por supuesto Vue.
+
+```{5}
 $ npm init vite@latest
 ✔ Project name: … vue-form-app
 ? Select a framework: › - Use arrow-keys. Return to submit.
@@ -21,7 +33,9 @@ $ npm init vite@latest
     svelte
 ```
 
-```
+Para el objetivo de este curso no necesitaremos TypeScript (por ahora), así que continuamos:
+
+```{5}
 $ npm init vite@latest
 ✔ Project name: … vue-form-app
 ✔ Select a framework: › vue
@@ -30,7 +44,9 @@ $ npm init vite@latest
     vue-ts
 ```
 
-```
+Seguimos con los pasos que nos indica el terminal.
+
+```{10,11,12}
 $ npm init vite@latest
 ✔ Project name: … vue-form-app
 ✔ Select a framework: › vue
@@ -47,7 +63,9 @@ Done. Now run:
 $
 ```
 
-```js
+Entremos a nuestro archivo `vite.config.js` ubicado en la raíz del proyecto y agregaremos las siguientes líneas resaltadas:
+
+```js{3,8,9,10,11}
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
@@ -63,28 +81,5 @@ export default defineConfig({
 })
 ```
 
-```js
-// main.js
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
-
-createApp(App).mount('#app')
-```
-
-```vue
-<template>
-  <div id="app">
-    <SimpleForm />
-  </div>
-</template>
-
-<script>
-import SimpleForm from '@/views/SimpleForm.vue'
-
-export default {
-  components: { SimpleForm }
-}
-</script>
-```
+Ahora, ya podemos crear un simple formulario que nos servira de ejemplo para este curso.
 
