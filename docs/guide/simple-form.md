@@ -176,6 +176,7 @@ Finalmente, importemos el componente recien creado y comentemos el componente an
 <script>
 //import SimpleForm from '@/views/SimpleForm.vue'
 import ComponentsForm from '@/views/ComponentsForm.vue'
+
 export default {
   components: {
     //SimpleForm,
