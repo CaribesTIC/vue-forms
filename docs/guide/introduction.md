@@ -1,7 +1,7 @@
 # Introducción
 
 :::warning
-Esta documentación aún está en su face alfa.
+Esta documentación aún está en su fase alfa.
 :::
 
 Desde las pantallas de inicio de sesión y registro hasta la configuración y las páginas de pago, se puede decir que los formularios son la herramienta más importante para interactuar con los usuarios finales de nuestras aplicaciones web y recopilar información valiosa de ellos.
