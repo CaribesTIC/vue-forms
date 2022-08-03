@@ -196,7 +196,7 @@ Hay algunas formas de vincular un elemento `input` con su `label`, la primera es
 </label>
 ```
 
-Esta es una de las formas más fáciles de asegurarse de que su `input` siempre esté correctamente vinculada a el `label` relacionado, pero queremos profundizar en la segunda y generalmente más _"común"_ forma de relacionar elementos **HTML** porque será útil más adelante cuando veamos los mensajes de `error`. Este método implica el uso de identificaciones.
+Esta es una de las formas más fáciles de asegurarse de que su `input` siempre esté correctamente vinculado al `label` relacionado, pero queremos profundizar en la segunda y generalmente más _"común"_ forma de relacionar elementos **HTML** porque será útil más adelante cuando veamos los mensajes de `error`. Este método implica el uso de identificaciones.
 
 :::info
 [Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l9-end)
