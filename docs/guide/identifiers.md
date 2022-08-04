@@ -225,7 +225,7 @@ Tenga en cuenta que estamos agregando una verificación secundaria para ver si s
 
 Si volvemos a revisar nuestro navegador, podemos ver que cuando el `error` está presente, una nueva descripción por entrada está presente en el objeto de relación de la entrada.
 
-One more thing though… Because we are using v-if to display this information on and off, we want to make sure that screen readers announce/read it whenever it becomes displayed. To do this, we’re going to add an attribute of aria-live="assertive. Another way would be to add a role attribute of “alert”, but I’ve found that the aria-live tends to work better with a variety of screen readers.
+Sin embargo, una cosa más... Debido a que estamos usando `v-if` para mostrar esta información de forma intermitente, queremos asegurarnos de que los lectores de pantalla la anuncien o la lean cada vez que se muestre. Para hacer esto, agregaremos un atributo `aria-live="asertive"`. Otra forma sería agregar un atributo `rol` de `"alert"`, pero descubrimos que [`aria-live`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-live) tiende a funcionar mejor con un variedad de lectores de pantalla.
 
 📃`BaseInput.vue`
 ```html
@@ -239,13 +239,13 @@ One more thing though… Because we are using v-if to display this information o
 </p>
 ```
 
-## Explicit input state
+## Estado de entrada explícito
 
-Another thing we can quickly add to our input to make it even more accessible is the aria-invalid attribute. A mistake that I’ve seen many forms make is to try and rely on a red border around an invalid input. For obvious reasons, this is not accessible.
+Otra cosa que podemos agregar rápidamente a nuestra entrada para que sea aún más accesible es el atributo [`aria-invalid`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-invalid). Un error que se comete en muchos formularios es tratar de confiar en un borde rojo alrededor de una entrada no válida. Por razones obvias, esto no es accesible.
 
-We’ve already taken steps into accessible errors, but let’s make sure to also notify screen readers on the invalid state of an input to provide better feedback for our users.
+Ya hemos tomado medidas en errores accesibles, pero asegurémonos de notificar también a los lectores de pantalla sobre el estado no válido de una entrada para proporcionar mejores comentarios a nuestros usuarios.
 
-We are going to add the aria-invalid attribute to our input, and toggle it off and on depending on whether the error prop is set. When the input is valid, null will make it so that the attribute is not added to the input element.
+Vamos a agregar el atributo `aria-invalid` a nuestra entrada, y lo activaremos y desactivaremos dependiendo de si la propiedad `error` está establecida. Cuando la entrada es válida, `null` hará que la propiedad no se agregue al elemento de entrada.
 
 📃`BaseInput.vue`
 ```html
@@ -261,26 +261,27 @@ We are going to add the aria-invalid attribute to our input, and toggle it off a
 >
 ```
 
-If we go back to the browser and inspect the input using the Accessibility tool on Firefox, we can see that the state of “invalid” has now been added to the active states of the input.
+
+Si volvemos al navegador e inspeccionamos la entrada usando la herramienta de **Accessibility** en **Firefox**, podemos ver que el estado `"invalid"` ahora se ha agregado a los estados activos del `input`.
 
 
-Other noteworthy states that we could also add attributes for are readonly, disabled and required. These three can be set directly with HTML5 attributes of the same name, or with their aria counterparts: aria-readonly, aria-disabled, and aria-required.
-Don’t disable the submit button
+Otros estados dignos de mención a los que también podríamos agregar atributos son de `readonly`, `disabled` y `required`. Estos tres se pueden establecer directamente con atributos **HTML5** del mismo nombre, o con sus contrapartes aria: [`aria-readonly`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly), [`aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled) y [`aria-required`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required).
 
-If a form is not valid, then it makes sense to set the disabled attribute to true on the submit button so that the user can’t submit the form, right? We can even style the button with a different color to convey that it won’t be clickable.
+## No deshabilites el botón de enviar
 
-There’s a big problem with this though. Users that rely on screen readers will not get any feedback at all, the button will be completely ignored by the screen reader when tabbing through the form. This clearly can be very confusing and frustrating.
+Si un formulario no es válido, tiene sentido establecer el atributo `disabled` en `true` en el botón `submit` para que el usuario no pueda enviar el formulario, ¿verdad? Incluso podemos diseñar el botón con un color diferente para transmitir que no se podrá hacer click en él.
 
-I suggest instead that you make any and all checks to make sure your form is valid before submitting it on the sendForm method that we created on the SimpleForm component. If everything checks out, we submit the form normally.
+Sin embargo, hay un gran problema con esto. Los usuarios que confían en los lectores de pantalla no recibirán ningún comentario, el lector de pantalla ignorará por completo el botón al navegar por el formulario. Esto claramente puede ser muy confuso y frustrante.
 
-If something is wrong, then set the necessary errors in your form with the tools that we just learned to notify the user that something is wrong.
-Wrapping up
+En su lugar, sugiero que realice todas y cada una de las comprobaciones para asegurarse de que su formulario sea válido antes de enviarlo en el método `sendForm` que creamos en `ComponentsForm`. Si todo sale bien, enviamos el formulario normalmente.
 
-As you can see, with a few quick lines of HTML and some strategically placed props, we managed to turn around our BaseInput component into something a lot more accessible.
+Si algo está mal, establesca los errores necesarios en su formulario con las herramientas que acabamos de aprender para notificar al usuario que algo está mal.
 
-I do want to stress though, that as far as the topic of accessibility goes, this only begins to scratch the surface. But with these few tips, you should be able to set the course for a more inclusive and accessible form for your projects!
+## Terminando
 
+Como puede ver, con unas pocas líneas rápidas de **HTML** y algunos accesorios colocados estratégicamente, logramos convertir nuestro componente **BaseInput** en algo mucho más accesible.
 
+Sin embargo, quiero enfatizar que, en lo que respecta al tema de la accesibilidad, esto solo comienza a arañar la superficie. ¡Pero con estos pocos consejos, deberíamos poder establecer el rumbo para una forma más inclusiva y accesible para nuestros proyectos!
 
 :::info
 [Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l10-end)
