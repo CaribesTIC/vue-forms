@@ -18,6 +18,7 @@ export default {
           { text: 'Componente Input', link: '/guide/base-input' },
           { text: 'Testeando Input', link: '/guide/base-input-test' },
           { text: 'Componente Select', link: '/guide/base-select' },
+          { text: 'Testeando Select', link: '/guide/base-select-test' },
           { text: 'Importando Componentes', link: '/guide/importing-components' },
           { text: 'Componente Checkbox', link: '/guide/base-checkbox' },
           { text: 'Componente Radio', link: '/guide/base-radio' },
