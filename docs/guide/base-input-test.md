@@ -13,7 +13,7 @@ Empezaremos creando el archivo `test/components/baseInput.spec.js` donde constru
 import { mount } from '@vue/test-utils'
 import BaseInput from '@/components/BaseInput.vue'
 
-describe("BaseInput", () => {
+describe('BaseInput', () => {
 
 })
 ```
@@ -26,7 +26,7 @@ El objetivo de esta prueba es que aquí debe inicializar todas las propiedades e
 ```js
 // omitted for brevity ...
 
-describe("BaseInput", () => {
+describe('BaseInput', () => {
   it('should be initialized blank and no title', () => {
     const wrapper = mount(BaseInput)
     
@@ -47,7 +47,7 @@ Seguimos con esta otra prueba. Aquí el componente `BaseInput` debe renderizar e
 
   it('should render label by passing property to', () => {
     const wrapper = mount(BaseInput, {
-      props: { label: "Title" }
+      props: { label: 'Title' }
     })
 
     expect(wrapper.find('label').exists()).toBe(true)
@@ -72,7 +72,7 @@ Esta otra prueba debe emitir una cadena vacía por defecto cuando es disparado e
     
     await input.trigger('input')
 
-    expect(wrapper.emitted()["update:modelValue"][0][0]).toEqual("")
+    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('')
   })
 
   // omitted for brevity ...
@@ -93,8 +93,8 @@ Continuamos probando que el componente `BaseInput` debe emitir una cadena que se
     await input.trigger('input')
     
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
-    ).toEqual("My title")
+      wrapper.emitted()['update:modelValue'][0][0]
+    ).toEqual('My title')
   })
 
   // omitted for brevity ...
@@ -110,7 +110,7 @@ Al contrario, la siguiente prueba debe emitir una cadena establecida por la prop
   it('should emit string which is set by property and fire', async () => {
     const wrapper = mount(BaseInput, {
       props: {
-        modelValue: "My other title"
+        modelValue: 'My other title'
       }
     })   
 
@@ -118,8 +118,8 @@ Al contrario, la siguiente prueba debe emitir una cadena establecida por la prop
     await input.trigger('input')    
 
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
-    ).toEqual("My other title")  
+      wrapper.emitted()['update:modelValue'][0][0]
+    ).toEqual('My other title')  
   })
 
   // omitted for brevity ...
@@ -162,7 +162,7 @@ Aunque se establezca la propiedad `label`, los atributos siempre deberán ser vi
 
   it('this should set the attributes to the input element too', () => {     
     const wrapper = mount(BaseInput, {
-      props: { label: "Title" },
+      props: { label: 'Title' },
       attrs: {
         id: 'hello',
         disabled: '',
@@ -199,7 +199,7 @@ Finalmente, aquí están juntas todas las pruebas que acabamos de hacer. Puede c
 import { mount } from '@vue/test-utils'
 import BaseInput from '@/components/BaseInput.vue'
 
-describe("BaseInput", () => {
+describe('BaseInput', () => {
   it('should be initialized blank and no title', () => {
     const wrapper = mount(BaseInput)
     
@@ -210,7 +210,7 @@ describe("BaseInput", () => {
 
   it('should render label by passing property to', () => {
     const wrapper = mount(BaseInput, {
-      props: { label: "Title" }
+      props: { label: 'Title' }
     })
 
     expect(wrapper.find('label').exists()).toBe(true)
@@ -224,7 +224,7 @@ describe("BaseInput", () => {
     
     await input.trigger('input')
 
-    expect(wrapper.emitted()["update:modelValue"][0][0]).toEqual("")
+    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('')
   })
 
   it('should emit string which is set manually and fire', async () => {
@@ -235,14 +235,14 @@ describe("BaseInput", () => {
     await input.trigger('input')
     
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
-    ).toEqual("My title")
+      wrapper.emitted()['update:modelValue'][0][0]
+    ).toEqual('My title')
   })
 
   it('should emit string which is set by property and fire', async () => {
     const wrapper = mount(BaseInput, {
       props: {
-        modelValue: "My other title"
+        modelValue: 'My other title'
       }
     })   
 
@@ -250,8 +250,8 @@ describe("BaseInput", () => {
     await input.trigger('input')    
 
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
-    ).toEqual("My other title")
+      wrapper.emitted()['update:modelValue'][0][0]
+    ).toEqual('My other title')
   })
   
   it('should set the attributes to the input element', () => {
@@ -272,7 +272,7 @@ describe("BaseInput", () => {
 
   it('this should set the attributes to the input element too', () => {     
     const wrapper = mount(BaseInput, {
-      props: { label: "Title" },
+      props: { label: 'Title' },
       attrs: {
         id: 'hello',
         disabled: '',

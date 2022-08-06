@@ -23,6 +23,7 @@ export default {
           { text: 'Componente Checkbox', link: '/guide/base-checkbox' },
           { text: 'Testeando Checkbox', link: '/guide/base-checkbox-test' },
           { text: 'Componente Radio', link: '/guide/base-radio' },
+          { text: 'Testeando Radio', link: '/guide/base-radio-test' },
           { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
           { text: 'Accesibilidad', link: '/guide/accessibility' },

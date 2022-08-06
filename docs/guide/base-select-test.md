@@ -17,7 +17,7 @@ Finalmente, aquí están juntas todas las pruebas que acabamos de hacer. Puede c
 import { mount } from '@vue/test-utils'
 import BaseSelect from '@/components/BaseSelect.vue'
 
-describe("BaseSelect", () => {
+describe('BaseSelect', () => {
   it('should be initialized blank and no title', () => {
     const wrapper = mount(BaseSelect, {
       props: { options: [] }
@@ -33,7 +33,7 @@ describe("BaseSelect", () => {
   it('should render label by passing property to', () => {
     const wrapper = mount(BaseSelect, {
       props: {
-        label: "Title",
+        label: 'Title',
         options: []        
       }
     })
@@ -52,31 +52,31 @@ describe("BaseSelect", () => {
     await select.trigger('change')
 
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
-    ).toEqual("")
+      wrapper.emitted()['update:modelValue'][0][0]
+    ).toEqual('')
   })
   
   it('should emit value which is set manually and fire', async () => {
     const wrapper = mount(BaseSelect, {
       props: {
-        options: ['optA', 'optB', 'optC']
+        options: ['bar', 'baz', 'foo']
       }
     })    
     const select = wrapper.find('select')    
-    await select.setValue('optB')
+    await select.setValue('baz')
 
     await select.trigger('change')
 
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
-    ).toEqual("optB")
+      wrapper.emitted()['update:modelValue'][0][0]
+    ).toEqual('baz')
   })
   
   it('should emit value which is set by property and fire', async () => {
     const wrapper = mount(BaseSelect, {
       props: {      
-        modelValue: "optB",
-        options: ['optA', 'optB', 'optC']
+        modelValue: 'baz',
+        options: ['bar', 'baz', 'foo']
       }
     })
     const select = wrapper.find('select')
@@ -84,8 +84,8 @@ describe("BaseSelect", () => {
     await select.trigger('change')    
 
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
-    ).toEqual("optB")
+      wrapper.emitted()['update:modelValue'][0][0]
+    ).toEqual('baz')
   })
   
   it('should set the attributes to the select element', () => {
@@ -121,6 +121,20 @@ describe("BaseSelect", () => {
     expect(select.attributes()).toEqual(
       { class: 'field', id: '#id' }
     )
+  })
+  
+  it('setSelected demo', async () => {
+    const wrapper = mount(BaseSelect,{
+      props: {      
+        modelValue: 'baz',
+        options: ['bar', 'baz', 'foo']
+      }
+    })
+    const options = wrapper.find('select').findAll('option')
+
+    await options.at(1).setSelected()
+
+    expect(wrapper.find('option:checked').element.value).toBe('baz')
   })
  
 })

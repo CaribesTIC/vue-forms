@@ -17,7 +17,7 @@ Finalmente, aquí están juntas todas las pruebas que acabamos de hacer. Puede c
 import { mount } from '@vue/test-utils'
 import BaseCheckbox from '@/components/BaseCheckbox.vue'
 
-describe("BaseCheckbox", () => {
+describe('BaseCheckbox', () => {
   it('should be initialized blank and no title', () => {
     const wrapper = mount(BaseCheckbox)
     
@@ -30,7 +30,7 @@ describe("BaseCheckbox", () => {
   
   it('should render label by passing property to', () => {
     const wrapper = mount(BaseCheckbox, {
-      props: { label: "Title" }
+      props: { label: 'Title' }
     })
 
     expect(wrapper.find('label').exists()).toBe(true)
@@ -40,25 +40,25 @@ describe("BaseCheckbox", () => {
   
   it('should emit empty value by default when fire', async () => {
     const wrapper = mount(BaseCheckbox)
-    // const checkbox = wrapper.find('input[type="checkbox"]')
-    const checkbox = wrapper.find('input')
+    // const checkboxInput = wrapper.find('input[type="checkbox"]')
+    const checkboxInput = wrapper.find('input')
 
-    await checkbox.trigger('change')
+    await checkboxInput.trigger('change')
 
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
+      wrapper.emitted()['update:modelValue'][0][0]
     ).toEqual(false)
   })
   
   it('should emit value which is set manually and fire', async () => {
     const wrapper = mount(BaseCheckbox)    
-    const checkbox = wrapper.find('input')    
-    await checkbox.setValue(true)
+    const checkboxInput = wrapper.find('input')    
+    await checkboxInput.setValue(true)
 
-    await checkbox.trigger('change')
+    await checkboxInput.trigger('change')
 
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
+      wrapper.emitted()['update:modelValue'][0][0]
     ).toEqual(true)
   })
   
@@ -68,12 +68,12 @@ describe("BaseCheckbox", () => {
         modelValue: true
       }
     })
-    const checkbox = wrapper.find('input')
+    const checkboxInput = wrapper.find('input')
     
-    await checkbox.trigger('change')    
+    await checkboxInput.trigger('change')    
 
     expect(
-      wrapper.emitted()["update:modelValue"][0][0]
+      wrapper.emitted()['update:modelValue'][0][0]
     ).toEqual(true)
   })
 
@@ -81,11 +81,11 @@ describe("BaseCheckbox", () => {
     const wrapper = mount(BaseCheckbox, {     
       props: { label:'Title' }      
     })
-    const checkbox = wrapper.find('input')
+    const checkboxInput = wrapper.find('input')
     const label = wrapper.find('label')
     
     expect(label.attributes()).toEqual({})
-    expect(checkbox.attributes()).toEqual(
+    expect(checkboxInput.attributes()).toEqual(
       { class: 'field', type: 'checkbox' }
     )
   })
@@ -95,11 +95,11 @@ describe("BaseCheckbox", () => {
       attrs: { id: '#id' },
       props: { label:'Title' }      
     })
-    const checkbox = wrapper.find('input')
+    const checkboxInput = wrapper.find('input')
     const label = wrapper.find('label')    
     
     expect(label.attributes()).toEqual({})
-    expect(checkbox.attributes()).toEqual(
+    expect(checkboxInput.attributes()).toEqual(
       { class: 'field', id: '#id', type: 'checkbox' }
     )
   })
