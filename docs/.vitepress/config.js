@@ -21,6 +21,7 @@ export default {
           { text: 'Testeando Select', link: '/guide/base-select-test' },
           { text: 'Importando Componentes', link: '/guide/importing-components' },
           { text: 'Componente Checkbox', link: '/guide/base-checkbox' },
+          { text: 'Testeando Checkbox', link: '/guide/base-checkbox-test' },
           { text: 'Componente Radio', link: '/guide/base-radio' },
           { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
