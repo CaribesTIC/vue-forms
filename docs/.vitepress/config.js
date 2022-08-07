@@ -25,6 +25,7 @@ export default {
           { text: 'Componente Radio', link: '/guide/base-radio' },
           { text: 'Testeando Radio', link: '/guide/base-radio-test' },
           { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
+          { text: 'Testeando RadioGroup', link: '/guide/base-radiogroup-test' },
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
           { text: 'Accesibilidad', link: '/guide/accessibility' },
           { text: 'Identificadores', link: '/guide/identifiers' },

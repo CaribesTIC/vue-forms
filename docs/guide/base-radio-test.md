@@ -109,6 +109,21 @@ describe('BaseCheckbox', () => {
     const radioInput = wrapper.find('input')    
     
     expect(radioInput.element.checked).toBeFalsy()    
-  })  
+  })
+
+  it('should set the attributes to the input-radio element', () => {
+    const wrapper = mount(BaseRadio, {
+      attrs: { name: 'radioName' },
+      props: {
+        label: 'ddd',
+        value: '0'
+      }      
+    })    
+    const label = wrapper.find('label')
+    const radioInput = wrapper.find('input')    
+
+    expect(radioInput.attributes().name).toEqual('radioName')    
+    expect(label.attributes()).toEqual({})
+  })
 })
 ```
