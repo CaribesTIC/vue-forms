@@ -16,19 +16,19 @@ export default {
           { text: 'Preparar Entorno', link: '/guide/prepare-environment' },
           { text: 'Formulario Simple', link: '/guide/simple-form' },
           { text: 'Componente Input', link: '/guide/base-input' },
-          { text: 'Testeando Input', link: '/guide/base-input-test' },
           { text: 'Componente Select', link: '/guide/base-select' },
-          { text: 'Testeando Select', link: '/guide/base-select-test' },
           { text: 'Importando Componentes', link: '/guide/importing-components' },
-          { text: 'Componente Checkbox', link: '/guide/base-checkbox' },
-          { text: 'Testeando Checkbox', link: '/guide/base-checkbox-test' },
+          { text: 'Componente Checkbox', link: '/guide/base-checkbox' },   
           { text: 'Componente Radio', link: '/guide/base-radio' },
-          { text: 'Testeando Radio', link: '/guide/base-radio-test' },
-          { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
-          { text: 'Testeando RadioGroup', link: '/guide/base-radiogroup-test' },
+          { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },       
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
           { text: 'Accesibilidad', link: '/guide/accessibility' },
           { text: 'Identificadores', link: '/guide/identifiers' },
+          { text: 'Testeando Input', link: '/guide/base-input-test' },
+          { text: 'Testeando Select', link: '/guide/base-select-test' },
+          { text: 'Testeando Checkbox', link: '/guide/base-checkbox-test' },
+          { text: 'Testeando Radio', link: '/guide/base-radio-test' },
+          { text: 'Testeando RadioGroup', link: '/guide/base-radiogroup-test' }
         ]
       }        
     ]
