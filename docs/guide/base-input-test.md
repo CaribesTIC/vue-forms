@@ -205,7 +205,7 @@ describe('BaseInput', () => {
     
     expect(wrapper.html()).not.toContain('Title')
     expect(wrapper.find('label').exists()).toBe(false)      
-    expect(wrapper.props()).toEqual({ label: '', modelValue: '' })        
+    expect(wrapper.props()).toEqual({ error: '', label: '', modelValue: '' })        
   })
 
   it('should render label by passing property to', () => {
@@ -248,7 +248,7 @@ describe('BaseInput', () => {
     await input.trigger('input')    
 
     expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('My other title')  
-  })  
+  })
 })
 ```
 

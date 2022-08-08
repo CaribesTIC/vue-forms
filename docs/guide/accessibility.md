@@ -30,30 +30,14 @@ Cuando usamos un tipo específico en un elemento de entrada, no solo obtenemos u
 
 En pocas palabras: no olvide establecer su `type`, incluso cuando el `input` no sea del tipo `password` o `email`.
 
-Aquí hay una lista de los tipos disponibles para un elemento de entrada:
+Aquí hay una tabla de tipos disponibles para un elemento de entrada:
 
-- [`button`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button)
-- [`checkbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox)
-- [`color`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color)
-- [`date`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)
-- [`datetime-local`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local)
-- [`email`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email)
-- [`file`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)
-- [`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/hidden)
-- [`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)
-- [`month`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month)
-- [`number`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number)
-- [`password`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password)
-- [`radio`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio)
-- [`range`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range)
-- [`reset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/reset)
-- [`search`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search)
-- [`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit)
-- [`tel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel)
-- [`text`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text)
-- [`time`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time)
-- [`url`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url)
-- [`week`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week)
+|[`button`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button)|[`datetime-local`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local)|[`image`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/image)|[`radio`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio)|[`submit`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit)|[`url`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url)|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|[`checkbox`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox)|[`email`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email)|[`month`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/month)|[`range`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range)|[`tel`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel)|[`week`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/week)|
+|[`color`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color)|[`file`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file)|[`number`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number)|[`reset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/reset)|[`text`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text)|...|
+|[`date`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date)|[`hidden`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/hidden)|[`password`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password)|[`search`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search)|[`time`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/time)|...|
+
 
 ## Usar Conjunto de Campos y Leyenda
 

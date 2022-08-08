@@ -10,7 +10,9 @@ Pasemos directamente a nuestro componente `BaseInput` y descubramos cómo crear 
 
 Puede estar pensando que quizás la opción más obvia sería agregar una propiedad, para que el padre pueda determinar la identificación del elemento, y luego no tenemos que preocuparnos por eso dentro de nuestro componente. Y tendría razón... Pero, ¿y si hubiera una forma en que pudiéramos generar dinámicamente identificadores numéricos únicos para cada componente de nuestro formulario sin tener que recurrir a propiedades manuales?
 
-Vamos a crear un componente Vue 3 que nos permita crear estos identificadores únicos dinámicos, o UUID para abreviar. Es un poco un salto del ritmo del curso, pero vamos a hablar un poco sobre la [Composition API](https://vuejs.org/api/composition-api-setup.html) y los [Composables](https://vuejs.org/guide/reusability/composables.html). En cualquier caso, no te preocupes demasiado, va a ser muy sencillo.
+## UniqueID
+
+Vamos a crear un composable Vue 3 que nos permita crear estos identificadores únicos dinámicos, o UUID para abreviar. Es un poco un salto del ritmo del curso, pero vamos a hablar un poco sobre la [Composition API](https://vuejs.org/api/composition-api-setup.html) y los [Composables](https://vuejs.org/guide/reusability/composables.html). En cualquier caso, no hay que preocuperse demasiado, va a ser muy sencillo.
 
 Sigamos adelante y creé un archivo UniqueID.js dentro de la carpeta `features`.
 
@@ -41,11 +43,6 @@ Sepa también que hay muchas bibliotecas de `UUID` que puede usar en lugar de es
 Veamos esto en acción para entenderlo mejor, observando `BaseInput.vue`.
 
 Primero, vamos a importar nuestro nuevo composable.
-
-
-
-
-
 
 📃`BaseInput.vue`
 ```vue
@@ -173,13 +170,11 @@ También volveremos a `ComponentsForm.vue` y agregaremos un mensaje de `error` a
 
 Ahora echemos un vistazo al navegador, el `error` se muestra correctamente debajo del título una vez que se establece la propiedad `error`. Tenga en cuenta que el `input` "Description", que también es un `BaseInput`, no muestra ningún `error` porque la propiedad `error` no está configurado en nada.
 
-If we open our Accessibility tab in Firefox once again and inspect the input element, we can see that there is nothing tying the error to the actual title input. This is where most forms fall short. Just because the error message is “near” the input doesn’t mean that a screen reader will be able to identify it as part of the error.
+Si abrimos nuestra pestaña de **Accessibility** en Firefox una vez más e inspeccionamos el elemento `input`, podemos ver que no hay nada que vincule el `error` con el `input` del título real. Aquí es donde la mayoría de los formularios se quedan cortos. El hecho de que el mensaje `error` esté "cerca" del `input` no significa que un lector de pantalla pueda identificarlo como parte del `error`.
 
-Si abrimos nuestra pestaña de **Accessibility** en Firefox una vez más e inspeccionamos el elemento `input`, podemos ver que no hay nada que vincule el `error` con el `input` del título real. Aquí es donde la mayoría de las formas se quedan cortas. El hecho de que el mensaje `error` esté "cerca" del `input` no significa que un lector de pantalla pueda identificarlo como parte del `error`.
+Afortunadamente, hay una solución sencilla a este problema: el atributo [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby). Este atributo nos permite establecer directamente en el elemento de entrada qué otros elementos lo describen.
 
-Afortunadamente, hay una solución sencilla a este problema: el atributo [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby). Este atributo nos permite declarar directamente en el elemento de entrada qué otros elementos lo describen.
-
-El atributo puede tomar una lista de cadenas de **ID** para otros elementos **HTML** en la página, así que primero agregaremos una **ID** única a nuestra etiqueta. Por suerte, ya tenemos un número **UUID** asociado a la instancia del componente para hacerlo.
+El atributo puede tomar una lista de cadenas de **ID** para otros elementos **HTML** en la página, así que primero agregaremos una **ID** único a nuestra etiqueta. Por suerte, ya tenemos un número **UUID** asociado a la instancia del componente para hacerlo.
 
 Volvamos a `BaseInput` y agreguemos el vínculo `id` a la etiqueta `p` de `error`.
 
