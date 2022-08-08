@@ -1,9 +1,5 @@
 # Componente Radio
 
-:::info
-[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l6-start)
-:::
-
 ## `BaseRadio.vue`
 
 Ha llegado el momento de abordar el último de nuestros componentes de formulario para este curso, el `BaseRadio`.
@@ -241,10 +237,4 @@ Solo nos falta declarar `BaseRadio.vue` como [complemento global](../guide/base-
 ## Terminando
 
 Como hemos visto, los botones `radio` tienen algunas peculiaridades que pueden volverlos confusos y difíciles de manejar, pero hemos hecho un gran progreso en la creación de un componente `BaseRadio` sólido. En nuestra próxima lección, daremos un paso más y crearemos el componente `BaseRadioGroup`, que nos permitirá simplificar aún más la configuración y creación de grupos de botones de opción.
-
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l6-end)
-:::
-
-
 

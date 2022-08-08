@@ -25,15 +25,23 @@ export default {
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
           { text: 'Accesibilidad', link: '/guide/accessibility' },
           { text: 'Identificadores', link: '/guide/identifiers' },
-          { text: 'Testeando Input', link: '/guide/base-input-test' },
-          { text: 'Testeando Select', link: '/guide/base-select-test' },
-          { text: 'Testeando Checkbox', link: '/guide/base-checkbox-test' },
-          { text: 'Testeando Radio', link: '/guide/base-radio-test' },
-          { text: 'Testeando RadioGroup', link: '/guide/base-radiogroup-test' }
+          { text: 'Identificadores', link: '/guide/identifiers' }
         ]
-      }        
+      },{
+        text: 'Testeando Componentes',
+        path: '/tests/',
+        collapsible: true,
+        collapsed: true,      
+        items: [
+          { text: 'Introducción', link: '/tests/introduction' },
+          { text: 'Testeando UniqueID', link: '/tests/unique-id-test' },
+          { text: 'Testeando Input', link: '/tests/base-input-test' },
+          { text: 'Testeando Select', link: '/tests/base-select-test' },
+          { text: 'Testeando Checkbox', link: '/tests/base-checkbox-test' },
+          { text: 'Testeando Radio', link: '/tests/base-radio-test' },
+          { text: 'Testeando RadioGroup', link: '/tests/base-radiogroup-test' }
+        ]
+      }
     ]
   }
 }
-
-

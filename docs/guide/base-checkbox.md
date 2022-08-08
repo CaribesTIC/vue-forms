@@ -1,9 +1,5 @@
 # Componente Checkbox
 
-:::info
-[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l5-start)
-:::
-
 ## `BaseCheckbox.vue`
 
 Anteriormente, en este curso, creamos componentes reutilizables para dos entradas HTML importantes: `BaseInput` y `BaseSelect` para los elementos `input` y `select`, respectivamente.
@@ -161,10 +157,4 @@ Vayamos a nuestro navegador y activemos y desactivemos las casillas de verificac
 Las casillas de verificación tienen algunas peculiaridades que tuvimos que aprender para crear nuestro componente `BaseCheckbox`.
 
 En nuestra próxima lección, abordaremos nuestro componente final, `BaseRadio` para botones de radio, y veremos qué los hace especiales y, a veces, difíciles de manejar.
-
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l5-end)
-:::
-
-
 

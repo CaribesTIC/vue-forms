@@ -1,9 +1,5 @@
 # Componente RadioGroup
 
-:::info
-[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l7-start)
-:::
-
 ## `BaseRadioGroup.vue`
 
 En nuestra última lección, creamos nuestro componente de formulario base final para este curso, `BaseRadio`.
@@ -353,6 +349,3 @@ Con la finalización de nuestro componente `BaseRadioGroup`, finalizamos la crea
 
 En la siguiente lección, daremos un pequeño giro y veremos cómo podemos manejar el envío de formularios correctamente en Vue aprovechando el poder de una biblioteca ampliamente utilizada para realizar solicitudes HTTP: **Axios**.
 
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l7-end)
-:::

@@ -1,9 +1,5 @@
 # Enviando Formularios
 
-:::info
-[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l8-start)
-:::
-
 ## ¡Bienvenido de nuevo!
 
 Con todos los componentes que hemos construido en las últimas lecciones, podemos construir cualquier tipo de formularios basados en componentes. Pero, ¿de qué sirve un formulario a menos que podamos enviar la entrada del usuario para que sea procesada o almacenada en nuestro backend?
@@ -166,8 +162,4 @@ Sin embargo, hay una cosa más, posiblemente una de las partes más importantes 
 Hace algunas lecciones mencioné que nuestros componentes no eran accesibles, y aunque en un escenario de la vida real la accesibilidad debería ser una consideración principal al desarrollar sus componentes, simplemente era demasiada información para agregarla a nuestras lecciones anteriores.
 
 Ahora estamos listos para regresar y echar un vistazo a algunos conceptos básicos de accesibilidad que siempre debe tener en cuenta al crear formularios en Vue.
-
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l8-end)
-:::
 

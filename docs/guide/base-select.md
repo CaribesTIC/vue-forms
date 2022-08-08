@@ -1,9 +1,5 @@
 # Componente Select
 
-:::info
-[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l3-start)
-:::
-
 ## `BaseSelect.vue`
 
 En nuestra lección anterior, aprendimos cómo crear nuestro primer componente de formulario reutilizable, `BaseInput`.
@@ -302,8 +298,4 @@ Si revisamos nuestro formulario en el navegador, podemos ver que nuestro `dropdo
 En esta lección, aprendió a crear un componente `BaseSelect` reutilizable.
 
 ¿Ha notado que hemos tenido que importar `BaseInput` `BaseSelect` en nuestro componente `ComponentsForm.vue` antes de usarlos? En nuestra próxima lección, veremos cómo importar componentes globales. Después de todo, los reutilizaremos muchas veces.
-
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l3-end)
-:::
 

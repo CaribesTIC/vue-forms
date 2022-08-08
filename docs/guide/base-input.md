@@ -1,9 +1,5 @@
 # Componente Input
 
-:::info
-[Código inicial de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l2-start)
-:::
-
 ## `BaseInput.vue`
 
 El objetivo de esta lección es crear un componente `BaseInput.vue`.
@@ -319,7 +315,3 @@ Con este pequeño cambio, los elementos `<input>` ahora recibirán correctamente
 En esta lección, aprendimos cómo construir nuestro primer componente de formulario, `BaseInput`, y cómo crear correctamente un componente que esté listo para `v-model`.
 
 En nuestra próxima lección, construiremos nuestro próximo componente, `BaseSelect`.
-
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l2-end)
-:::

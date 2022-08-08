@@ -1,7 +1,5 @@
 # Formulario Simple
 
->[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l2-start)
-
 ## Nuestro formulario de demostración
 
 A lo largo de este curso, estamos creando un conjunto de componentes de formulario base reutilizables y explorando las mejores prácticas en el camino. Para construirlos, necesitaremos un formulario de demostración para usar como punto de partida, que dividiremos en estos componentes base. 

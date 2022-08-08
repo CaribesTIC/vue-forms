@@ -1,9 +1,5 @@
 # Accesibilidad
 
-:::info
-[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l9-start)
-:::
-
 Al final de la última lección, discutimos la importancia de incorporar la accesibilidad en su primera ronda de desarrollo. 
 
 >**No podemos enfatizar esto lo suficiente:** la accesibilidad no es una tarea secundaria a la que regresa después de que su aplicación está funcionando. Es una preocupación principal que debe abordarse como parte de su proceso de desarrollo.
@@ -182,6 +178,3 @@ Hay algunas formas de vincular un elemento `input` con su `label`, la primera es
 
 Esta es una de las formas más fáciles de asegurarse de que su `input` siempre esté correctamente vinculado al `label` relacionado, pero queremos profundizar en la segunda y generalmente más _"común"_ forma de relacionar elementos **HTML** porque será útil más adelante cuando veamos los mensajes de `error`. Este método implica el uso de identificaciones.
 
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l9-end)
-:::

@@ -1,18 +1,7 @@
 # Testeando Checkbox
 
-:::info
-Esta lección requiere tener conocimientos mínimos de pruebas automatizadas. Si aún no está familiarizado puede aprender de esto en nuestro tutorial de [Vue(TDD)](https://caribestic.github.io/vue-tdd/).
-:::
-
 ## `baseCheckbox.spec.js`
 
-
-
-## Todas las pruebas juntas
-
-Finalmente, aquí están juntas todas las pruebas que acabamos de hacer. Puede copiarla y pegarla en su proyecto para probar su componente que hizo en la lección anterior.
-
-📃`baseCheckbox.spec.js`
 ```js
 import { mount } from '@vue/test-utils'
 import BaseCheckbox from '@/components/BaseCheckbox.vue'

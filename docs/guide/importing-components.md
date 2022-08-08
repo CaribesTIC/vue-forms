@@ -1,9 +1,5 @@
 # Importando Componentes
 
-:::info
-[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l4-start)
-:::
-
 En nuestras últimas dos lecciones, importamos nuestros componentes `BaseInput` y `BaseSelect` manualmente. Recordemos que cuanto más componentes  reutilizables que vayamos a utilizar, repetidas veces, a lo largo de nuestro proyecto es conveniente pasarlos a Vue como complementos. Es decir, convertirlos en **Componentes Globales**.
 
 Hay varias maneras de hacerlo, una bién ordenada y limpia es la que usamos en nuestro proyecto [LaraVuel-ApiSpa](https://caribestic.github.io/laravuel-apispa/vue/vue-global-plugins.html), separando los distintos tipos de complementos en módulos e importándolos de manera asíncrona solo cuando sea necesario.
@@ -49,6 +45,3 @@ Pero una vez que los agrega, aquí en el archivo `main.js`, puede olvidarse de e
 
 En nuestra próxima lección, seguiremos construyendo componentes, esta vez, `BaseCheckbox`.
 
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l4-end)
-:::

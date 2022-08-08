@@ -256,9 +256,7 @@ Vamos a agregar el atributo `aria-invalid` a nuestra entrada, y lo activaremos y
 >
 ```
 
-
 Si volvemos al navegador e inspeccionamos la entrada usando la herramienta de **Accessibility** en **Firefox**, podemos ver que el estado `"invalid"` ahora se ha agregado a los estados activos del `input`.
-
 
 Otros estados dignos de mención a los que también podríamos agregar atributos son de `readonly`, `disabled` y `required`. Estos tres se pueden establecer directamente con atributos **HTML5** del mismo nombre, o con sus contrapartes aria: [`aria-readonly`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-readonly), [`aria-disabled`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled) y [`aria-required`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-required).
 
