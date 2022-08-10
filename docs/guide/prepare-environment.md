@@ -1,85 +1,134 @@
 # Preparar Entorno
 
-## Instalando Vue 3 con Vite
+## Instalando Vue y TypeScript
 
-Para arrancar con este curso crearemos un proyecto nuevo de Vue 3 con Vite. Por lo tanto, ya debemos tener instalado [Node](https://nodejs.org/es/).
+Para arrancar con este tutorial crearemos un proyecto nuevo con Vite de Vue + TypeScript + Tailwind . Por lo tanto, ya debemos tener instalado [Node](https://nodejs.org/es/). Si todavía no está familiarizado con TypeScript y Tailwind, no debe preocuparse por ello.
 
-Así que, nos dirigimos a la carpeta donde queremos crear el proyecto y ejecutamos el siguiente comando:
+Así que, en la terminal nos dirigimos a la carpeta donde queremos crear el proyecto y ejecutamos el siguiente comando:
 
 ```
-npm init vite@latest
+npm init vue@latest
 ```
 :::info
-Para este curso estamos usando [npm](https://www.npmjs.com/) para el manejo de paquetes. Siéntase libre de usar [yarn](https://yarnpkg.com) si lo desea. 
+Como habrá notado, para este curso estamos usando [npm](https://www.npmjs.com/) para el manejo de paquetes. Siéntase libre de usar [yarn](https://yarnpkg.com) si lo desea. 
 :::
 
-Nos preguntará por el nombre del nuevo proyecto. Nosotros le pondremos `vue-form-app`. Puede colocar el mismo o cambiarlo a su gusto.
-```
-$ npm init vite@latest
-? Project name: › vue-form-app
-```
+Inmediatamente se establecerá un diálogo con el terminal:
 
-Por supuesto Vue.
+```
+Vue.js - The Progressive JavaScript Framework
 
-```{5}
-$ npm init vite@latest
-✔ Project name: … vue-form-app
-? Select a framework: › - Use arrow-keys. Return to submit.
-    vanilla
-❯   vue
-    react
-    preact
-    lit
-    svelte
+? Project name: › vue-project
 ```
 
-Para el objetivo de este curso no necesitaremos TypeScript (por ahora), así que continuamos:
+Lo primero que nos preguntará será definir el nombre del proyecto, en mi caso le colocaré `vue-forms`, usted puede colocar el nombre que desee:
 
-```{5}
-$ npm init vite@latest
-✔ Project name: … vue-form-app
-✔ Select a framework: › vue
-? Select a variant: › - Use arrow-keys. Return to submit.
-❯   vue
-    vue-ts
+```
+Vue.js - The Progressive JavaScript Framework
+
+? Project name: › vue-forms
 ```
 
-Seguimos con los pasos que nos indica el terminal.
+Luego el terminal nos hará una serie de preguntas a las cuales responderemos afirmativamente solo para seleccionar lo que está aquí resaltado (TypeScript y Vitest), lo demás no lo necesitaremos para el objetivo de este tutorial.
 
-```{10,11,12}
-$ npm init vite@latest
-✔ Project name: … vue-form-app
-✔ Select a framework: › vue
-✔ Select a variant: › vue
+```{4,7}
+Vue.js - The Progressive JavaScript Framework
 
-Scaffolding project in /vue-form-app...
+✔ Project name: … vue-forms
+✔ Add TypeScript? … No / Yes
+✔ Add JSX Support? … No / Yes
+✔ Add Vue Router for Single Page Application development? › No / Yes
+✔ Add Vitest for Unit Testing? › No / Yes
+✔ Add Cypress for End-to-End testing? › No / Yes
+✔ Add ESLint for code quality? › No / Yes
+```
+Finlamente, seguimos las siguientes intrucciones:
+
+```
+Scaffolding project in ../vue-forms...
 
 Done. Now run:
 
-  cd vue-form-app
+  cd vue-forms
   npm install
   npm run dev
-
-$
 ```
 
-Entremos a nuestro archivo `vite.config.js` ubicado en la raíz del proyecto y agregaremos las siguientes líneas resaltadas:
+## Instalando Tailwind
 
-```js{3,8,9,10,11}
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
+Instale tailwindcss y sus dependencias de pares a través de `npm` y luego ejecute el comando `init` para generar tanto `tailwind.config.js` como `postcss.config.js`.
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue()],
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-    }
-  }
-})
+```
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
 ```
 
-Ahora, ya podemos crear un simple formulario que nos servira de ejemplo para este curso.
+A continuación, agregue las rutas a todos sus archivos de plantilla en su archivo `tailwind.config.js`.
+
+```js{3,4,5,6}
+/** @type {import('tailwindcss').Config} */ 
+module.exports = {
+  content: [
+    "./index.html",
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
+
+Ahora cree un archivo `./src/index.css` y agregue las directivas @tailwind para cada una de las capas de Tailwind.
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+Importe el archivo `./src/index.css` recién creado en su archivo `./src/main.ts`. 
+
+```ts
+import { createApp } from 'vue'
+import App from './App.vue'
+
+//import './assets/main.css'
+import './index.css'
+
+createApp(App).mount('#app')
+```
+
+Note que para el objetivo del tutorial no necesitaremos el archivo `./assets/main.css`.
+
+
+## Instalando Vue Test Utils
+
+Para instalar Vue Test Utils, simplemente ejecute en su terminal el siguiente comando.
+
+```
+npm i -D @vue/test-utils@next
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
