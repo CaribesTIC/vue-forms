@@ -19,7 +19,7 @@ export default {
           { text: 'Componente Input', link: '/guide/app-input' },
           { text: 'Componente Select', link: '/guide/app-select' },
           { text: 'Importando Componentes', link: '/guide/importing-components' },
-          { text: 'Componente Checkbox', link: '/guide/base-checkbox' },   
+          { text: 'Componente Checkbox', link: '/guide/app-checkbox' },   
           { text: 'Componente Radio', link: '/guide/base-radio' },
           { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },       
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
