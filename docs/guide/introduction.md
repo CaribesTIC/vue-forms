@@ -1,9 +1,5 @@
 # Introducción
 
-:::warning
-Esta documentación aún está en su fase alfa.
-:::
-
 Desde las pantallas de inicio de sesión y registro hasta la configuración y las páginas de pago, se puede decir que los formularios son la herramienta más importante para interactuar con los usuarios finales de nuestras aplicaciones web y recopilar información valiosa de ellos.
 
 Vue hace que sea fácil y divertido crear una amplia gama de formularios, que van desde formularios de una sola entrada como una barra de búsqueda, hasta complicados formularios basados ​​en esquemas, todo gracias a [la arquitectura basada en componentes](https://vuejs.org/guide/introduction.html#introduction) y [el sistema de reactividad de Vue](https://vuejs.org/guide/essentials/reactivity-fundamentals.html#reactivity-fundamentals).

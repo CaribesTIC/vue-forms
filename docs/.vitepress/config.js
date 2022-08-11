@@ -17,7 +17,7 @@ export default {
           { text: 'Preparar Entorno', link: '/guide/prepare-environment' },
           { text: 'Formulario Simple', link: '/guide/simple-form' },
           { text: 'Componente Input', link: '/guide/app-input' },
-          { text: 'Componente Select', link: '/guide/base-select' },
+          { text: 'Componente Select', link: '/guide/app-select' },
           { text: 'Importando Componentes', link: '/guide/importing-components' },
           { text: 'Componente Checkbox', link: '/guide/base-checkbox' },   
           { text: 'Componente Radio', link: '/guide/base-radio' },
