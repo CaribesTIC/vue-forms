@@ -6,11 +6,11 @@
 import UniqueID from '@/composables/UniqueID'
 
 test('UniqueID should be a counter', () => {
-  const arr = []
+  const arr:string[] = []
   arr[0] = UniqueID().getID()
   arr[1] = UniqueID().getID()
   arr[2] = UniqueID().getID()
 
-  expect(arr).toEqual([ 1, 2, 3 ])
+  expect(arr).toEqual([ '1', '2', '3' ])
 })
 ```
