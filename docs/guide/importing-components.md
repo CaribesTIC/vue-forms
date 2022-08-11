@@ -17,7 +17,6 @@ Vayamos al archivo principal y echemos un vistazo a lo que está allí.
 import { createApp } from 'vue'
 import App from './App.vue'
 
-//import './assets/main.css'
 import './index.css'
 
 createApp(App).mount('#app')
@@ -29,13 +28,12 @@ Practicamente, el archivo luce como si justo acabaramos de crear un proyecto nue
 
 Entonces, avancemos agregando las dos importaciones que venimos haciendo y pasemos estos componentes como complementos de Vue. 
 
-```ts{3,4,10,11}
+```ts{3,4,9,10}
 import { createApp } from 'vue'
 import App from './App.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppSelect from '@/components/AppSelect.vue'
 
-//import './assets/main.css'
 import './index.css'
 
 createApp(App)

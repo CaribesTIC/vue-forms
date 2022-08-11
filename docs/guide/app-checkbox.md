@@ -131,14 +131,13 @@ Ahora que nuestro componente está listo, podemos volver a `TasksForm.vue` y ree
 Solo falta importarlo globalmente, igual como se dijo en la [lección anterior](../guide/importing-components.html).
 
 📃`main.ts`
-```ts{5,13}
+```ts{5,12}
 import { createApp } from 'vue'
 import App from './App.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppSelect from '@/components/AppSelect.vue'
 import AppCheckbox from '@/components/AppCheckbox.vue'
 
-//import './assets/main.css'
 import './index.css'
 
 createApp(App)
