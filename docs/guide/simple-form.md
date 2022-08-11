@@ -2,13 +2,21 @@
 
 ## Nuestro formulario de demostración
 
-A lo largo de este curso, estamos creando un conjunto de componentes de formulario base reutilizables y explorando las mejores prácticas en el camino. Para construirlos, necesitaremos un formulario de demostración para usar como punto de partida, que dividiremos en estos componentes base. 
+A lo largo de este curso, estamos creando un conjunto de componentes de formulario reutilizables y explorando las mejores prácticas en el camino. Para construirlos, necesitaremos un formulario de demostración para usar como punto de partida.
 
-He preparado uno para que podamos saltar directamente a él. Sin embargo, antes debemos considerar cierto escenario.
+Hemos preparado un formulario simple para que podamos saltar directamente a él.
 
-## Componente App
+Sin embargo, antes debemos considerar cierto escenario.
 
-Imagine que estamos dentro de una aplicación más grande que seguramente usa otros complementos como VueRouter y Pinia. Entonces, el principal componente `App.vue` será el encargado de llamar las distintas vistas (o páginas). En este ejemplo, simplemente construiremos una vista llamada `Tasks` la cual envolverá el formulario que nos servirá para lograr el objetivo del tutorial. Así que procedamos a borrar el contenido de ste archivo y coloquemos el siguiente código.
+## Componente `App.vue`
+
+Imagine que estamos dentro de una aplicación más grande que seguramente usa otros complementos como VueRouter y Pinia.
+
+Entonces, el principal componente `App.vue` será donde se renderizarán las distintas vistas o páginas.
+
+En este ejemplo, simplemente construiremos una vista llamada `Tasks` la cual envolverá el formulario que nos servirá para lograr el objetivo del tutorial.
+
+Avancemos borrando el contenido de este archivo y coloquemos el siguiente código.
 
 📃`App.vue`
 ```vue
@@ -23,11 +31,13 @@ Imagine que estamos dentro de una aplicación más grande que seguramente usa ot
 </template>
 ```
 
-## Componente Tasks
+## Componente `Tasks.vue`
 
-Como es de suponenr, ahora avanzaremos con el contenido del componente `Tasks.vue`.
+Continuamos con el contenido del componente `Tasks.vue` el cual será creado dentro de una carpeta llamada `views`.
 
-Recordemos que se trata de una vista ó página, por lo tanto, lo crearemos dentro de una carpeta que llamaremos `views`- para los efectos de este tutorial, algunos prefieren llamar este directorio `pages` -. Avancemos y copiemos el siguiente código.
+>Recordemos que se trata de una vista ó página - que algunos prefieren llamarla `pages` -. Para los efectos de este tutorial su nombre será `views`.
+
+Sigamos y copiemos el siguiente código.
 
 📃`Tasks.vue`
 ```vue
@@ -35,7 +45,7 @@ Recordemos que se trata de una vista ó página, por lo tanto, lo crearemos dent
 import useTasks from '@/composables/useTasks'
 import TasksForm from '@/components/TasksForm.vue'
 
-const { task, sendForm } = useTasks()
+const { categories, task } = useTasks()
 </script>
 
 <template>
@@ -43,27 +53,31 @@ const { task, sendForm } = useTasks()
     <h1>Create an task</h1>
     <TasksForm
       :task='task'
-      @sendForm="sendForm"
+      :categories='categories'      
     />
     <pre>{{ task }}</pre>
   </div>
 </template>
 ```
-:::danger
-TODO Explicar brevemente código anterior
-:::
 
-## Composable useTasks
+Tenga en cuenta que empezamos a implementar dos conceptos útiles de diseño:
 
-:::danger
-TODO Introducción...
-:::
+1. Regla de negocio separada de la interfaz de usuario (UI)
+2. Formulario encapsulado en el componente `TasksForm.vue`
 
+Avancemos revisando de qué se trata la regla de negocio inyectada al formulario.
+
+## Composable `useTasks.ts`
+
+En el código anterior vimos que se ha importado el _composable_ `useTasks` el cual es desestructurado en `categories` y `task`.
+
+Ahora avancemos dándole una lectura.
+
+📃`useTasks.ts`
 ```ts
 import { reactive } from "vue"
-import axios from 'axios'
 
-export default () => {    
+export default () => {   
   const task = reactive({
     category: '',
     title: '',
@@ -75,33 +89,34 @@ export default () => {
       music: false
     }
   })
- 
-  const sendForm = ()=> {
-    axios.post(
-      'https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/posts',
-      task
-    )
-    .then(function (response) {
-      console.log('Response', response)
-    }).catch(function (err) {
-      console.log('Error', err)
-    })
+
+  // this could be set from an http request service
+  const categories = [
+    'sustainability',
+    'nature',
+    'animal welfare',
+    'housing',
+    'education',
+    'food',
+    'community'
+  ]
+
+  return {
+    categories,
+    task
   }
-
-  return { task, sendForm }
-
 }
 ```
 
-:::danger
-TODO Explicar brevemente código anterior
-:::
+Aquí se puede ver que estamos importando dos constantes. Tenga en cuenta lo siguiente:
 
-## Componente TasksForm
+- La constante `task` es un objeto reactivo y se trata de los datos que serán cargados en el formulario. Seguramente luego serán enviados y guardados a una API en particular.
 
-El formulario ya incluye `v-model` en un estado reactivo y una matriz `categories` para impulsar el elemento de selección.
+- La constante `categories` es un arreglo que no necesita reactividad, ya que simplemente será útil para impulsar el elemento `select`.
 
-Lo llamaremos `TasksForm.vue` y lo guardaremos en la carpeta `views/`.
+## Componente `TasksForm.vue`
+
+El componente `TasksForm.vue` lo guardaremos en la carpeta `components` ya que no se trata de una vista o pagina llamada desde el enrutador. Sino todo lo contrario, es un componente hijo importado por la vista padre `Tasks.vue`.
 
 
 📃`TasksForm.vue`
@@ -111,34 +126,15 @@ Lo llamaremos `TasksForm.vue` y lo guardaremos en la carpeta `views/`.
 import { reactive } from "vue"
 
 const props = defineProps<{
-  task: object
-}>()
-
-defineEmits<{
-  (e: 'sendForm', form: object): void
+  task: object,
+  categories: array
 }>()
 
 const form = reactive(props.task)
-
-const sendForm = () => emit('sendForm', form)
-
-const categories = [
-  'sustainability',
-  'nature',
-  'animal welfare',
-  'housing',
-  'education',
-  'food',
-  'community'
-]
-const petOptions = [
-  { label: 'Yes', value: 1 },
-  { label: 'No', value: 0 }
-]
 </script>
 
 <template>
-  <form @submit.prevent="$emit('sendForm', form)">
+  <form>
     <label>Select a category</label>
     <select v-model="form.category">
       <option
@@ -220,20 +216,10 @@ const petOptions = [
     <button class="button -fill-gradient" type="submit">Submit</button>
   </form>    
 </template>
-
-<style>
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-
-legend {
-  font-size: 28px;
-  font-weight: 700;
-  margin-top: 20px;
-}
-</style>
 ```
+Tenga en cuenta que estamos recibiendo las dos propiedades como era de esperarse: el objeto `task` y el arreglo `categories`.
 
-Ya tenemos un formulario simple funcioando que podemos probar en el navegador. Así que ya estamos listos para crear nuestro primer componente.
+
+A su vez se declaró la constante `form` reactiva a partir de la propiedad `task`. Esto con el objetivo de no forzar la reactividad en las propiedades.
+
+Finalmente, ya tenemos un formulario simple funcioando que podemos probar en el navegador. Así que estamos listos para crear nuestro primer componente.
