@@ -16,14 +16,14 @@ Comenzaremos copiando el elemento `input` con su `label`, tal como están actual
 
 📃`AppInput.vue`
 ```vue
-<template>
-  <label>Title</label>
+<template> 
+  <label>Name</label>
   <input
-    v-model="form.title"
+    v-model="form.name"
     type="text"
-    placeholder="Title"
+    placeholder="Name"
     class="field"
-  >
+  >  
 </template>
 ```
 
@@ -46,7 +46,7 @@ withDefaults(defineProps<{
 </script>
 ```
 
-Tenga en cuenta que la propiedad `label` es de tipo `string`. En caso de no ser suministrada su valor por defecto será `''`.
+Tenga en cuenta que la propiedad `label` es de tipo `string`. Su valor por defecto será una cadena vacia en caso de no ser suministrada.
 
 ---
 
@@ -57,9 +57,9 @@ Ahora podemos usar nuestra nueva propiedad `label` a través de la interpolació
 <template>
   <label>{{ label }}</label>
   <input
-    v-model="form.title"
+    v-model="form.name"
     type="text"
-    placeholder="Title"
+    placeholder="Name"
     class="field"
   >
 </template>
@@ -74,7 +74,7 @@ El usuario de este componente puede querer que sea de tipo `email` o `password`,
 Finalmente, vinculemos también el atributo `placeholder` a nuestra propiedad `label`. Esto asegurará que tanto el texto de `placeholder`, dentro del elemento `<input>`, como el `label` estén coordinados y sean reactivos.
 
 📃`AppInput.vue`
-```vue{3,5,10,13}
+```vue{10,13}
 <script setup lang="ts">
 withDefaults(defineProps<{
   label?: string
@@ -167,87 +167,113 @@ Tenga en cuenta que estamos pasando el `$event.target.value` como la carga útil
 
 Hablando del padre, regresemos a nuestro formulario y usemos nuestro nuevo componente `AppInput.vue` en lugar de nuestros elementos nativos para probar nuestro código.
 
-Reemplacemos las entradas de `Title`, `Description` y `Location` en nuestro formulario con nuestro nuevo componente.
+Reemplacemos la entrada de `Name` en nuestro formulario con nuestro nuevo componente.
 
 📃`TaskForm.vue`
 
-```html{14,15,16,17,18,20,21,22,23,24,28,29,30,31,32}
-  <form @submit.prevent="$emit('sendForm', form)">
-    <label>Select a category</label>
-    <select v-model="form.category">
+```html{13,14,15,16,17}
+  <form>
+    <label>Select a frequency</label>
+    <select v-model="form.frequency">
       <option
-        v-for="option in categories"
+        v-for="option in frequencies"
         :value="option"
         :key="option"
-        :selected="option === form.category"
+        :selected="option === form.frequency"
       >{{ option }}</option>
     </select>
 
-    <h3>Name & describe your form</h3>
-    
+    <h3>Name & describe your task</h3>
     <AppInput
-      v-model="form.title"
-      label="Title"
+      v-model="form.name"
+      label="Name"
       type="text"
     />
 
-    <AppInput
+    <label>Description</label>
+    <textarea
+      class="field"                    
       v-model="form.description"
-      label="Description"
-      type="text"
-    />
+      placeholder="Description"
+    ></textarea>
 
-    <h3>Where is your form?</h3>
-
-    <AppInput
-      v-model="form.location"
-      label="Location"
-      type="text"
-    />
-
-    <h3>Are pets allowed?</h3>
+    <h3>Task completed ?</h3>
     <div>
       <input
         type="radio"
-        v-model="form.pets"
-        :value="1"
-        name="pets"
-      />
-      <label>Yes</label>
-    </div>
-
-    <div>
-      <input
-        type="radio"
-        v-model="form.pets"
+        v-model="form.completed"
         :value="0"
-        name="pets"
+        name="completed"
       />
-      <label>No</label>
-    </div>
-
-    <h3>Extras</h3>
-    <div>
-      <input
-        type="checkbox"
-        v-model="form.extras.catering"
-        class="field"
-      />
-      <label>Catering</label>
+      <label>Nothing (0%)</label>
     </div>
 
     <div>
       <input
-        type="checkbox"
-        v-model="form.extras.music"
-        class="field"
+        type="radio"
+        v-model="form.completed"
+        :value="1"
+        name="completed"
       />
-      <label>Live music</label>
+      <label>A quarter (15%)</label>
+    </div>    
+    
+    <div>
+      <input
+        type="radio"
+        v-model="form.completed"
+        :value="2"
+        name="completed"
+      />
+      <label>Half (50%)</label>
     </div>
 
-    <button class="button -fill-gradient" type="submit">Submit</button>
+    <div>
+      <input
+        type="radio"
+        v-model="form.completed"
+        :value="3"
+        name="completed"
+      />
+      <label>Three quarters (75%)</label>
+    </div>
+    
+    <div>
+      <input
+        type="radio"
+        v-model="form.completed"
+        :value="4"
+        name="completed"
+      />
+      <label>Full (100%)</label>
+    </div>
+
+    <h3>Supervision</h3>
+    <div>
+      <input
+        type="checkbox"
+        v-model="form.supervision.reviewed"
+        class="field"
+      />
+      <label>Reviewed</label>
+    </div>
+
+    <div>
+      <input
+        type="checkbox"
+        v-model="form.supervision.approved"
+        class="field"
+      />
+      <label>Approved</label>
+    </div>
+
+    <button
+      class="button -fill-gradient"
+      type="submit"
+    >
+      Submit
+    </button>
   </form>    
-</template>
 ```
 
 Recordemos que para que esto funcione hay que importar `AppInput.vue`.

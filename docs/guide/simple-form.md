@@ -45,7 +45,7 @@ Sigamos y copiemos el siguiente código.
 import useTasks from '@/composables/useTasks'
 import TasksForm from '@/components/TasksForm.vue'
 
-const { categories, task } = useTasks()
+const { frequencies, task } = useTasks()
 </script>
 
 <template>
@@ -53,7 +53,7 @@ const { categories, task } = useTasks()
     <h1>Create an task</h1>
     <TasksForm
       :task='task'
-      :categories='categories'      
+      :frequencies='frequencies'      
     />
     <pre>{{ task }}</pre>
   </div>
@@ -69,42 +69,39 @@ Avancemos revisando de qué se trata la regla de negocio inyectada al formulario
 
 ## Composable `useTasks.ts`
 
-En el código anterior vimos que se ha importado el _composable_ `useTasks` el cual es desestructurado en `categories` y `task`.
+En el código anterior vimos que se ha importado el _composable_ `useTasks` el cual es desestructurado en `frequencies` y `task`.
 
 Ahora avancemos dándole una lectura.
 
 📃`useTasks.ts`
 ```ts
-import { reactive } from "vue"
+import { reactive } from 'vue'
 
 export default () => {   
   const task = reactive({
-    category: '',
-    title: '',
-    description: '',
-    location: '',
-    pets: 1,
-    extras: {
-      catering: false,
-      music: false
+    frequency: '',
+    name: '',
+    description: '',    
+    completed: 0,
+    supervision: {
+      reviewed: false,
+      approved: false
     }
   })
 
   // this could be set from an http request service
-  const categories = [
-    'sustainability',
-    'nature',
-    'animal welfare',
-    'housing',
-    'education',
-    'food',
-    'community'
+  const frequencies = [
+    'annual',
+    'biannual',
+    'biweekly',
+    'daily',
+    'eventual',
+    'monthly',
+    'quarterly',
+    'weekly'
   ]
 
-  return {
-    categories,
-    task
-  }
+  return { frequencies, task }
 }
 ```
 
@@ -112,7 +109,7 @@ Aquí se puede ver que estamos importando dos constantes. Tenga en cuenta lo sig
 
 - La constante `task` es un objeto reactivo y se trata de los datos que serán cargados en el formulario. Seguramente luego serán enviados y guardados a una API en particular.
 
-- La constante `categories` es un arreglo que no necesita reactividad, ya que simplemente será útil para impulsar el elemento `select`.
+- La constante `frequencies` es un arreglo que no necesita reactividad, ya que simplemente será útil para impulsar el elemento `select`.
 
 ## Componente `TasksForm.vue`
 
@@ -127,7 +124,7 @@ import { reactive } from "vue"
 
 const props = defineProps<{
   task: object,
-  categories: array
+  frequencies: array
 }>()
 
 const form = reactive(props.task)
@@ -135,90 +132,112 @@ const form = reactive(props.task)
 
 <template>
   <form>
-    <label>Select a category</label>
-    <select v-model="form.category">
+    <label>Select a frequency</label>
+    <select v-model="form.frequency">
       <option
-        v-for="option in categories"
+        v-for="option in frequencies"
         :value="option"
         :key="option"
-        :selected="option === form.category"
+        :selected="option === form.frequency"
       >{{ option }}</option>
     </select>
 
-    <h3>Name & describe your form</h3>
-
-    <label>Title</label>
+    <h3>Name & describe your task</h3>
+    <label>Name</label>
     <input
-      v-model="form.title"
+      v-model="form.name"
       type="text"
-      placeholder="Title"
+      placeholder="Name"
       class="field"
     >
 
     <label>Description</label>
-    <input
+    <textarea
+      class="field"                    
       v-model="form.description"
-      type="text"
       placeholder="Description"
-      class="field"
-    />
+    ></textarea>
 
-    <h3>Where is your form?</h3>
-
-    <label>Location</label>
-    <input
-      v-model="form.location"
-      type="text"
-      placeholder="Location"
-      class="field"
-    />
-
-    <h3>Are pets allowed?</h3>
+    <h3>Task completed ?</h3>
     <div>
       <input
         type="radio"
-        v-model="form.pets"
-        :value="1"
-        name="pets"
-      />
-      <label>Yes</label>
-    </div>
-
-    <div>
-      <input
-        type="radio"
-        v-model="form.pets"
+        v-model="form.completed"
         :value="0"
-        name="pets"
+        name="completed"
       />
-      <label>No</label>
-    </div>
-
-    <h3>Extras</h3>
-    <div>
-      <input
-        type="checkbox"
-        v-model="form.extras.catering"
-        class="field"
-      />
-      <label>Catering</label>
+      <label>Nothing (0%)</label>
     </div>
 
     <div>
       <input
-        type="checkbox"
-        v-model="form.extras.music"
-        class="field"
+        type="radio"
+        v-model="form.completed"
+        :value="1"
+        name="completed"
       />
-      <label>Live music</label>
+      <label>A quarter (15%)</label>
+    </div>    
+    
+    <div>
+      <input
+        type="radio"
+        v-model="form.completed"
+        :value="2"
+        name="completed"
+      />
+      <label>Half (50%)</label>
     </div>
 
-    <button class="button -fill-gradient" type="submit">Submit</button>
+    <div>
+      <input
+        type="radio"
+        v-model="form.completed"
+        :value="3"
+        name="completed"
+      />
+      <label>Three quarters (75%)</label>
+    </div>
+    
+    <div>
+      <input
+        type="radio"
+        v-model="form.completed"
+        :value="4"
+        name="completed"
+      />
+      <label>Full (100%)</label>
+    </div>
+
+    <h3>Supervision</h3>
+    <div>
+      <input
+        type="checkbox"
+        v-model="form.supervision.reviewed"
+        class="field"
+      />
+      <label>Reviewed</label>
+    </div>
+
+    <div>
+      <input
+        type="checkbox"
+        v-model="form.supervision.approved"
+        class="field"
+      />
+      <label>Approved</label>
+    </div>
+
+    <button
+      class="button -fill-gradient"
+      type="submit"
+    >
+      Submit
+    </button>
   </form>    
 </template>
 ```
-Tenga en cuenta que estamos recibiendo las dos propiedades como era de esperarse: el objeto `task` y el arreglo `categories`.
-
+Tenga en cuenta que estamos recibiendo las dos propiedades como era de esperarse: el objeto `task` y el arreglo `frequencies`.
 
 A su vez se declaró la constante `form` reactiva a partir de la propiedad `task`. Esto con el objetivo de no forzar la reactividad en las propiedades.
 

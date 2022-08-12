@@ -11,13 +11,13 @@ Actualmente, en nuestro formulario de ejemplo, tenemos el siguiente elemento de 
 📃`TasksForm.vue`
 
 ```html
-<label>Select a category</label>
-<select v-model="form.category">
+<label>Select a frequency</label>
+<select v-model="form.frequency">
   <option
-    v-for="option in categories"
+    v-for="option in frequencies"
     :value="option"
     :key="option"
-    :selected="option === form.category"
+    :selected="option === form.frequency"
   >{{ option }}</option>
 </select>
 ```
@@ -26,13 +26,13 @@ Como hicimos con el elemento `AppInput`, vamos a crear un nuevo archivo de compo
 📃`AppSelect.vue`
 ```vue
 <template>
-  <label>Select a category</label>
-  <select v-model="form.category">
+  <label>Select a frequency</label>
+  <select v-model="form.frequency">
     <option
-      v-for="option in categories"
+      v-for="option in frequencies"
       :value="option"
       :key="option"
-      :selected="option === form.category"
+      :selected="option === form.frequency"
     >{{ option }}</option>
   </select>
 </template>
@@ -54,12 +54,12 @@ withDefaults(defineProps<{
 
 <template>  
   <label v-if="label">{{ label }}</label>
-  <select v-model="form.category">
+  <select v-model="form.frequency">
     <option
-      v-for="option in categories"
+      v-for="option in frequencies"
       :value="option"
       :key="option"
-      :selected="option === form.category"
+      :selected="option === form.frequency"
     >{{ option }}</option>
   </select>
 </template>
@@ -79,10 +79,10 @@ Lo primero que debemos hacer es eliminar la declaración anterior del `v-model` 
   <label v-if="label">{{ label }}</label>
   <select>
     <option
-      v-for="option in categories"
+      v-for="option in frequencies"
       :value="option"
       :key="option"
-      :selected="option === form.category"
+      :selected="option === form.frequency"
     >{{ option }}</option>
   </select>
 </template>
@@ -113,10 +113,10 @@ withDefaults(defineProps<{
     class="field"
   >
     <option
-      v-for="option in categories"
+      v-for="option in frequencies"
       :value="option"
       :key="option"
-      :selected="option === form.category"
+      :selected="option === form.frequency"
     >{{ option }}</option>
   </select>
 </template>
@@ -155,10 +155,10 @@ withDefaults(defineProps<{
     }"
   >
     <option
-      v-for="option in categories"
+      v-for="option in frequencies"
       :value="option"
       :key="option"
-      :selected="option === form.category"
+      :selected="option === form.frequency"
     >{{ option }}</option>
   </select>
 </template>
@@ -174,9 +174,9 @@ En nuestro detector de eventos para `onChange`, capturamos `$event` como el par�
 
 ## Seleccionando la opción correcta
 
-Quiero llamar su atención sobre el bucle `v-for` que tenemos actualmente en el elemento `<option>` en nuestro `<select>`. Tenga en cuenta que estamos recorriendo el arreglo de `categories` que no existe en nuestro componente. Esto está estrechamente relacionado con lo que el padre está tratando de hacer con esta entrada en particular.
+Quiero llamar su atención sobre el bucle `v-for` que tenemos actualmente en el elemento `<option>` en nuestro `<select>`. Tenga en cuenta que estamos recorriendo el arreglo de `frequencies` que no existe en nuestro componente. Esto está estrechamente relacionado con lo que el padre está tratando de hacer con esta entrada en particular.
 
-Para que nuestro componente `AppSelect` funcione con cualquier conjunto de opciones, primero cambiaremos el nombre `categories` a `options` en nuestro ciclo `v-for`. Luego, crearemos una propiedad `options` para que nuestro componente pueda recibir esta información del padre.
+Para que nuestro componente `AppSelect` funcione con cualquier conjunto de opciones, primero cambiaremos el nombre `frequencies` a `options` en nuestro ciclo `v-for`. Luego, crearemos una propiedad `options` para que nuestro componente pueda recibir esta información del padre.
 
 📃`AppSelect.vue`
 ```vue{5,23}
@@ -205,13 +205,13 @@ withDefaults(defineProps<{
       v-for="option in options"
       :value="option"
       :key="option"
-      :selected="option === form.category"
+      :selected="option === form.frequency"
     >{{ option }}</option>
   </select>
 </template>
 ```
 
-La segunda cosa que debemos corregir es el vínculo `:selected` para el bucle del elemento `<options>`. Actualmente, estamos tratando de verificar si la opción actual que estamos recorriendo es igual a `event.category`, que también está estrechamente relacionada con el padre.
+La segunda cosa que debemos corregir es el vínculo `:selected` para el bucle del elemento `<options>`. Actualmente, estamos tratando de verificar si la opción actual que estamos recorriendo es igual a `form.frequency`, que también está estrechamente relacionada con el padre.
 
 En este caso, podemos cambiar esto de manera segura para verificar que `option` es igual a `modelValue`, y eso satisfará el requisito de HTML para que la opción se actualice cada vez que cambie el `modelValue`.
 
@@ -241,16 +241,16 @@ Con estos cambios, ahora podemos volver a nuestro formulario y cambiar el elemen
 
 ## Actualizando el formulario
 
-De vuelta al `TasksForm.vue`, tenemos un elemento `<select>` en la parte superior del formulario, etiquetado como _"Select a category"_. 
+De vuelta al `TasksForm.vue`, tenemos un elemento `<select>` en la parte superior del formulario, etiquetado como _"Select a frequency"_. 
 
 Reemplacemos los correspondientes elementos `<label>` y `<select>` por nuestro componente `AppSelect.vue`.
 
 📃`TasksForm.vue`
 ```html
 <AppSelect
-  :options="categories"
-  v-model="form.category"
-  label="Select a category"
+  :options="frequencies"
+  v-model="form.frequency"
+  label="Select a frequency"
 />
 ```
 

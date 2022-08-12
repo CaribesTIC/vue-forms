@@ -10,17 +10,17 @@ En esta lección, asumimos el nuevo desafío de crear un componente reutilizable
 
 Primero, crearemos un nuevo archivo, `AppCheckbox.vue` dentro de la carpeta de componentes.
 
-Vamos a agregar un bloque `template` y copiar el `input` con `type="checkbox"` de nuestro archivo `TasksForm.vue` que contiene el control para el `"Catering"`.
+Vamos a agregar un bloque `template` y copiar el `input` con `type="checkbox"` de nuestro archivo `TasksForm.vue` que contiene el control para el `"Reviewed"`.
 
 📃`AppCheckbox.vue`
 ```vue
 <template>
   <input
     type="checkbox"
-    v-model="form.extras.catering"
+    v-model="form.supervision.reviewed"
     class="field"
   />
-  <label>Catering</label>
+  <label>Reviewed</label>
 </template>
 ```
 
@@ -43,7 +43,7 @@ withDefaults(defineProps<{
 <template>
   <input
     type="checkbox"
-    v-model="form.extras.catering"
+    v-model="form.supervision.reviewed"
     class="field"
   />
   <label v-if="label">{{ label }}</label>
@@ -108,27 +108,31 @@ Tenga en cuenta que para las casillas de verificación no estamos emitiendo el `
 
 ## Usando nuestro nuevo componente
 
-Ahora que nuestro componente está listo, podemos volver a `TasksForm.vue` y reemplazar las casillas de verificación `Catering` y `Live music` con nuestro nuevo componente `AppCheckbox`.
+Ahora que nuestro componente está listo, podemos volver a `TasksForm.vue` y reemplazar las casillas de verificación `Reviewed` y `Approved` con nuestro nuevo componente `AppCheckbox`.
 
 📃`TasksForm.vue`
 ```html
-<h3>Extras</h3>
+<h3>Supervision</h3>
 <div>
   <AppCheckbox
-    v-model="form.extras.catering"
-    label="Catering"
+    v-model="form.supervision.reviewed"
+    label="Reviewed"
   />
 </div>
 
 <div>
   <AppCheckbox
-    v-model="form.extras.music"
-    label="Live music"
+    v-model="form.supervision.approved"
+    label="Approved"
   />
 </div>
 ```
+
+Solo falta importarlo como complemento.
+
 ## Complemento Global
-Solo falta importarlo globalmente, igual como se dijo en la [lección anterior](../guide/importing-components.html).
+
+Vamos a importarlo globalmente, igual como se dijo en la [lección anterior](../guide/importing-components.html).
 
 📃`main.ts`
 ```ts{5,12}
