@@ -23,7 +23,7 @@ export default {
           { text: 'Importando Componentes', link: '/guide/importing-components' },
           { text: 'Componente Checkbox', link: '/guide/app-checkbox' },   
           { text: 'Componente Radio', link: '/guide/app-radio' },
-          { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
+          { text: 'Componente RadioGroup', link: '/guide/app-radiogroup' },
           { text: 'Componente Textarea', link: '/guide/app-textarea' },    
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
           { text: 'Accesibilidad', link: '/guide/accessibility' },
