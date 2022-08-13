@@ -221,4 +221,49 @@ Tenga en cuenta que estamos recibiendo las dos propiedades como era de esperarse
 
 A su vez se declaró la constante `form` reactiva a partir de la propiedad `task`. Esto con el objetivo de no forzar la reactividad en las propiedades.
 
+## El estilo
+
+Para dar algo de estilo al formulario actualicemos el archivo `index.css` ubicado en la raiz con lo siguiente.
+
+📃`index.css`
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.section {
+  @apply flex justify-center min-h-screen font-sans;
+}
+
+h1 {
+  @apply text-4xl font-semibold my-5;
+}
+
+h3 {
+  @apply text-2xl font-semibold my-4;
+}
+
+input[type="text"],
+textarea,
+select {
+  @apply block w-full rounded-sm border border-gray-300 shadow-sm p-2;
+}
+
+.btn {
+  @apply text-white py-1 px-4 rounded transition m-5;
+}
+
+.btn-primary {
+  @apply bg-blue-500 hover:bg-blue-700;
+}
+
+label {
+  @apply text-gray-600 mx-1;
+}
+
+.error {
+  @apply text-red-500 text-sm mt-1;
+}
+```
+
 Finalmente, ya tenemos un formulario simple funcioando que podemos probar en el navegador. Así que estamos listos para crear nuestro primer componente.
