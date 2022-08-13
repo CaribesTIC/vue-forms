@@ -82,7 +82,7 @@ export default () => {
     frequency: '',
     name: '',
     description: '',    
-    completed: 0,
+    situation: 0,
     supervision: {
       reviewed: false,
       approved: false
@@ -158,55 +158,35 @@ const form = reactive(props.task)
       class="field"
     ></textarea>
 
-    <h3>Task completed ?</h3>
+    <h3>Task situation</h3>
     <div>
       <input
         type="radio"
-        v-model="form.completed"
+        v-model="form.situation"
         :value="0"
-        name="completed"
+        name="situation"
       />
-      <label>Nothing (0%)</label>
+      <label>Unstarted</label>
     </div>
 
     <div>
       <input
         type="radio"
-        v-model="form.completed"
+        v-model="form.situation"
         :value="1"
-        name="completed"
+        name="situation"
       />
-      <label>A quarter (15%)</label>
+      <label>Started</label>
     </div>    
     
     <div>
       <input
         type="radio"
-        v-model="form.completed"
+        v-model="form.situation"
         :value="2"
-        name="completed"
+        name="situation"
       />
-      <label>Half (50%)</label>
-    </div>
-
-    <div>
-      <input
-        type="radio"
-        v-model="form.completed"
-        :value="3"
-        name="completed"
-      />
-      <label>Three quarters (75%)</label>
-    </div>
-    
-    <div>
-      <input
-        type="radio"
-        v-model="form.completed"
-        :value="4"
-        name="completed"
-      />
-      <label>Full (100%)</label>
+      <label>Completed</label>
     </div>
 
     <h3>Supervision</h3>

@@ -9,9 +9,11 @@ export default {
       { text: 'CaribesTIC', link: 'https://caribestic.github.io/' },
       { text: 'GitHub', link: 'https://github.com/CaribesTIC/vue-forms' }      
     ],
-    sidebar: [{        
+    sidebar: [{
+        text: 'Guide',        
         path: '/guide/',      // optional, link of the title, which should be an absolute path and must exist        
-        sidebarDepth: 1,    // optional, defaults to 1
+        collapsible: true,
+        collapsed: false, 
         items: [
           { text: 'Introducción', link: '/guide/introduction' },
           { text: 'Preparar Entorno', link: '/guide/prepare-environment' },
@@ -20,13 +22,12 @@ export default {
           { text: 'Componente Select', link: '/guide/app-select' },
           { text: 'Importando Componentes', link: '/guide/importing-components' },
           { text: 'Componente Checkbox', link: '/guide/app-checkbox' },   
-          { text: 'Componente Radio', link: '/guide/base-radio' },
+          { text: 'Componente Radio', link: '/guide/app-radio' },
           { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
           { text: 'Componente Textarea', link: '/guide/app-textarea' },    
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
           { text: 'Accesibilidad', link: '/guide/accessibility' },
-          { text: 'Identificadores', link: '/guide/identifiers' },
-          { text: 'Identificadores', link: '/guide/identifiers' }
+          { text: 'Identificadores', link: '/guide/identifiers' },          
         ]
       },{
         text: 'Bonus',
