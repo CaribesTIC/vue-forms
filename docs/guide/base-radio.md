@@ -230,7 +230,7 @@ Ahora que nuestro componente está listo, podemos volver a nuestro `ComponentsFo
 </div>
 ```
 
-Solo nos falta declarar `BaseRadio.vue` como [complemento global](../guide/base-checkbox.html#complemento-global) para que esto funcione.
+Solo nos falta declarar `BaseRadio.vue` como [complemento global](../guide/app-checkbox.html#complemento-global) para que esto funcione.
 
 
 

@@ -203,7 +203,7 @@ export default {
 }
 </script> 
 ```
-Ahora podemos ir al navegador y disfrutar de la gloria de nuestro grupo de radios de aspecto no muy agradable. Pero antes, recuerde importar el componente `BaseRadioGroup` globalmente como lo hicimos en [lecciones anteriores](../guide/base-checkbox.html#complemento-global).
+Ahora podemos ir al navegador y disfrutar de la gloria de nuestro grupo de radios de aspecto no muy agradable. Pero antes, recuerde importar el componente `BaseRadioGroup` globalmente como lo hicimos en [lecciones anteriores](../guide/app-checkbox.html#complemento-global).
 
 🤔 parece que vamos a tener que hacer un poco de trabajo extra para que quede bien!
 
