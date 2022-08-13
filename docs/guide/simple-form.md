@@ -152,10 +152,10 @@ const form = reactive(props.task)
     >
 
     <label>Description</label>
-    <textarea
-      class="field"                    
+    <textarea                          
       v-model="form.description"
       placeholder="Description"
+      class="field"
     ></textarea>
 
     <h3>Task completed ?</h3>

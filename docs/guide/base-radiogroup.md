@@ -2,7 +2,7 @@
 
 ## `BaseRadioGroup.vue`
 
-En nuestra última lección, creamos nuestro componente de formulario base final para este curso, `BaseRadio`.
+En esta lección, creamos nuestro componente de formulario `BaseRadio`.
 
 Sin embargo, nos quedamos con un componente que es completamente flexible y reutilizable, pero a veces un poco difícil de comprender. Para alguien que no está familiarizado con el funcionamiento interno de `BaseRadio`, un grupo de todos ellos apuntando al mismo estado `v-model` puede ser confuso. También pueden ocurrir errores si uno olvida agregar un atributo `name` a cierta parte del grupo.
 

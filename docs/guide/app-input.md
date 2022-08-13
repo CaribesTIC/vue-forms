@@ -191,10 +191,10 @@ Reemplacemos la entrada de `Name` en nuestro formulario con nuestro nuevo compon
     />
 
     <label>Description</label>
-    <textarea
-      class="field"                    
+    <textarea                          
       v-model="form.description"
       placeholder="Description"
+      class="field"
     ></textarea>
 
     <h3>Task completed ?</h3>
@@ -323,7 +323,7 @@ Avancemos y hagámoslo agregando `v-bind="$attrs"` a nuestro elemento `<input>`.
 >
 ```
 
-Con este pequeño cambio, los elementos `<input>` ahora recibirán correctamente el enlace `type` del padre y se aplicarán nuestras clases CSS.
+Con este pequeño cambio, los elementos `<input>` ahora recibirán correctamente el vínculo `type` del padre y se aplicarán nuestras clases CSS.
 
 ## A continuación...
 

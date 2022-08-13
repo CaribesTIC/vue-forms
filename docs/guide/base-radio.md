@@ -2,7 +2,7 @@
 
 ## `BaseRadio.vue`
 
-Ha llegado el momento de abordar el último de nuestros componentes de formulario para este curso, el `BaseRadio`.
+Ha llegado el momento de abordar el componente `BaseRadio`.
 
 Los botones `radio` en HTML tienen una característica única que debemos tener en cuenta antes de comenzar a construir nuestro componente — no funcionan como un solo `input`, como lo haría un `checkbox`. Viven y funcionan como parte de un grupo de botones de radio que tienen un solo estado.
 

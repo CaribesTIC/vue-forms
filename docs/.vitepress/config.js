@@ -21,25 +21,26 @@ export default {
           { text: 'Importando Componentes', link: '/guide/importing-components' },
           { text: 'Componente Checkbox', link: '/guide/app-checkbox' },   
           { text: 'Componente Radio', link: '/guide/base-radio' },
-          { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },       
+          { text: 'Componente RadioGroup', link: '/guide/base-radiogroup' },
+          { text: 'Componente Textarea', link: '/guide/app-textarea' },    
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
           { text: 'Accesibilidad', link: '/guide/accessibility' },
           { text: 'Identificadores', link: '/guide/identifiers' },
           { text: 'Identificadores', link: '/guide/identifiers' }
         ]
       },{
-        text: 'Testeando Componentes',
+        text: 'Bonus',
         path: '/tests/',
         collapsible: true,
         collapsed: true,      
         items: [
-          { text: 'Introducción', link: '/tests/introduction' },
+          { text: 'Testeando Componentes', link: '/tests/testing-components' },
           { text: 'Testeando UniqueID', link: '/tests/unique-id-test' },
-          { text: 'Testeando Input', link: '/tests/base-input-test' },
-          { text: 'Testeando Select', link: '/tests/base-select-test' },
-          { text: 'Testeando Checkbox', link: '/tests/base-checkbox-test' },
-          { text: 'Testeando Radio', link: '/tests/base-radio-test' },
-          { text: 'Testeando RadioGroup', link: '/tests/base-radiogroup-test' }
+          { text: 'Testeando Input', link: '/tests/app-input-test' },
+          { text: 'Testeando Select', link: '/tests/app-select-test' },
+          { text: 'Testeando Checkbox', link: '/tests/app-checkbox-test' },
+          { text: 'Testeando Radio', link: '/tests/app-radio-test' },
+          { text: 'Testeando RadioGroup', link: '/tests/app-radiogroup-test' }
         ]
       }
     ]

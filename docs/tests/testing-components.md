@@ -1,4 +1,4 @@
-# Introducción
+# Testeando Componentes
 
 :::info
 Esta sección requiere tener conocimientos mínimos de pruebas automatizadas. Si aún no está familiarizado puede consultar sobre esto en nuestro tutorial de [Vue(TDD)](https://caribestic.github.io/vue-tdd/).
