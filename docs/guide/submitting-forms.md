@@ -22,19 +22,19 @@ Entonces, ¿cómo capturamos correctamente el intento del usuario de enviar nues
 
 ## El evento `submit`
 
-Cada vez que un usuario envía un formulario dentro de una etiqueta de formulario envolvente, esta etiqueta de formulario emite un evento de envío que podemos escuchar, y aunque es una práctica común configurar un detector de `click` en el botón de envío de un formulario, esto debe evitarse.
+Cada vez que un usuario envía un formulario dentro de una etiqueta de formulario envolvente, esta etiqueta de formulario emite un evento de envío que podemos escuchar, y aunque es una práctica común configurar un detector `click` en el botón de envío de un formulario, esto debe evitarse.
 
 Escuchar el evento `click` de un botón dentro de la etiqueta del formulario (y evitar su comportamiento predeterminado) bloquea efectivamente el comportamiento predeterminado del formulario **HTML**, que es enviar este evento de envío y luego enviar los datos dentro de dicho formulario. Sin embargo, no nos cubre de otras formas posibles de presentar dicho formulario, como las que hemos conocido anteriormente.
 
-## Navegue a nuestro `TasksForm.vue`
-
-Como puede ver, ya tenemos nuestro botón de envío establecido con el tipo `submit`. Cada vez que se hace `click` en un botón con el tipo de envío que se encuentra dentro de un elemento de formulario envolvente, se activa el evento `submit` de ese formulario envolvente. Este es el comportamiento que queremos para nuestros formularios.
-
-Quizás se esté preguntando, ¿qué sucede si olvidamos agregar este tipo `submit` a uno de nuestros botones dentro del formulario?
+>Quizás se esté preguntando, ¿qué sucede si olvidamos agregar este tipo `submit` a uno de nuestros botones dentro del formulario?
 
 Los navegadores asumirán que los botones dentro de las etiquetas de formulario que no tienen un tipo establecido están destinados a enviar el formulario; sin embargo, la especificidad adicional ayudará a las herramientas de accesibilidad a identificarlo como el botón destinado a enviar nuestro formulario.
 
 Si nuestro formulario requería otros tipos de botones, como un botón `Cancel`, por ejemplo, agregarle el `type="button"` específico evitará que active el evento `submit` del formulario.
+
+## Navegue a nuestro `TasksForm.vue`
+
+Como puede ver, ya tenemos nuestro botón de envío establecido con el tipo `submit`. Cada vez que se hace `click` en un botón con el tipo de envío que se encuentra dentro de un elemento de formulario envolvente, se activa el evento `submit` de ese formulario envolvente. Este es el comportamiento que queremos para nuestros formularios.
 
 Ahora podemos ir a nuestra etiqueta de formulario y comenzar a escuchar el evento `@submit` de nuestro formulario.
 
@@ -79,7 +79,7 @@ Llegado a este punto, es momento de recordar las dos premisas útiles de diseño
 
 En este sentido se preguntará **¿qué lógica ocupará el método `sendForm`?**
 
-La respuesta por si sola nos lleva a pensar que la responsabilidad del componente `TasksForm.vue` es la un formulario como tal, por lo que la regla de negocio debe ser transparente para él. Al efecto, su responsabilidad solo será capturar las entradas del usuario y emitir estos datos (la carga útil) al componente padre.
+La respuesta por si sola nos lleva a pensar que la responsabilidad del componente `TasksForm.vue` es la un formulario como tal, por lo que la regla de negocio debe ser transparente para él. Al efecto, su responsabilidad solo será capturar las entradas del usuario y emitir la carga útil al componente padre. Asimismo su responsabilidad encapsulada hará que las correspondientes pruebas unitarias sean más fáciles de _testear_.
 
 ## Emitiendo `sendForm`
 
@@ -131,7 +131,7 @@ export default () => {
   ]
   
   const sendForm = (payload) => {
-
+    // Here inside will be sendForm method code
   }
 
   return {
@@ -145,7 +145,7 @@ export default () => {
 
 Será aquí donde ocuparemos la correspondiente regla de negocio retornandola al componente padre `Tasks.vue`.
 
-Continuando con la idea de separar conceptos, destinaremos un archivo específico que reunirá las peticiones a nuestra API. Dicho archivo será denominado como `TaskService.ts` y lo importaremos desde `useTasks.ts` para su implementación.
+Continuando con la idea de separar conceptos, destinaremos un archivo específico que reunirá las peticiones a nuestra API. Dicho archivo será denominado `TaskService.ts` y lo importaremos desde `useTasks.ts` para su implementación.
 
 📃`useTasks.ts`
 ```ts{2,15,16,17,18,19}
@@ -178,40 +178,42 @@ export default () => {
 }
 ```
 
-Como habrá notado, estamos desestructurando el módulo `TaskService` para implementar el método `postTask`. Este método será el encargado de _postear_ tareas a nuestra API.
+Como habrá notado, estamos desestructurando el módulo `TaskService` para implementar el método `postTask`. Este método será el encargado de _postear_ tareas a nuestra API. 
 
-Ha llegado el tiempo de ver que hay dentro del módulo `TasksService`.
+Una cosa importante que debe saber es que los métodos de Axios devuelven [promesas javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), por lo tanto, el resultado del método `postTask` es una promesa. Esto significa que podemos agregar un método `then` a nuestra llamada posterior que devolverá el `response` del servidor para que podamos trabajar con ella, y un método `catch` que podemos usar para manejar cualquier `error` que pueda ocurrir al enviar los datos. Para los propósitos de esta lección, solo vamos a registrar los resultados en la consola aquí para ver estos dos métodos en acción.
+
+Ahora ha llegado el tiempo de ver que hay dentro del módulo `TasksService`.
 
 ## El TasksService
 
-Esta vez crearemos una carpeta `services` en la raíz donde colocaremos nuestros archivos que hacen peticiones a APIs externas, en este caso el archivo `TasksService.ts`.
+Para impulsar nuestro diseño esta vez crearemos una carpeta `services` en la raíz donde colocaremos nuestros archivos que hacen peticiones a APIs externas, en este caso el archivo `TasksService.ts`.
 
-Copiemos y peguemos el siguiente código:
+Copiemos y peguemos el siguiente código dentro de la recientemente creada carpeta `services`.
 
 📃`TasksService.ts`
 ```ts{1,5,13,14,15}
 import axios from "axios";
 
-const httpRqst = axios.create({
+const request = axios.create({
   // baseURL: process.env.VUE_APP_API_URL,
   baseURL: 'https://my-json-server.typicode.com/CaribesTIC/vue-forms-app'  
 });
 
-httpRqst.interceptors.response.use(
+request.interceptors.response.use(
   (response) => response,
   (error) => Promise.reject(error)
 );
 
 export const postTask = (payload) => {
-  return httpRqst.post('/posts', payload)  
+  return request.post('/posts', payload)  
 }
 
 // export const getTasks = () => {
-//  return httpRqst.get('/get-all-tasks')
+//  return request.get('/get-all-tasks')
 // }
 ```
 
-Este código representa un ejemplo de un módulo de este tipo.
+Este código representa un ejemplo de un módulo de servicios de peticiones a APIs. 
 
 Tenga en cuenta que primero estamos importando `axios`. Entonces, creamos una instancia de `axios` definiendo la propiedad `baseURL`. Luego, con esta instancia configuramos un interceptor para manejar las respuestas y los errores. Finalmente, exportamos cada uno de los puntos finales de nuestra API, entre ellos el método `postTask`. 
 
@@ -240,38 +242,35 @@ import axios from "axios";
 // omitted for brevity ...
 
 export const postTask = (payload) => {
-  return httpRqst.post('/posts', payload)  
+  return request.post('/posts', payload)  
 }
 
 // omitted for brevity ...
 ```
 El primer argumento que requiere es la `URL` a donde va a enviar la información, en este caso, la que nos proporcionó para el **endpoint** de eventos de nuestra **API** simulada **my-json-server**.
 
->Tenga en cuenta que, en este caso, la URL es igual al contenido de la propiedad `baseURL` del objeto `httpRqst` concatenado con la cadena `'/posts'`.
+>Tenga en cuenta que, en este caso, la URL es igual al contenido de la propiedad `baseURL` del objeto `request` concatenado con la cadena `'/posts'`.
 
 El segundo argumento es el `payload`, un objeto que contiene toda la información que queremos enviar a nuestro servidor. Dado que ya tenemos toda la información del formulario ordenadamente envuelta en nuestro `payload`, podemos usarla directamente aquí y simplemente enviarla tal como está al servidor.
 
->¡Cuidado! En un escenario de la vida real, querrá validar la entrada de sus usuarios antes de enviarla al servidor, incluso si su `backend` va a realizar la validación del lado del servidor. Hacer una validación previa en la interfaz, o validación del lado del cliente, es una práctica muy recomendable.
+:::warning ¡Cuidado!
+En un escenario de la vida real, querrá validar la entrada de sus usuarios antes de enviarla al servidor, incluso si su `backend` va a realizar la validación del lado del servidor. 
+:::
 
->En general, cualquier tipo de verificación previa o cambio de **UX** que desee realizar mientras se envia el formulario debe realizarse en el método `sendForm`. Mostrar una rueda giratoria de `loading` o cambiar el texto del botón de `"Summit"` a `"Summiting"` son algunos buenos trucos de **UX** que puede aprovechar en este estado.
+>Hacer una validación previa en la interfaz, o validación del lado del cliente, es una práctica muy recomendable. En general, cualquier tipo de verificación previa o cambio de **UX** que desee realizar mientras se envia el formulario debe realizarse en el método `sendForm`. Mostrar una rueda giratoria de `loading` o cambiar el texto del botón de `"Summit"` a `"Summiting..."` son algunos buenos trucos de **UX** que puede aprovechar en este estado. Sin embargo, las validaciones y la **UX** están fuera del alcance de esta lección, por lo que las omitiremos por ahora.
 
->Sin embargo, las validaciones y la **UX** están fuera del alcance de esta lección, por lo que las omitiremos por ahora y las revisaremos en otro curso para temas de formularios más avanzados.
+Ahora que tenemos **Axios** configurado, necesitamos crear un punto final que recibirá nuestros datos una vez que el usuario haya publicado el formulario. En un escenario del mundo real, este punto final generalmente lo proporcionará el `backend` de su aplicación o un servicio de terceros como [FireBase](https://firebase.google.com/).
 
-Una cosa importante que debe saber es que los métodos de `Axios` devuelven promesas `JavaScript`. Esto significa que podemos agregar un método `then` a nuestra llamada posterior que devolverá la respuesta del servidor para que podamos trabajar con ella, y un método `catch` que podemos usar para manejar cualquier `error` que pueda ocurrir al enviar los datos.
-
-Para los propósitos de esta lección, solo vamos a registrar los resultados en la consola aquí para ver estos dos métodos en acción.
-
-
-Ahora que tenemos **Axios** configurado, necesitamos crear un punto final que recibirá nuestros datos una vez que el usuario haya publicado el formulario. En un escenario del mundo real, este punto final generalmente lo proporcionará el backend de su aplicación o un servicio de terceros como **FireBase**.
+En aras del aprendizaje, vamos a utilizar My JSON Server - una forma gratuita de crear nuestro propio punto final en línea falso - para que podamos aprender a postear nuestro formulario.
 
 
 ## My JSON Server
 
-En aras del aprendizaje, vamos a utilizar **"My JSON Server"** (https://my-json-server.typicode.com/) - una forma gratuita de crear nuestro propio punto final en línea falso para que podamos aprender a publicar nuestro formulario.
+Cuando hablamos de [My JSON Server](https://my-json-server.typicode.com/) se trata de un servidor REST en línea falso.
 
 La configuración de sus propios repositorios `Github` es realmente fácil, simplemente continúe y siga las instrucciones en su sitio web y agregue un archivo `db.json` a la rama principal o maestra de su repositorio, luego puede acceder y usarlo a través de la estructura de `URL` que proporcionan como punto final de la `API REST`.
 
-Ya seguí adelante y creé esto para nosotros, para que podamos usarlo con el repositorio del tutorial aquí en [CaribesTIC](https://github.com/CaribesTIC/vue-forms). La URL de nuestra API REST es: https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/
+Ya seguí adelante y creé esto para nosotros, para que podamos usarlo con el repositorio del tutorial aquí en [CaribesTIC](https://github.com/CaribesTIC/vue-forms). La URL de nuestra API REST es: `https://my-json-server.typicode.com/CaribesTIC/vue-forms/`
 
 Cuando abra el servidor, notará que en recursos tenemos una lista de eventos, con la siguiente URL: https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/posts
 
