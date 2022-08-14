@@ -209,7 +209,7 @@ const form = reactive(props.task)
     </div>
 
     <button
-      class="button -fill-gradient"
+      class="btn btn-primary"
       type="submit"
     >
       Submit

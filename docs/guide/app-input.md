@@ -248,7 +248,7 @@ Reemplacemos la entrada de `Name` en nuestro formulario con nuestro nuevo compon
     </div>
 
     <button
-      class="button -fill-gradient"
+      class="btn btn-primary"
       type="submit"
     >
       Submit

@@ -2,7 +2,7 @@
 
 ## ¡Bienvenido de nuevo!
 
-Con todos los componentes que hemos construido en las últimas lecciones, podemos construir cualquier tipo de formularios basados en componentes. Pero, ¿de qué sirve un formulario a menos que podamos enviar la entrada del usuario para que sea procesada o almacenada en nuestro backend?
+Con todos los componentes que hemos construido en las últimas lecciones, podemos construir cualquier tipo de formularios basados en componentes. Pero, ¿de qué sirve un formulario a menos que podamos enviar las entradas del usuario para que sean procesadas o almacenadas en nuestro _backend_?
 
 En el estado actual del desarrollo de interfaz, el enfoque más común para enviar datos de formulario a nuestro servidor es a través de **XMLHTTPRequests** o **XHR** para abreviar. Hablaremos más sobre esto en un momento, pero por ahora solo sepa que [Axios](https://axios-http.com/docs/intro) es una biblioteca que le permitirá crear solicitudes **XHR** sin tener que lidiar con la **API JavaScript Vanilla XHR**, que es un poco engorrosa.
 
@@ -26,7 +26,7 @@ Cada vez que un usuario envía un formulario dentro de una etiqueta de formulari
 
 Escuchar el evento `click` de un botón dentro de la etiqueta del formulario (y evitar su comportamiento predeterminado) bloquea efectivamente el comportamiento predeterminado del formulario **HTML**, que es enviar este evento de envío y luego enviar los datos dentro de dicho formulario. Sin embargo, no nos cubre de otras formas posibles de presentar dicho formulario, como las que hemos conocido anteriormente.
 
-## Navegue a nuestro `ComponentsForm.vue`
+## Navegue a nuestro `TasksForm.vue`
 
 Como puede ver, ya tenemos nuestro botón de envío establecido con el tipo `submit`. Cada vez que se hace `click` en un botón con el tipo de envío que se encuentra dentro de un elemento de formulario envolvente, se activa el evento `submit` de ese formulario envolvente. Este es el comportamiento que queremos para nuestros formularios.
 
@@ -38,7 +38,7 @@ Si nuestro formulario requería otros tipos de botones, como un botón `Cancel`,
 
 Ahora podemos ir a nuestra etiqueta de formulario y comenzar a escuchar el evento `@submit` de nuestro formulario.
 
-📃`ComponentsForm.vue`
+📃`TasksForm.vue`
 ```html
 <form @submit.prevent="sendForm">
   <!-- omitted for brevity ... -->
@@ -51,21 +51,162 @@ Establecer `preventDefault` en un evento `submit` para un elemento `form` bloque
 
 Ahora que estamos escuchando el evento, avancemos y agreguemos nuestro nuevo método `sendForm` dentro de la sección `script` de nuestro componente.
 
-📃`ComponentsForm.vue`
-```vue{7,8,9}
-<script>
-export default {
-  data () {
-    // omitted for brevity ...
-  },
-  methods: {
-    sendForm () {
-      // We will handle form submission here!
-    }
-  }
+📃`TasksForm.vue`
+```vue{14,15,16}
+<script setup lang="ts">
+import { reactive } from "vue"
+
+const props = defineProps<{
+  // omitted for brevity ...
+}>()
+
+const form = reactive(props.task)
+
+const situationOptions = [
+  // omitted for brevity ...
+]
+
+const sendForm = () => {
+
 }
 </script>
 ```
+
+Es el momento de recordar las premisas útiles de diseño que implementamos cuando empezamos a construir la vista `Tasks.vue`:
+
+1. Regla de negocio separada de la interfaz de usuario (UI)
+2. Formulario encapsulado en el componente TasksForm.vue
+
+En este sentido se preguntará **¿qué lógica ocupará el método `sendForm`?**
+
+La respuesta nos lleva a pensar que la responsabilidad del componente `TasksForm.vue` es la un formulario como tal. Por lo que la regla de negocio es transparente. Al efecto, su responsabilidad será emitir la carga útil al componente padre.
+
+## Emitiendo `sendForm`
+
+Avancemos definiendo el método `sendForm` cómo `emit` recibiendo un objeto `task` copo carga útil. Luego ocupamos el método `sendForm` invocando la emisión del dicho método y pasando la carga útil, el objeto `form`.
+
+📃`TasksForm.vue`
+```vue{2,14,15,16,18,19,20}
+<script setup lang="ts">
+import { reactive, toRaw } from "vue"
+
+const props = defineProps<{
+  // omitted for brevity ...
+}>()
+
+const form = reactive(props.task)
+
+const situationOptions = [
+  // omitted for brevity ...
+]
+
+const emit = defineEmits<{
+  (e: 'sendForm', task): void
+}>()
+
+const sendForm = () => {
+  emit('sendForm', toRaw(form))
+}
+</script>
+```
+
+Tenga presente que en este caso la carga útil no necesita ser reactiva. Por ello envolvimos el objeto reactivo `form` dentro del método [`toRaw`](https://vuejs.org/api/reactivity-advanced.html#toraw) cuando emitimos `sendForm`. Ahora si nos ocuparemos de la regla de negocio que nos interesa.
+
+## Volviendo a `useTask.ts`
+
+Afortunadamente la Composition API de Vue nos permite encapsular la regla de negocio separandola de la UI.
+
+Así que continuamos y situaremos nuestro método `sendForm` en nuestro composable. 
+
+📃`userTasks.ts`
+```ts{13,14,15,21}
+import { reactive } from 'vue'
+
+export default () => {   
+  const task = reactive({
+    // omitted for brevity ...
+  })
+
+  // this could be set from an http request service
+  const frequencies = [
+    // omitted for brevity ...
+  ]
+  
+  const sendForm = (payload) => {
+
+  }
+
+  return {
+    frequencies,
+    task,
+
+    sendForm
+  }
+}
+```
+
+Será aquí donde ocuparemos la correspondiente regla de negocio retornandola al componente padre `Tasks.vue`.
+
+## El TasksService
+
+Continuando con la idea de separación de conceptos, destinaremos un archivo específico que reunirá las peticiones a nuestra API.
+
+Crearemos una carpeta `services` en la raíz donde colocaremos nuestros archivos de servicios, en este caso el archivo `TasksService.ts`
+
+📃`TasksService.ts`
+```ts{1,5,13,14,15}
+import axios from "axios";
+
+const httpRqst = axios.create({
+  // baseURL: process.env.VUE_APP_API_URL,
+  baseURL: 'https://my-json-server.typicode.com/CaribesTIC/vue-forms-app'  
+});
+
+httpRqst.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject(error)
+);
+
+export const postTask = (payload) => {
+  return httpRqst.post('/posts', payload)  
+}
+
+// export const getTasks = () => {
+//  return httpRqst.get('/get-all-tasks')
+// }
+```
+
+📃`useTasks.ts`
+```ts{2,15,16,17,18,19}
+import { reactive } from 'vue'
+import { postTask } from '@/services/TaskService'
+
+export default () => {   
+  const task = reactive({
+    // omitted for brevity ...
+  })
+
+  // this could be set from an http request service
+  const frequencies = [
+    // omitted for brevity ...
+  ]
+  
+  const sendForm = (payload) => {    
+    postTask(payload).then((response) => {
+      console.log('Response', response)
+    }).catch((err) => {
+      console.log('Error', err)
+    })
+  }
+
+  return {
+    // omitted for brevity ...
+
+    sendForm
+  }
+}
+```
+
 
 ## Configurando Axios y nuestra API
 
@@ -85,7 +226,7 @@ yarn add axios
 
 Una vez que **Axios** haya terminado de instalar, podemos dirigirnos a la parte superior del bloque `<script>` en nuestro `ComponentsForm.vue` e importar la biblioteca para poder usarla más tarde.
 
-📃`ComponentsForm.vue`
+📃`TaskForm.vue`
 ```vue
 <script>
 import axios from 'axios'
