@@ -196,7 +196,7 @@ import axios from "axios";
 
 const request = axios.create({
   // baseURL: process.env.VUE_APP_API_URL,
-  baseURL: 'https://my-json-server.typicode.com/CaribesTIC/vue-forms-app'  
+  baseURL: 'https://my-json-server.typicode.com/CaribesTIC/vue-forms'  
 });
 
 request.interceptors.response.use(
@@ -272,7 +272,7 @@ La configuración de sus propios repositorios `Github` es realmente fácil, simp
 
 Ya seguí adelante y creé esto para nosotros, para que podamos usarlo con el repositorio del tutorial aquí en [CaribesTIC](https://github.com/CaribesTIC/vue-forms). La URL de nuestra API REST es: https://my-json-server.typicode.com/CaribesTIC/vue-forms/
 
-Cuando abra el servidor, notará que en recursos tenemos una lista de eventos, con la siguiente URL: https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/posts
+Cuando abra el servidor, notará que en recursos tenemos una lista de eventos, con la siguiente URL: https://my-json-server.typicode.com/CaribesTIC/vue-forms/posts
 
 En particular, al guardar los datos de un formulario, casi siempre querrá realizar un tipo particular de solicitud: una solicitud `POST`, que nos permite enviar una parte de los datos al servidor con ella.
 
