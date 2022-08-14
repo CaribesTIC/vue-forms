@@ -270,7 +270,7 @@ Cuando hablamos de [My JSON Server](https://my-json-server.typicode.com/) se tra
 
 La configuración de sus propios repositorios `Github` es realmente fácil, simplemente continúe y siga las instrucciones en su sitio web y agregue un archivo `db.json` a la rama principal o maestra de su repositorio, luego puede acceder y usarlo a través de la estructura de `URL` que proporcionan como punto final de la `API REST`.
 
-Ya seguí adelante y creé esto para nosotros, para que podamos usarlo con el repositorio del tutorial aquí en [CaribesTIC](https://github.com/CaribesTIC/vue-forms). La URL de nuestra API REST es: `https://my-json-server.typicode.com/CaribesTIC/vue-forms/`
+Ya seguí adelante y creé esto para nosotros, para que podamos usarlo con el repositorio del tutorial aquí en [CaribesTIC](https://github.com/CaribesTIC/vue-forms). La URL de nuestra API REST es: https://my-json-server.typicode.com/CaribesTIC/vue-forms/
 
 Cuando abra el servidor, notará que en recursos tenemos una lista de eventos, con la siguiente URL: https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/posts
 
