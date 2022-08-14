@@ -72,18 +72,18 @@ const sendForm = () => {
 </script>
 ```
 
-Es el momento de recordar las premisas útiles de diseño que implementamos cuando empezamos a construir la vista `Tasks.vue`:
+Llegado a este punto, es momento de recordar las dos premisas útiles de diseño que implementamos cuando empezamos a construir la vista `Tasks.vue`.
 
-1. Regla de negocio separada de la interfaz de usuario (UI)
-2. Formulario encapsulado en el componente TasksForm.vue
+>1. Regla de negocio separada de la interfaz de usuario (UI)
+>2. Formulario encapsulado en el componente respectivo
 
 En este sentido se preguntará **¿qué lógica ocupará el método `sendForm`?**
 
-La respuesta nos lleva a pensar que la responsabilidad del componente `TasksForm.vue` es la un formulario como tal. Por lo que la regla de negocio es transparente. Al efecto, su responsabilidad será emitir la carga útil al componente padre.
+La respuesta por si sola nos lleva a pensar que la responsabilidad del componente `TasksForm.vue` es la un formulario como tal, por lo que la regla de negocio debe ser transparente para él. Al efecto, su responsabilidad solo será capturar las entradas del usuario y emitir estos datos (la carga útil) al componente padre.
 
 ## Emitiendo `sendForm`
 
-Avancemos definiendo el método `sendForm` cómo `emit` recibiendo un objeto `task` copo carga útil. Luego ocupamos el método `sendForm` invocando la emisión del dicho método y pasando la carga útil, el objeto `form`.
+Avancemos definiendo el método `sendForm` cómo `emit` recibiendo un objeto `task` de carga útil. Luego ocupamos el método `sendForm` invocando la emisión del dicho método y pasando la carga útil, el objeto `form`.
 
 📃`TasksForm.vue`
 ```vue{2,14,15,16,18,19,20}
@@ -114,9 +114,7 @@ Tenga presente que en este caso la carga útil no necesita ser reactiva. Por ell
 
 ## Volviendo a `useTask.ts`
 
-Afortunadamente la Composition API de Vue nos permite encapsular la regla de negocio separandola de la UI.
-
-Así que continuamos y situaremos nuestro método `sendForm` en nuestro composable. 
+Afortunadamente la Composition API de Vue nos permite encapsular la regla de negocio separandola de la UI. Así que continuamos y situaremos nuestro método `sendForm` en nuestro composable. 
 
 📃`userTasks.ts`
 ```ts{13,14,15,21}
@@ -147,34 +145,7 @@ export default () => {
 
 Será aquí donde ocuparemos la correspondiente regla de negocio retornandola al componente padre `Tasks.vue`.
 
-## El TasksService
-
-Continuando con la idea de separación de conceptos, destinaremos un archivo específico que reunirá las peticiones a nuestra API.
-
-Crearemos una carpeta `services` en la raíz donde colocaremos nuestros archivos de servicios, en este caso el archivo `TasksService.ts`
-
-📃`TasksService.ts`
-```ts{1,5,13,14,15}
-import axios from "axios";
-
-const httpRqst = axios.create({
-  // baseURL: process.env.VUE_APP_API_URL,
-  baseURL: 'https://my-json-server.typicode.com/CaribesTIC/vue-forms-app'  
-});
-
-httpRqst.interceptors.response.use(
-  (response) => response,
-  (error) => Promise.reject(error)
-);
-
-export const postTask = (payload) => {
-  return httpRqst.post('/posts', payload)  
-}
-
-// export const getTasks = () => {
-//  return httpRqst.get('/get-all-tasks')
-// }
-```
+Continuando con la idea de separar conceptos, destinaremos un archivo específico que reunirá las peticiones a nuestra API. Dicho archivo será denominado como `TaskService.ts` y lo importaremos desde `useTasks.ts` para su implementación.
 
 📃`useTasks.ts`
 ```ts{2,15,16,17,18,19}
@@ -207,12 +178,48 @@ export default () => {
 }
 ```
 
+Como habrá notado, estamos desestructurando el módulo `TaskService` para implementar el método `postTask`. Este método será el encargado de _postear_ tareas a nuestra API.
 
-## Configurando Axios y nuestra API
+Ha llegado el tiempo de ver que hay dentro del módulo `TasksService`.
 
-Para poder capturar la entrada de nuestro usuario una vez que envían el formulario dentro de nuestro nuevo método `sendForm`, primero debemos configurar Axios — la biblioteca que discutimos al comienzo de la lección para hacer solicitudes XHR — y un punto final de la API al que podemos enviar nuestros datos ficticios.
+## El TasksService
 
-**Comencemos por configurar Axios.**
+Esta vez crearemos una carpeta `services` en la raíz donde colocaremos nuestros archivos que hacen peticiones a APIs externas, en este caso el archivo `TasksService.ts`.
+
+Copiemos y peguemos el siguiente código:
+
+📃`TasksService.ts`
+```ts{1,5,13,14,15}
+import axios from "axios";
+
+const httpRqst = axios.create({
+  // baseURL: process.env.VUE_APP_API_URL,
+  baseURL: 'https://my-json-server.typicode.com/CaribesTIC/vue-forms-app'  
+});
+
+httpRqst.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject(error)
+);
+
+export const postTask = (payload) => {
+  return httpRqst.post('/posts', payload)  
+}
+
+// export const getTasks = () => {
+//  return httpRqst.get('/get-all-tasks')
+// }
+```
+
+Este código representa un ejemplo de un módulo de este tipo.
+
+Tenga en cuenta que primero estamos importando `axios`. Entonces, creamos una instancia de `axios` definiendo la propiedad `baseURL`. Luego, con esta instancia configuramos un interceptor para manejar las respuestas y los errores. Finalmente, exportamos cada uno de los puntos finales de nuestra API, entre ellos el método `postTask`. 
+
+Sigamos avanzando.
+
+## Configurando Axios
+
+>Para poder capturar la entrada de nuestro usuario una vez que envían el formulario, antes debemos configurar [Axios](https://axios-http.com/) — la biblioteca que discutimos al comienzo de la lección para hacer solicitudes XHR — y un punto final de la API al que podemos enviar nuestros datos ficticios.
 
 Diríjase a su terminal en la raíz del proyecto y ejecute el siguiente comando para agregar **Axios** a su proyecto con su administrador de paquetes favorito.
 
@@ -224,75 +231,60 @@ npm install axios
 yarn add axios
 ```
 
-Una vez que **Axios** haya terminado de instalar, podemos dirigirnos a la parte superior del bloque `<script>` en nuestro `ComponentsForm.vue` e importar la biblioteca para poder usarla más tarde.
+Luego, como ya importamos **Axios**, podemos acceder a su método `post` directamente desde la instancia.
 
-📃`TaskForm.vue`
-```vue
-<script>
-import axios from 'axios'
+📃`TasksService.ts`
+```ts
+import axios from "axios";
 
-export default {
-  // omitted for brevity ...
+// omitted for brevity ...
+
+export const postTask = (payload) => {
+  return httpRqst.post('/posts', payload)  
 }
-</script>
+
+// omitted for brevity ...
 ```
-
-Ahora que tenemos **Axios** configurado, necesitamos crear un punto final que recibirá nuestros datos una vez que el usuario haya publicado el formulario. En un escenario del mundo real, este punto final generalmente lo proporcionará el backend de su aplicación o un servicio de terceros como **FireBase**.
-
-
-En aras del aprendizaje, vamos a utilizar **"My JSON Server"** (https://my-json-server.typicode.com/) - una forma gratuita de crear nuestro propio punto final en línea falso para que podamos aprender a publicar nuestro formulario.
-
-La configuración de sus propios repositorios `Github` es realmente fácil, simplemente continúe y siga las instrucciones en su sitio web y agregue un archivo `db.json` a la rama principal o maestra de su repositorio, luego puede acceder y usarlo a través de la estructura de `URL` que proporcionan como punto final de la `API REST`.
-
-Ya seguí adelante y creé esto para nosotros, para que podamos usarlo con el repositorio del curso aquí en Vue Mastery. La URL de nuestra API REST es: https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/
-
-Cuando abra el servidor, notará que en recursos tenemos una lista de eventos, con la siguiente URL: https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/posts
-
-En particular, al guardar los datos de un formulario, casi siempre querrá realizar un tipo particular de solicitud: una solicitud `POST`, que nos permite enviar una parte de los datos al servidor con ella.
-
-Volvamos al código y veamos cómo lograr enviar los datos de nuestro formulario a la **API REST** con **Axios**.
-
-Vamos a agregar una llamada `POST` de `Axios` a nuestro método `sendForm`.
-
-📃`ComponentsForm`.vue
-```js
-sendForm (e) {
-  axios.post(
-    'https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/posts', 
-    this.event
-  )
-    .then(function (response) {
-      console.log('Response', response)
-    })
-    .catch(function (err) {
-      console.log('Error', err)
-    })
-}
-```
-
-Como ya importamos **Axios**, podemos acceder a su método `post` directamente desde el objeto **axios**.
-
 El primer argumento que requiere es la `URL` a donde va a enviar la información, en este caso, la que nos proporcionó para el **endpoint** de eventos de nuestra **API** simulada **my-json-server**.
 
-El segundo argumento es el `payload`, un objeto que contiene toda la información que queremos enviar a nuestro servidor. Dado que ya tenemos toda la información del formulario ordenadamente envuelta en nuestro objeto de datos de eventos, podemos usarla directamente aquí y simplemente enviarla tal como está al servidor.
+>Tenga en cuenta que, en este caso, la URL es igual al contenido de la propiedad `baseURL` del objeto `httpRqst` concatenado con la cadena `'/posts'`.
 
-¡Cuidado! En un escenario de la vida real, querrá validar la entrada de sus usuarios antes de enviarla al servidor, incluso si su backend va a realizar la validación del lado del servidor. Hacer una validación previa en la interfaz, o validación del lado del cliente, es una práctica muy recomendable.
+El segundo argumento es el `payload`, un objeto que contiene toda la información que queremos enviar a nuestro servidor. Dado que ya tenemos toda la información del formulario ordenadamente envuelta en nuestro `payload`, podemos usarla directamente aquí y simplemente enviarla tal como está al servidor.
 
-En general, cualquier tipo de verificación previa o cambio de **UX** que desee realizar mientras se publica el formulario debe realizarse aquí en el método `sendForm`. Mostrar una rueda giratoria de `loading` o cambiar el texto del botón de `"Summit"` a `"Summiting"` son algunos buenos trucos de **UX** que puede aprovechar en este estado.
+>¡Cuidado! En un escenario de la vida real, querrá validar la entrada de sus usuarios antes de enviarla al servidor, incluso si su `backend` va a realizar la validación del lado del servidor. Hacer una validación previa en la interfaz, o validación del lado del cliente, es una práctica muy recomendable.
 
-Sin embargo, las validaciones y la **UX** están fuera del alcance de esta lección, por lo que las omitiremos por ahora y las revisaremos en otro curso para temas de formularios más avanzados.
+>En general, cualquier tipo de verificación previa o cambio de **UX** que desee realizar mientras se envia el formulario debe realizarse en el método `sendForm`. Mostrar una rueda giratoria de `loading` o cambiar el texto del botón de `"Summit"` a `"Summiting"` son algunos buenos trucos de **UX** que puede aprovechar en este estado.
+
+>Sin embargo, las validaciones y la **UX** están fuera del alcance de esta lección, por lo que las omitiremos por ahora y las revisaremos en otro curso para temas de formularios más avanzados.
 
 Una cosa importante que debe saber es que los métodos de `Axios` devuelven promesas `JavaScript`. Esto significa que podemos agregar un método `then` a nuestra llamada posterior que devolverá la respuesta del servidor para que podamos trabajar con ella, y un método `catch` que podemos usar para manejar cualquier `error` que pueda ocurrir al enviar los datos.
 
 Para los propósitos de esta lección, solo vamos a registrar los resultados en la consola aquí para ver estos dos métodos en acción.
 
+
+Ahora que tenemos **Axios** configurado, necesitamos crear un punto final que recibirá nuestros datos una vez que el usuario haya publicado el formulario. En un escenario del mundo real, este punto final generalmente lo proporcionará el backend de su aplicación o un servicio de terceros como **FireBase**.
+
+
+## My JSON Server
+
+En aras del aprendizaje, vamos a utilizar **"My JSON Server"** (https://my-json-server.typicode.com/) - una forma gratuita de crear nuestro propio punto final en línea falso para que podamos aprender a publicar nuestro formulario.
+
+La configuración de sus propios repositorios `Github` es realmente fácil, simplemente continúe y siga las instrucciones en su sitio web y agregue un archivo `db.json` a la rama principal o maestra de su repositorio, luego puede acceder y usarlo a través de la estructura de `URL` que proporcionan como punto final de la `API REST`.
+
+Ya seguí adelante y creé esto para nosotros, para que podamos usarlo con el repositorio del tutorial aquí en [CaribesTIC](https://github.com/CaribesTIC/vue-forms). La URL de nuestra API REST es: https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/
+
+Cuando abra el servidor, notará que en recursos tenemos una lista de eventos, con la siguiente URL: https://my-json-server.typicode.com/CaribesTIC/vue-forms-app/posts
+
+En particular, al guardar los datos de un formulario, casi siempre querrá realizar un tipo particular de solicitud: una solicitud `POST`, que nos permite enviar una parte de los datos al servidor con ella.
+
+
 ## Volver al navegador
 
 Ahora que nuestra función de envío está lista, y después de haber aprendido toda esa teoría, finalmente estamos listos para volver al navegador y probar nuestro formulario.
 
-Sirva su proyecto y complete el formulario, asegúrese de tener la pestaña `Network` abierta en su navegador para que pueda ver las solicitudes que se envían, y finalmente presione el botón `Submit` para ver toda la información enviada rápidamente a nuestra **API**.
+Sirva su proyecto y complete el formulario, asegúrese de tener la pestaña `Network` abierta en su navegador para que pueda ver las solicitudes que se envían, y finalmente presione el botón **_Submit_** para ver toda la información enviada rápidamente a nuestra **API**.
 
-En la pestaña `Network` podemos ver nuestra solicitud exitosa y la respuesta, reflejando nuestro _payload_. Y en nuestro `console.log` los datos completos de respuesta:
+En la pestaña `Network` podemos ver nuestra solicitud exitosa y la respuesta, reflejando nuestro _payload_. Y en nuestro `console.log` los datos completos de respuesta.
 
 ## Terminando
 
