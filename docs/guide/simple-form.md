@@ -261,7 +261,7 @@ label {
   @apply text-gray-600 mx-1;
 }
 
-.error {
+.errorMessage {
   @apply text-red-500 text-sm mt-1;
 }
 ```
