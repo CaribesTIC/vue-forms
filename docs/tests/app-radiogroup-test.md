@@ -1,15 +1,15 @@
 # Testeando RadioGroup
 
-## `baseRadioGroup.spec.js`
+## `appRadioGroup.spec.js`
 
-```js
+```ts
 import { mount } from '@vue/test-utils'
-import BaseRadio from '@/components/BaseRadio.vue'
-import BaseRadioGroup from '@/components/BaseRadioGroup.vue'
+import AppRadio from '@/components/AppRadio.vue'
+import AppRadioGroup from '@/components/AppRadioGroup.vue'
 
 const factory = (props = {}, shallow = false ) => {
-  return mount(BaseRadioGroup, {
-    global: { components: { BaseRadio } },
+  return mount(AppRadioGroup, {
+    global: { components: { AppRadio } },
     props: {
       name:'radioName',
       modelValue: '0', 
@@ -23,7 +23,7 @@ const factory = (props = {}, shallow = false ) => {
   })
 }
 
-describe('BaseRadioGroup', () => {
+describe('AppRadioGroup', () => {
   it('should be 1', () => {
     const wrapper = factory({ vertical:true }, true )
     
@@ -39,7 +39,7 @@ describe('BaseRadioGroup', () => {
   it('should be 2', () => {
     const wrapper = factory({}, true )   
 
-    const radioInputs = wrapper.findAll('base-radio-stub')
+    const radioInputs = wrapper.findAll('app-radio-stub')
     const spans = wrapper.findAll('span')
     const divs = wrapper.findAll('div')
     
@@ -61,6 +61,6 @@ describe('BaseRadioGroup', () => {
     expect(
       wrapper.emitted()['update:modelValue'][0][0]
     ).toEqual(1)
-  })  
+  }) 
 })
 ```

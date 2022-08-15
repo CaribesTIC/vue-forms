@@ -1,14 +1,14 @@
 # Testeando Checkbox
 
-## `baseCheckbox.spec.js`
+## `appCheckbox.spec.ts`
 
-```js
+```ts
 import { mount } from '@vue/test-utils'
-import BaseCheckbox from '@/components/BaseCheckbox.vue'
+import AppCheckbox from '@/components/AppCheckbox.vue'
 
-describe('BaseCheckbox', () => {
+describe('AppCheckbox', () => {
   it('should be initialized blank and no title', () => {
-    const wrapper = mount(BaseCheckbox)
+    const wrapper = mount(AppCheckbox)
     
     expect(wrapper.html()).not.toContain('Title')
     expect(wrapper.find('label').exists()).toBe(false)
@@ -18,7 +18,7 @@ describe('BaseCheckbox', () => {
   })
   
   it('should render label by passing property to', () => {
-    const wrapper = mount(BaseCheckbox, {
+    const wrapper = mount(AppCheckbox, {
       props: { label: 'Title' }
     })
 
@@ -28,7 +28,7 @@ describe('BaseCheckbox', () => {
   })
   
   it('should emit empty value by default when fire', async () => {
-    const wrapper = mount(BaseCheckbox)
+    const wrapper = mount(AppCheckbox)
     // const checkboxInput = wrapper.find('input[type="checkbox"]')
     const checkboxInput = wrapper.find('input')
 
@@ -40,7 +40,7 @@ describe('BaseCheckbox', () => {
   })
   
   it('should emit value which is set manually and fire', async () => {
-    const wrapper = mount(BaseCheckbox)    
+    const wrapper = mount(AppCheckbox)    
     const checkboxInput = wrapper.find('input')    
     await checkboxInput.setValue(true)
 
@@ -52,7 +52,7 @@ describe('BaseCheckbox', () => {
   })
   
   it('should emit value which is set by property and fire', async () => {
-    const wrapper = mount(BaseCheckbox, {
+    const wrapper = mount(AppCheckbox, {
       props: {      
         modelValue: true
       }
@@ -67,7 +67,7 @@ describe('BaseCheckbox', () => {
   })
 
   it('should set the attributes to the input element', () => {
-    const wrapper = mount(BaseCheckbox, {     
+    const wrapper = mount(AppCheckbox, {     
       props: { label:'Title' }      
     })
     const checkboxInput = wrapper.find('input')
@@ -80,7 +80,7 @@ describe('BaseCheckbox', () => {
   })
 
   it('this should set the attributes to the input element too', () => {
-    const wrapper = mount(BaseCheckbox, {
+    const wrapper = mount(AppCheckbox, {
       attrs: { id: '#id' },
       props: { label:'Title' }      
     })

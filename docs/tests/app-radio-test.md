@@ -1,14 +1,14 @@
 # Testeando Radio
 
-## `baseRadio.spec.js`
+## `appRadio.spec.ts`
 
-```js
+```ts
 import { mount } from '@vue/test-utils'
-import BaseRadio from '@/components/BaseRadio.vue'
+import AppRadio from '@/components/AppRadio.vue'
 
-describe('BaseCheckbox', () => {
+describe('AppRadio', () => {
   it('should be initialized blank and no title', () => {
-    const wrapper = mount(BaseRadio,{
+    const wrapper = mount(AppRadio,{
       props:{ value: '0' }
     })
     
@@ -20,7 +20,7 @@ describe('BaseCheckbox', () => {
   })
 
   it('should render label by passing property to', () => {
-    const wrapper = mount(BaseRadio, {
+    const wrapper = mount(AppRadio, {
       props: {
         label: 'Title',
         value: '0'
@@ -33,7 +33,7 @@ describe('BaseCheckbox', () => {
   })
 
   it('should emit 0 value by default when fire', async () => {
-    const wrapper = mount(BaseRadio, {
+    const wrapper = mount(AppRadio, {
       props:{ value: '0' }
     })
     //const radioInput = wrapper.find('input[type="radio"]')
@@ -47,7 +47,7 @@ describe('BaseCheckbox', () => {
   })
 
   it('should be truthy when set checked', async () => {
-    const wrapper = mount(BaseRadio, {           
+    const wrapper = mount(AppRadio, {           
       props: { value: '0' }      
     })    
     const radioInput = wrapper.find('input')
@@ -58,7 +58,7 @@ describe('BaseCheckbox', () => {
   })
 
   it('should be truthy when value is equal to modelValue', async () => {
-    const wrapper = mount(BaseRadio, {               
+    const wrapper = mount(AppRadio, {               
       props: {
         value: '0',
         modelValue: '0'                   
@@ -70,7 +70,7 @@ describe('BaseCheckbox', () => {
   })
 
   it('should be falsy when value is not equal to modelValue', async () => {
-    const wrapper = mount(BaseRadio, {               
+    const wrapper = mount(AppRadio, {               
       props: {
         value: '0',
         modelValue: '1'                   
@@ -82,7 +82,7 @@ describe('BaseCheckbox', () => {
   })
 
   it('should be truthy when value is checked', async () => {
-    const wrapper = mount(BaseRadio, {
+    const wrapper = mount(AppRadio, {
       attrs: { checked: true },
       props: { value: '0' }      
     })    
@@ -92,7 +92,7 @@ describe('BaseCheckbox', () => {
   })
   
   it('should be falsy when value is unchecked', async () => {
-    const wrapper = mount(BaseRadio, {
+    const wrapper = mount(AppRadio, {
       attrs: { checked: false },
       props: { value: '0' }      
     })    
@@ -100,9 +100,9 @@ describe('BaseCheckbox', () => {
     
     expect(radioInput.element.checked).toBeFalsy()    
   })
-
+  
   it('should set the attributes to the input-radio element', () => {
-    const wrapper = mount(BaseRadio, {
+    const wrapper = mount(AppRadio, {
       attrs: { name: 'radioName' },
       props: {
         label: 'ddd',
@@ -114,6 +114,6 @@ describe('BaseCheckbox', () => {
 
     expect(radioInput.attributes().name).toEqual('radioName')    
     expect(label.attributes()).toEqual({})
-  })
+  })  
 })
 ```

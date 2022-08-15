@@ -1,26 +1,22 @@
 # Testeando Input
 
-## `baseInputA.spec.js`
+## `appInputA.spec.ts`
 
-```js
+```ts
 import { mount } from '@vue/test-utils'
-import BaseInput from '@/components/BaseInput.vue'
+import AppInput from '@/components/AppInput.vue'
 
-describe('BaseInput', () => {
+describe('AppInput', () => {
   it('should be initialized blank all and no title', () => {
-    const wrapper = mount(BaseInput)
+    const wrapper = mount(AppInput)
     
     expect(wrapper.html()).not.toContain('Title')
     expect(wrapper.find('label').exists()).toBe(false)      
-    expect(wrapper.props()).toEqual({
-      error: '',
-      label: '',
-      modelValue: ''
-    })        
+    expect(wrapper.props()).toEqual({ error: '', label: '', modelValue: '' })        
   })
 
   it('should render label by passing property to', () => {
-    const wrapper = mount(BaseInput, {
+    const wrapper = mount(AppInput, {
       props: { label: 'Title' }
     })
 
@@ -30,30 +26,26 @@ describe('BaseInput', () => {
   })
 
   it('should emit empty string by default when fire', async () => {
-    const wrapper = mount(BaseInput)
+    const wrapper = mount(AppInput)
     const input = wrapper.find('input')
     
     await input.trigger('input')
 
-    expect(
-      wrapper.emitted()['update:modelValue'][0][0]
-    ).toEqual('')
+    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('')
   })
 
   it('should emit string which is set manually and fire', async () => {
-    const wrapper = mount(BaseInput)
+    const wrapper = mount(AppInput)
     const input = wrapper.find('input')    
     
     input.element.value = 'My title'    
     await input.trigger('input')
     
-    expect(
-      wrapper.emitted()['update:modelValue'][0][0]
-    ).toEqual('My title')
+    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('My title')
   })
 
   it('should emit string which is set by property and fire', async () => {
-    const wrapper = mount(BaseInput, {
+    const wrapper = mount(AppInput, {
       props: {
         modelValue: 'My other title'
       }
@@ -62,22 +54,20 @@ describe('BaseInput', () => {
     const input = wrapper.find('input')
     await input.trigger('input')    
 
-    expect(
-      wrapper.emitted()['update:modelValue'][0][0]
-    ).toEqual('My other title')  
+    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('My other title')  
   })
 })
 ```
 
-## baseInputB.spec.js
+## appInputB.spec.ts
 
-```js
+```ts
 import { mount } from '@vue/test-utils'
-import BaseInput from '@/components/BaseInput.vue'
+import AppInput from '@/components/AppInput.vue'
 
-describe('BaseInput', () => {
+describe('AppInput', () => {
   it('should set the attributes to the input element', () => {  
-    const wrapper = mount(BaseInput, {
+    const wrapper = mount(AppInput, {
       attrs: { type: 'text' }
     })        
 
@@ -91,12 +81,12 @@ describe('BaseInput', () => {
   })
 
   it('this should set the attributes to the input element too', () => {     
-    const wrapper = mount(BaseInput, {
+    const wrapper = mount(AppInput, {
       props: { label: 'Title' },
       attrs: { disabled: '' }
     })     
     
-    expect(wrapper.find('label').attributes()).toEqual({ for: '2' })
+    expect(wrapper.find('label').attributes()).toEqual({for:'2'})
     expect(wrapper.find('input').attributes()).toEqual({
       disabled: '',      
       placeholder: 'Title', // with label prop

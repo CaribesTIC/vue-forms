@@ -93,9 +93,12 @@ A continuación, vayamos al `template` y reemplacemos el vínculo del `v-model` 
 
 Finalmente, debemos emitir `update:modelValue` cada vez que queramos alertar al padre que la casilla de verificación se ha activado. Escucharemos el evento `@change` en el elemento `input` y emitiremos el nuevo estado comprobado de nuestro elemento cada vez que se active.
 
+Tenga en cuenta que para las casillas de verificación no estamos emitiendo el `value` de `target` a través de `$event.target.value`, sino el estado de `checked` a través de `$event.target.checked`.
+
 📃`AppCheckbox.vue`
 ```html
 <input
+  v-bind="$attrs"
   type="checkbox"
   :checked="modelValue"
   @change="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
@@ -103,8 +106,7 @@ Finalmente, debemos emitir `update:modelValue` cada vez que queramos alertar al 
 />
 ```
 
-Tenga en cuenta que para las casillas de verificación no estamos emitiendo el `value` de `target` a través de `$event.target.value`, sino el estado de `checked` a través de `$event.target.checked`.
-
+A su vez avanzamos y agregamos `v-bind="$attrs"` a nuestro elemento para poder permitir la inyección de atributos en el elemento correcto. Ahora recibirán correctamente el vínculo del padre.
 
 ## Usando nuestro nuevo componente
 

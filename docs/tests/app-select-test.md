@@ -1,14 +1,14 @@
 # Testeando Select
 
-## `baseSelect.spec.js`
+## `appSelect.spec.ts`
 
-```js
+```ts
 import { mount } from '@vue/test-utils'
-import BaseSelect from '@/components/BaseSelect.vue'
+import AppSelect from '@/components/AppSelect.vue'
 
-describe('BaseSelect', () => {
+describe('AppSelect', () => {
   it('should be initialized blank and no title', () => {
-    const wrapper = mount(BaseSelect, {
+    const wrapper = mount(AppSelect, {
       props: { options: [] }
     })
     
@@ -20,7 +20,7 @@ describe('BaseSelect', () => {
   })
   
   it('should render label by passing property to', () => {
-    const wrapper = mount(BaseSelect, {
+    const wrapper = mount(AppSelect, {
       props: {
         label: 'Title',
         options: []        
@@ -33,7 +33,7 @@ describe('BaseSelect', () => {
   })
   
   it('should emit empty value by default when fire', async () => {
-    const wrapper = mount(BaseSelect, {
+    const wrapper = mount(AppSelect, {
       props: { options: [] }
     })
     const select = wrapper.find('select')   
@@ -46,7 +46,7 @@ describe('BaseSelect', () => {
   })
   
   it('should emit value which is set manually and fire', async () => {
-    const wrapper = mount(BaseSelect, {
+    const wrapper = mount(AppSelect, {
       props: {
         options: ['bar', 'baz', 'foo']
       }
@@ -62,7 +62,7 @@ describe('BaseSelect', () => {
   })
   
   it('should emit value which is set by property and fire', async () => {
-    const wrapper = mount(BaseSelect, {
+    const wrapper = mount(AppSelect, {
       props: {      
         modelValue: 'baz',
         options: ['bar', 'baz', 'foo']
@@ -78,7 +78,7 @@ describe('BaseSelect', () => {
   })
   
   it('should set the attributes to the select element', () => {
-    const wrapper = mount(BaseSelect, {     
+    const wrapper = mount(AppSelect, {     
       props: {
         label:'Title',
         options: []
@@ -94,7 +94,7 @@ describe('BaseSelect', () => {
   })
   
   it('this should set the attributes to the input element too', () => {
-    const wrapper = mount(BaseSelect, {
+    const wrapper = mount(AppSelect, {
       attrs: {
         id: '#id'
       },
@@ -113,7 +113,7 @@ describe('BaseSelect', () => {
   })
   
   it('setSelected demo', async () => {
-    const wrapper = mount(BaseSelect,{
+    const wrapper = mount(AppSelect,{
       props: {      
         modelValue: 'baz',
         options: ['bar', 'baz', 'foo']
