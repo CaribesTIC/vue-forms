@@ -41,7 +41,8 @@ export default {
           { text: 'Testeando Select', link: '/tests/app-select-test' },
           { text: 'Testeando Checkbox', link: '/tests/app-checkbox-test' },
           { text: 'Testeando Radio', link: '/tests/app-radio-test' },
-          { text: 'Testeando RadioGroup', link: '/tests/app-radiogroup-test' }
+          { text: 'Testeando RadioGroup', link: '/tests/app-radiogroup-test' },
+          { text: 'Testeando Form', link: '/tests/form-test' }
         ]
       }
     ]

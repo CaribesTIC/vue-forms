@@ -1,6 +1,6 @@
 # Testeando RadioGroup
 
-## `appRadioGroup.spec.js`
+## `appRadioGroup.spec.ts`
 
 ```ts
 import { mount } from '@vue/test-utils'
