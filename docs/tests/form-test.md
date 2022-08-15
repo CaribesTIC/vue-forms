@@ -59,7 +59,7 @@ describe('TasksForm', () => {
 
     expect(wrapper.emitted('sendForm')[0][0]).toEqual({
       frequency: 'daily',
-      name: 'My tasks',
+      name: 'My task',
       description: 'Lorem ipsum dolor sit amet...',
       situation: 1,
       supervision: { reviewed: true, approved: false }
