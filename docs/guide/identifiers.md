@@ -1,9 +1,5 @@
 # Identificadores
 
-:::info
-[Código previo a la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l10-start)
-:::
-
 En la lección anterior digimos que hay una manera de relacionar las entradas con las etiquetas usando ientificadores. Esta forma de relacionar elementos **HTML** será útil más adelante cuando veamos los mensajes de `error`. 
 
 Pasemos directamente a nuestro componente `BaseInput` y descubramos cómo crear una relación entre nuestro `<label>` e `<input>` usando un **ID**.
@@ -276,6 +272,4 @@ Como puede ver, con unas pocas líneas rápidas de **HTML** y algunos accesorios
 
 Sin embargo, quiero enfatizar que, en lo que respecta al tema de la accesibilidad, esto solo comienza a arañar la superficie. ¡Pero con estos pocos consejos, deberíamos poder establecer el rumbo para una forma más inclusiva y accesible para nuestros proyectos!
 
-:::info
-[Código final de la lección](https://github.com/CaribesTIC/vue-forms-app/tree/l10-end)
-:::
+

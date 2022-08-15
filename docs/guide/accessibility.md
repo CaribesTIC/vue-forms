@@ -12,7 +12,7 @@ Repasaremos lo que consideramos algunos de los conceptos básicos de accesibilid
 
 ## Tipos apropiados
 
-En **HTML** tenemos una amplia variedad de elementos de entrada para crear nuestros formularios, pero un elemento en particular los gobierna a todos. La entrada **_'atrapalotodo'_** nos permite la flexibilidad de crear entradas de texto, pero también podemos transformarla en casillas de verificación y botones de opción con la propiedad type.
+En **HTML** tenemos una amplia variedad de elementos de entrada para crear nuestros formularios, pero un elemento en particular los gobierna a todos. El `input` **_catch-all_** nos permite la flexibilidad de crear entradas de texto, pero también podemos transformarla en casillas de verificación y botones de opción con la propiedad type.
 
 - `<input type="text">`
 - `<input type="checkbox">`
@@ -37,109 +37,104 @@ Aquí hay una tabla de tipos disponibles para un elemento de entrada:
 
 ## Usar Conjunto de Campos y Leyenda
 
-Dos elementos a menudo pasados por alto o poco enseñados en **HTML** son el `fieldset` y la `legend`.
+>Dos elementos a menudo pasados por alto o poco enseñados en **HTML** son el [conjunto de campos](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/fieldset) y la [leyenda](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/legend).
 
 En los formularios, generalmente agrupamos nuestroas entradas de forma lógica. Por ejemplo, normalmente codificaría su formulario para que primero le pida al usuario sus datos personales como Nombre, Apellido y Teléfono. Más adelante, otra sección puede pedirles una dirección de envío.
 
-Para los usuarios accesibles, es posible que esta información no esté disponible inmediatamente sin tener que pasar por todo el formulario, aquí es donde entran en juego `<fieldset>` y `<legend>`.
+Para los [usuarios accesibles](https://www.w3.org/WAI/fundamentals/accessibility-usability-inclusion/), es posible que esta información no esté disponible inmediatamente sin tener que pasar por todo el formulario, aquí es donde entran en juego `<fieldset>` y `<legend>`.
 
-Siempre debe intentar envolver secciones de su formulario dentro de un elemento `fieldset`. Esto agrupará lógicamente las entradas dentro de él. Luego, el primer elemento del conjunto de campos será un elemento `legend` que proporcionará un Título para ese conjunto de campos en particular.
+Siempre debe intentar envolver secciones de su formulario dentro de un elemento `fieldset`. Esto agrupará lógicamente las entradas dentro de él. Luego, el primer elemento del conjunto de campos será un elemento `legend` que proporcionará un **Título** para ese conjunto de campos en particular.
 
 Si por alguna razón no desea que la leyenda se muestre en su formulario (generalmente por razones de diseño), siempre puede colocarla de manera absoluta, fuera de la pantalla visible.
 
-Para nuestro formulario actual en `ComponentsForm.vue`, podemos envolver nuestras secciones lógicas dentro de `fieldset` como en el siguiente ejemplo:
+Para nuestro formulario actual en `TasksForm.vue`, podemos envolver nuestras secciones lógicas dentro de `fieldset` como en el siguiente ejemplo:
 
-📃`ComponentsForm.vue`
-```vue
+📃`TasksForm.vue`
+```vue{13,14,25,27,28,36,38,39,54}
+<script setup lang="ts">
+// omitted for brevity ...
+</script>
+
 <template>
-  <div>
-    <h1>Create an event</h1>
-    <form @submit.prevent="sendForm">
-      <BaseSelect
-        :options="categories"
-        v-model="event.category"
-        label="Select a category"
+  <form @submit.prevent="sendForm">
+    <AppSelect
+      :options="frequencies"
+      v-model="form.frequency"
+      label="Select a frequency"
+    />
+
+    <fieldset>        
+      <legend>Name & describe your task</legend>
+      <AppInput
+        v-model="form.name"
+        label="Name"
+        type="text"
       />
+      
+      <AppTextarea
+        v-model="form.description"
+        label="Description"      
+      />
+    </fieldset>
 
-      <fieldset>
-        <legend>Name & describe your event</legend>
-
-        <BaseInput
-          v-model="event.title"
-          label="Title"
-          type="text"
+    <fieldset>
+      <legend>Task situation</legend>
+      <div>
+        <AppRadioGroup
+          v-model="form.situation"
+          name="situation"
+          :options="situationOptions"
         />
+      </div>
+    </fieldset>
 
-        <BaseInput
-          v-model="event.description"
-          label="Description"
-          type="text"
+    <fieldset>
+      <legend>Supervision</legend>
+   
+      <div>
+        <AppCheckbox
+          v-model="form.supervision.reviewed"
+          label="Reviewed"
         />
-      </fieldset>
+      </div>
 
-      <fieldset>
-        <legend>Where is your event?</legend>
-
-        <BaseInput
-          v-model="event.location"
-          label="Location"
-          type="text"
+      <div>
+        <AppCheckbox
+          v-model="form.supervision.approved"
+          label="Approved"
         />
-      </fieldset>
+      </div>
+    </fieldset>
 
-      <fieldset>
-        <legend>Pets</legend>
-
-        <p>Are pets allowed?</p>
-        <div>
-          <BaseRadioGroup
-            v-model="event.pets"
-            name="pets"
-            :options="petOptions"
-          />
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Extras</legend>
-        <div>
-          <BaseCheckbox
-            v-model="event.extras.catering"
-            label="Catering"
-          />
-        </div>
-
-        <div>
-          <BaseCheckbox
-            v-model="event.extras.music"
-            label="Live music"
-          />
-        </div>
-      </fieldset>
-
-      <button type="submit">Submit</button>
-    </form>
-
-    <pre>{{ event }}</pre>
-  </div>
+    <button
+      class="btn btn-primary"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>    
 </template>
 ```
 
 Podemos agregar una etiqueta de estilo para eliminar los bordes y márgenes predeterminados, y diseñar las etiquetas de leyenda como teníamos antes con los encabezados.
 
-📃`ComponentsForm.vue`
+📃`TasksForm.vue`
 ```vue
-<style>
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
+<script setup lang="ts">
+// omitted for brevity ...
+</script>
+
+<template>
+  <!-- omitted for brevity ... -->
+</template>
+
+<style scoped>
+fieldset { 
+  @apply border-0 m-0 p-0;
 }
 
 legend {
-  font-size: 28px;
-  font-weight: 700;
-  margin-top: 20px;
+  @apply text-2xl font-semibold my-4;
 }
 </style>
 ```
@@ -148,21 +143,21 @@ Cabe señalar que **FireFox** tiene una herramienta de inspección de `accessibi
 
 ## NO confíe en `placeholders`
 
-Un patrón de diseño popular que surgió hace unos años usaba el atributo `placeholders` de las entradas para describir el tipo de contenido que esperaba el elemento. Lamentablemente, esto todavía se usa a veces en la actualidad en lugar de una etiqueta adecuada.
+>Un patrón de diseño popular que surgió hace unos años usaba el atributo [`placeholders`](https://developer.mozilla.org/es/docs/Web/CSS/::placeholder) de las entradas para describir el tipo de contenido que esperaba el elemento. Lamentablemente, esto todavía se usa a veces en la actualidad en lugar de una etiqueta adecuada.
 
 Los `placeholders` solo deben usarse para describir el valor previsto, pero no como reemplazo de una etiqueta descriptiva. Los `placeholders` desaparecen cada vez que un usuario comienza a escribir en el campo, lo que obliga al usuario a tener en cuenta lo que esperaba ese campo. Además, algunos usuarios pueden tener problemas para diferenciar entre un campo con un `placeholders` y un campo que tiene contenido rellenado o rellenado previamente.
 
-En lo que respecta a los lectores de pantalla, cada lector de pantalla puede tratar el atributo `placeholders` de manera diferente, pero siempre que haya una `lebel` establecido correctamente, no debería ser una gran preocupación dejarla.
+En lo que respecta a los lectores de pantalla, cada lector de pantalla puede tratar el atributo `placeholders` de manera diferente, pero siempre que haya una `lebel` establecido correctamente, no debería ser una gran preocupación dejarlo.
 
 ## Labels
 
 Hablando de etiquetas, hablemos de una característica de accesibilidad realmente poderosa que, lamentablemente, se usa muy poco o mal en los formularios.
 
-Si navegamos a **FireFox** nuevamente en la pestaña de `accessibility` e inspeccionamos nuestra entrada de Title, podemos ver un ícono ⚠️ justo al lado. Esto significa que tenemos un problema.
+Si navegamos a **FireFox** nuevamente en la pestaña de `accessibility` e inspeccionamos nuestra entrada **Name**, podemos ver un ícono ⚠️ justo al lado. Esto significa que tenemos un problema.
 
 Echemos un vistazo al panel de información. La sección de Comprobaciones ya nos dice el problema: **_“Form elements should have a visible text label”_**.
 
-Esto puede ser una sorpresa, ya que nuestro campo Title claramente tiene una etiqueta encima que describe lo que pretendemos para esta entrada.
+Esto puede ser una sorpresa, ya que nuestro campo **Name** claramente tiene una etiqueta encima que describe lo que pretendemos para esta entrada.
 
 
 Para nuestros usuarios videntes, sin embargo, esto no es evidente. Todavía no hemos vinculado estos dos elementos **HTML**, y esa es una suposición que un lector de pantalla no puede darse el lujo de hacer. ¡Afortunadamente, esta es una solución muy fácil!
