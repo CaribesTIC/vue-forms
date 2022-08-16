@@ -1,14 +1,14 @@
 # Componente Checkbox
 
-Anteriormente, en este tutorial, creamos componentes reutilizables para dos entradas HTML importantes: `AppInput` y `AppSelect` para los elementos `input` y `select`, respectivamente.
+Anteriormente, en este tutorial, creamos componentes reutilizables para dos entradas HTML importantes: `AppInput` y `AppSelect` para los elementos `input` y `select`, respectivamente. En esta lección, asumimos el nuevo desafío de crear un componente reutilizable para nuestras entradas de `checkbox`. 
 
-En esta lección, asumimos el nuevo desafío de crear un componente reutilizable para nuestras entradas de `checkbox`. El objetivo sigue siendo el mismo, el componente debe ser altamente reutilizable y capaz de aceptar vinculaciones de `v-model`.
+>El objetivo sigue siendo el mismo, el componente debe ser altamente reutilizable y capaz de aceptar vinculaciones de `v-model`.
 
 **¡Vamos a sumergirnos!**
 
 ## `AppCheckbox.vue`
 
-Primero, crearemos un nuevo archivo, `AppCheckbox.vue` dentro de la carpeta de componentes.
+Primero, crearemos un nuevo archivo, `AppCheckbox.vue` dentro de la carpeta `components`.
 
 Vamos a agregar un bloque `template` y copiar el `input` con `type="checkbox"` de nuestro archivo `TasksForm.vue` que contiene el control para el `"Reviewed"`.
 
@@ -24,9 +24,11 @@ Vamos a agregar un bloque `template` y copiar el `input` con `type="checkbox"` d
 </template>
 ```
 
+Como hemos hecho en nuestros otros componentes, vamos a abordar primero el `label`.
+
 ## Primero el `label`
 
-Como hemos hecho en nuestros otros componentes, vamos a abordar primero el `label`. Necesitamos asegurarnos de que tenemos una forma de inyectar un `label` en este componente, por lo que vamos a agregar una propiedad `label` para que el padre pueda pasarla a nuestro componente.
+Necesitamos asegurarnos de que tenemos una forma de inyectar un `label` en este componente, por lo que vamos a agregar una propiedad `label` para que el padre pueda pasarla a nuestro componente.
 
 Avancemos y agreguemos esa propiedad y vinculémosla al `label`.
 
@@ -53,17 +55,19 @@ withDefaults(defineProps<{
 
 Tenga en cuenta que hemos agregado una condición `v-if` para verificar que la propiedad `label` esté establecida antes de representar el elemento `<label>`. No hay una razón real para representar un elemento `<label>` vacío y, lo que es peor, ¡no queremos etiquetarlo como una cadena vacía!
 
-Hay varias consideraciones de accesibilidad cuando se habla de etiquetas y entradas, y lo que hemos estado haciendo hasta ahora en su mayoría no será accesible. Sin embargo, en una lección posterior revisaremos estos componentes cuando echemos un vistazo a los conceptos básicos de accesibilidad en los formularios.
+>Hay varias consideraciones de accesibilidad cuando se habla de etiquetas y entradas, y lo que hemos estado haciendo hasta ahora en su mayoría no será accesible. Sin embargo, en una lección posterior revisaremos estos componentes cuando echemos un vistazo a los conceptos básicos de [accesibilidad](../guide/accessibility.html) en los formularios.
 
 ## Haciéndolo compatible con `v-model`
 
 Ahora que nuestro `label` ha sido configurado, pasemos a hacerlo para que el componente pueda aceptar vínculos de `v-model`.
 
-Las casillas de verificación tienen algunas peculiaridades que debemos tener en cuenta antes de comenzar a configurar nuestros vínculos. La primera es que las entradas de casillas de verificación vinculan su estado a una propiedad `checked`, y no directamente al `value`.
+Las casillas de verificación tienen algunas peculiaridades que debemos tener en cuenta antes de comenzar a configurar nuestros vínculos.
 
-La propiedad `value` de casillas de verificación generalmente no se usa en el _frontend_, ya que su objetivo principal es proporcionar un `value` cuando se envía al _backend_ a través de un botón `submit`. Si se omite, este valor está activado de manera predeterminada, lo que está bien para la mayoría de las aplicaciones, ya que la mayoría de los formularios se manejarán a través de un _post_ asíncrono y las variables pasadas al _backend_ están controladas por el código del _frontend_.
+- La primera es que las entradas de casillas de verificación vinculan su estado a una propiedad `checked`, y no directamente al `value`.
 
-La segunda cosa que debemos tener en cuenta es que las entradas tipo `checkbox` no activan eventos `input`, sino eventos `change` cada vez que se seleccionan y deseleccionan.
+>La propiedad `value` de casillas de verificación generalmente no se usa en el _frontend_, ya que su objetivo principal es proporcionar un `value` cuando se envía al _backend_ a través de un botón `submit`. Si se omite, este valor está activado de manera predeterminada, lo que está bien para la mayoría de las aplicaciones, ya que la mayoría de los formularios se manejarán a través de un _post_ asíncrono y las variables pasadas al _backend_ están controladas por el código del _frontend_.
+
+- La segunda cosa que debemos tener en cuenta es que las entradas tipo `checkbox` no activan eventos `input`, sino eventos `change` cada vez que se seleccionan y deseleccionan.
 
 Ahora que estamos armados con este conocimiento, agreguemos nuestra propiedad `modelValue`, que contendrá la primera parte de nuestro vínculo bidireccional: permitir que el padre inyecte un estado para el `checkbox`.
 
@@ -96,7 +100,7 @@ Finalmente, debemos emitir `update:modelValue` cada vez que queramos alertar al 
 Tenga en cuenta que para las casillas de verificación no estamos emitiendo el `value` de `target` a través de `$event.target.value`, sino el estado de `checked` a través de `$event.target.checked`.
 
 📃`AppCheckbox.vue`
-```html
+```html{2,5}
 <input
   v-bind="$attrs"
   type="checkbox"
@@ -154,6 +158,8 @@ createApp(App)
 ```
 
 Vayamos a nuestro navegador y activemos y desactivemos las casillas de verificación para asegurarnos de que los vínculos funcionen.
+
+![app-checkbox](./img/app-checkbox.jpg)
 
 ## Terminando
 
