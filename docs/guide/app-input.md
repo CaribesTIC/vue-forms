@@ -2,7 +2,7 @@
 
 ## `AppInput.vue`
 
-El objetivo de esta lección es crear un componente `AppInput.vue`.
+>El objetivo de esta lección es crear el componente `AppInput.vue`.
 
 Cada vez que construyamos formularios en Vue, la creación de componentes reutilizables para cada tipo de entrada específico nos permitirá replicarlos, modificarlos y también ampliarlos fácilmente.
 
@@ -10,9 +10,19 @@ Esto también asegura que todos nuestros formularios de solicitud sean consisten
 
 ## Crear el Archivo
 
-Empecemos creando el archivo `AppInput.vue` en nuestra carpeta de componentes.
+Empecemos creando el archivo `AppInput.vue` en nuestra carpeta `components`.
 
-Comenzaremos copiando el elemento `input` con su `label`, tal como están actualmente en el formulario de demostración, y lo pegaremos en la plantilla del nuevo componente; vamos a transformar este código estático en algo más reutilizable y flexible. Después de todo, ¡ese es el beneficio de fabricar componentes!
+📃`AppInput.vue`
+```vue
+<script setup lang="ts"></script>
+
+<template></template>
+
+<!--style scoped></style-->
+```
+>Con el propósito de mantener una standar en nuestros [SFC](https://vuejs.org/api/sfc-spec.html) seguiremos este ejemplo de plantillas. Tenga en cuenta que la sección `<style>` se colocará cuando así lo amerite.
+
+Seguidamente copiamos el elemento `input` con su `label`, tal como están actualmente en el formulario simple de demostración, y lo pegaremos en la plantilla del nuevo componente; vamos a transformar este código estático en algo más reutilizable y flexible. Después de todo, ¡ese es el beneficio de fabricar componentes!
 
 📃`AppInput.vue`
 ```vue
@@ -29,7 +39,7 @@ Comenzaremos copiando el elemento `input` con su `label`, tal como están actual
 
 >En Vue 3 podemos tener múltiples nodos raíz. Esto significa que podemos tener el `label` y el `input` en el nivel raíz sin necesidad de envolverlos en un único elemento raíz como un `div` - como teníamos que hacer en Vue 2.
 
----
+## Propiedad `label`
 
 Lo primero que debemos hacer es permitir que nuestro componente reciba una propiedad `label` del padre. Para hacer esto, vamos a crear una propiedad `label`. Esta propiedad se usará no solo para nuestro elemento `<label>`, sino también como `placeholder`, por lo que es muy conveniente que solo tengamos que definirlo una vez en el padre.
 
@@ -48,14 +58,12 @@ withDefaults(defineProps<{
 
 Tenga en cuenta que la propiedad `label` es de tipo `string`. Su valor por defecto será una cadena vacia en caso de no ser suministrada.
 
----
-
 Ahora podemos usar nuestra nueva propiedad `label` a través de la interpolación dentro del elemento `<label>` de nuestro plantilla.
 
 📃`AppInput.vue`
 ```vue{2}
 <template>
-  <label>{{ label }}</label>
+  <label v-if="label">{{ label }}</label>
   <input
     v-model="form.name"
     type="text"
@@ -69,12 +77,12 @@ Mientras estamos en eso, vamos a eliminar la directiva `v-model` ya que ya no la
 
 También eliminaremos `type`, porque el padre lo proporcionará como parte de los `attrs`; recuerde que queremos mantener el componente lo más flexible posible.
 
-El usuario de este componente puede querer que sea de tipo `email` o `password`, y el valor predeterminado para la entrada ya es de tipo `text`, si no se declara.
+>El usuario de este componente puede querer que sea de tipo `email` o `password`, y el valor predeterminado para la entrada ya es de tipo `text`, si no se declara.
 
 Finalmente, vinculemos también el atributo `placeholder` a nuestra propiedad `label`. Esto asegurará que tanto el texto de `placeholder`, dentro del elemento `<input>`, como el `label` estén coordinados y sean reactivos.
 
 📃`AppInput.vue`
-```vue{10,13}
+```vue{13}
 <script setup lang="ts">
 withDefaults(defineProps<{
   label?: string
@@ -86,17 +94,17 @@ withDefaults(defineProps<{
 <template>
   <label v-if="label">{{ label }}</label>
   <input
-    class="field"
     :placeholder="label"
+    class="field"    
   >
 </template>
 ```
 
-## `v-model`: Vinculando a el valor
+Ahora que nuestro componente tiene su estructura básica, podemos pasar a agregar la capacidad para que nuestro componente esté listo para el `v-model`.
 
->Ahora que nuestro componente tiene su estructura básica, podemos pasar a agregar la capacidad para que nuestro componente esté listo para el `v-model`.
+## `v-model`: Vinculando el `value`
 
-De forma predeterminada en Vue 3, `v-model` espera que una propiedad llamada `modelValue` esté en su componente compatible con `v-model`. Avancemos y agreguemos esta nueva propiedad, y luego vincúlela al atributo `value` de nuestro elemento `<input>`.
+De forma predeterminada en Vue 3, `v-model` espera que una propiedad llamada `modelValue` esté en su componente compatible con `v-model`. Avancemos y agreguemos esta nueva propiedad, y luego la vincularemos al atributo `value` de nuestro elemento `<input>`.
 
 Lo usaremos por defecto como una cadena vacía, pero especificaremos `string` y `number` como los tipos permitidos.
 
@@ -129,7 +137,7 @@ Ahora que tenemos nuestra propiedad `modelValue` establecida y vinculada al atri
 
 ## `v-model`: Emitiendo el evento `update:modelValue`
 
-Todos los componentes que pueden ser _v-modeled_ deben emitir un evento para que el padre pueda capturar las actualizaciones de los datos de ese componente.
+Todos los componentes que pueden ser _"v-modelados"_ deben emitir un evento para que el padre pueda capturar las actualizaciones de los datos de ese componente.
 
 En Vue 3, de forma predeterminada, todos los contratos `v-model` esperan que su componente emita un evento `update:modelValue`, independientemente del tipo de entrada o entradas que contenga su componente.
 
@@ -165,7 +173,7 @@ Tenga en cuenta que estamos pasando el `$event.target.value` como la carga útil
 
 ## Componente padre `TaskForm.vue`
 
-Hablando del padre, regresemos a nuestro formulario y usemos nuestro nuevo componente `AppInput.vue` en lugar de nuestros elementos nativos para probar nuestro código.
+Hablando del padre, regresemos a nuestro formulario y usemos nuestro nuevo componente `AppInput.vue` en lugar de nuestro elemento nativo para probar nuestro código.
 
 Reemplacemos la entrada de `Name` en nuestro formulario con nuestro nuevo componente.
 
@@ -270,6 +278,8 @@ import AppInput from "@/components/AppInput.vue"
 
 Nuestros componentes parecen estar _"funcionando"_, **pero parece haber un problema con los estilos**.
 
+![app-input](./img/app-input1.jpg)
+
 Si inspeccionamos más el componente, parece que nuestro atributo `type` no se encuentra por ninguna parte. Queremos poder asignar atributos como `type` en el elemento `<input>` del componente cuando los configuramos en la instancia en el padre.
 
 Echemos un vistazo a cómo lograr esto.
@@ -285,7 +295,7 @@ En los componentes multirraíz, como nuestro `AppInput`, Vue no puede averiguar 
 ```
 [Vue warn]: Extraneous non-props attributes (type) were passed to component but could not be automatically inherited because component renders fragment or text root nodes. 
   at <AppInput modelValue="" onUpdate:modelValue=fn label="Location"  ... > 
-  at <ComponentsForm> 
+  at <TasksForm> 
   at <App>
 ```
 En el caso de nuestro componente `AppInput.vue`, queremos poder inyectar atributos directamente en el `input`, por lo que debemos vincular manualmente el objeto `$attrs`.
@@ -304,6 +314,8 @@ Avancemos y hagámoslo agregando `v-bind="$attrs"` a nuestro elemento `<input>`.
 ```
 
 Con este pequeño cambio, los elementos `<input>` ahora recibirán correctamente el vínculo `type` del padre y se aplicarán nuestras clases CSS.
+
+![app-input](./img/app-input2.jpg)
 
 ## A continuación...
 
