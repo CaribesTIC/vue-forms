@@ -1,12 +1,14 @@
 # Componente Select
 
-En nuestra lección anterior, aprendimos cómo crear nuestro primer componente de formulario reutilizable, `AppInput.vue`. En esta lección, vamos a aprender cómo construir nuestro segundo componente, `AppSelect.vue`.
+En nuestra lección anterior, aprendimos cómo crear nuestro primer componente de formulario reutilizable, `AppInput`. En esta lección, vamos a aprender cómo construir nuestro segundo componente, `AppSelect`.
 
 **¡Vamos a sumergirnos!**
 
 ## `AppSelect.vue`
 
-Actualmente, en nuestro formulario de ejemplo, tenemos el siguiente elemento de selección. Nuestro objetivo para esta lección es convertir este código en un componente reutilizable, tal como lo hicimos para `AppInput.vue` en la lección anterior.
+>Nuestro objetivo para esta lección es convertir este código en un componente reutilizable, tal como lo hicimos para `AppInput.vue` en la lección anterior.
+
+Actualmente, en nuestro formulario de ejemplo, tenemos el siguiente elemento de selección.
 
 📃`TasksForm.vue`
 
@@ -48,7 +50,7 @@ Al igual que hicimos en `AppInput`, nuestro primer paso será agregar una propie
 withDefaults(defineProps<{
   label?: string  
 }>(), {
-  label: '',
+  label: ''
 })
 </script>
 
@@ -176,7 +178,7 @@ En nuestro detector de eventos para `onChange`, capturamos `$event` como el par�
 
 Quiero llamar su atención sobre el bucle `v-for` que tenemos actualmente en el elemento `<option>` en nuestro `<select>`. Tenga en cuenta que estamos recorriendo el arreglo de `frequencies` que no existe en nuestro componente. Esto está estrechamente relacionado con lo que el padre está tratando de hacer con esta entrada en particular.
 
-Para que nuestro componente `AppSelect` funcione con cualquier conjunto de opciones, primero cambiaremos el nombre `frequencies` a `options` en nuestro ciclo `v-for`. Luego, crearemos una propiedad `options` para que nuestro componente pueda recibir esta información del padre.
+Para que nuestro componente `AppSelect` funcione con cualquier conjunto de opciones, primero crearemos una propiedad `options` para que nuestro componente pueda recibir esta información del padre. Luego, cambiaremos el nombre `frequencies` a `options` en nuestro ciclo `v-for`.
 
 📃`AppSelect.vue`
 ```vue{5,23}
@@ -267,9 +269,11 @@ import AppSelect from '@/components/AppSelect.vue'
 
 Si revisamos nuestro formulario en el navegador, podemos ver que nuestro `dropdown` aún funciona como se esperaba, ahora impulsado detrás de escena por nuestro componente de formulario reutilizable.
 
+![app-select](./img/app-select.jpg)
+
 ## Terminando
 
-En esta lección, aprendió a crear un componente `AppSelect` reutilizable.
+En esta lección, aprendimos a crear un componente `AppSelect` reutilizable.
 
 ¿Ha notado que hemos tenido que importar `AppInput` y `AppSelect` en nuestro componente `TasksForm.vue` antes de usarlos? En nuestra próxima lección, veremos cómo importar componentes globales. Después de todo, los reutilizaremos muchas veces.
 
