@@ -2,16 +2,20 @@
 
 ## Instalando Vue y TypeScript
 
-Para arrancar con este tutorial crearemos un proyecto nuevo con Vite de Vue + TypeScript + Tailwind . Por lo tanto, ya debemos tener instalado [Node](https://nodejs.org/es/). Si todavía no está familiarizado con TypeScript y Tailwind, no debe preocuparse por ello.
+Para arrancar con este tutorial crearemos un proyecto nuevo con **Vite** de **Vue** + **TypeScript** + **Tailwindcss** . Por lo tanto, ya debemos tener instalado [Node](https://nodejs.org/es/).
+
+:::info Nota
+Si todavía no está familiarizado con [TypeScript](https://www.typescriptlang.org/) y [Tailwindcss](https://tailwindcss.com/), no hay que preocuperse demasiado por ello, va a ser muy sencillo.
+:::
 
 Así que, en la terminal nos dirigimos a la carpeta donde queremos crear el proyecto y ejecutamos el siguiente comando:
 
 ```
 npm init vue@latest
 ```
-:::info
-Como habrá notado, para este curso estamos usando [npm](https://www.npmjs.com/) para el manejo de paquetes. Siéntase libre de usar [yarn](https://yarnpkg.com) si lo desea. 
-:::
+
+>Como habrá notado, para este curso estamos usando [npm](https://www.npmjs.com/) para el manejo de paquetes. Siéntase libre de usar [yarn](https://yarnpkg.com) si lo desea.
+
 
 Inmediatamente se establecerá un diálogo con el terminal:
 
@@ -29,7 +33,7 @@ Vue.js - The Progressive JavaScript Framework
 ? Project name: › vue-forms
 ```
 
-Luego el terminal nos hará una serie de preguntas a las cuales responderemos afirmativamente solo para seleccionar lo que está aquí resaltado (TypeScript y Vitest), lo demás no lo necesitaremos para el objetivo de este tutorial.
+Luego el terminal nos hará una serie de preguntas a las cuales responderemos afirmativamente solo para seleccionar lo que está aquí resaltado (**TypeScript** y **Vitest**), lo demás no lo necesitaremos para el objetivo de este tutorial.
 
 ```{4,7}
 Vue.js - The Progressive JavaScript Framework
@@ -79,7 +83,7 @@ module.exports = {
 }
 ```
 
-Ahora cree un archivo `./src/index.css` y agregue las directivas @tailwind para cada una de las capas de Tailwind.
+Ahora cree un archivo `./src/assets/app.css` y agregue las directivas @tailwind para cada una de las capas de Tailwind.
 
 ```css
 @tailwind base;
@@ -94,7 +98,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 //import './assets/main.css'
-import './index.css'
+import './assets/app.css'
 
 createApp(App).mount('#app')
 ```
