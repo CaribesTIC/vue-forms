@@ -43,7 +43,7 @@ createApp(App)
 ```
 >No olvidemos eliminar estas importaciones del archivo `TasksForm.vue` ya que ahí no las necesitaremos.
 
-Desde este momento, cada que vez construyamos un componente genérico vendremos a este archivo y lo agregamos. De esta forma nos ahorramos muchas líneas de código.
+Desde este momento, cada que vez construyamos un componente genérico vendremos a este archivo y lo agregamos. De esta forma nos ahorraremos muchas líneas de código.
 
 ## Terminando
 
