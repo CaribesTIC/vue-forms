@@ -29,13 +29,15 @@ Comencemos yendo a nuestra carpeta de componentes y creando un nuevo archivo, `A
 </template>
 ```
 
-Para comenzar, necesitamos crear una propiedad que permita al usuario de este componente pasar una matriz de opciones entre las que desea que el usuario pueda elegir. También queremos asegurarnos de que usemos los `data` dentro de esta nueva propiedad de opciones para recorrer completamente los objetos que los contienen y crear una nueva instancia del componente `AppRadio` para cada uno.
+## Arreglo `options`
 
-La propiedad de opciones será un arreglo de objetos, y querremos que cada uno de los objetos dentro contenga al menos dos propiedades: el `lavel` y el `value`.
+Para comenzar, necesitamos crear una propiedad que permita al usuario de este componente pasar un arreglo de opciones entre las que desea que el usuario pueda elegir. También queremos asegurarnos de que usemos los datos dentro de esta nueva propiedad de opciones para recorrer completamente los objetos que los contienen y crear una nueva instancia del componente `AppRadio` para cada uno.
+
+La propiedad de opciones será un arreglo de objetos, y querremos que cada uno de los objetos dentro contenga al menos dos propiedades: el `lavel` y el `value`. 
 
 Por ejemplo:
 
-```js
+```ts
 const radioOptions = [
   { label: 'Unstarted', value: '0' },
   { label: 'Started', value: '1' },
@@ -43,7 +45,7 @@ const radioOptions = [
 ]
 ```
 
-Luego usaremos el `lavel` como la etiqueta de cada uno de nuestros radios, y el `value` como el valor de cada radio.
+Luego usaremos el `label` como la etiqueta de cada uno de nuestros radios, y el `value` como el valor de cada radio.
 
 📃`AppRadioGroup.vue`
 ```vue
@@ -66,9 +68,9 @@ defineProps<{
 
 Tenga en cuenta que declaramos la propiedad `options` como `required`, ya que este componente simplemente no funcionará sin él.
 
-Como aprendimos en la última lección, todos los grupos de radio están unidos como un grupo por la propiedad `name`.
+## Propiedad `name`
 
-Todas los radios de un grupo deben tener el mismo `name` para que el navegador sepa que deben agruparse.
+Como aprendimos en la última lección, todos los grupos de radio están unidos como un grupo por la propiedad `name`. Todos los radios de un grupo deben tener el mismo `name` para que el navegador sepa que deben agruparse.
 
 Por lo tanto, sigamos adelante y agreguemos nuestra segunda propiedad, la propiedad `name`, y asegurémonos de que esté vínculado correctamente en nuestros componentes `AppRadio`.
 
@@ -94,7 +96,12 @@ defineProps<{
 
 Una vez más, estamos declarando nuestra propiedad como `required`, ya que sin un atributo `name`, las entradas de radio no se agruparán correctamente.
 
-Ahora que estamos recorriendo correctamente nuestros componentes radio, probablemente sepa lo que sigue después de construir varios de estos componentes básicos. Es hora de permitir que este componente maneje el vínculo bidireccional del `v-model`. Como siempre, agregaremos la propiedad `modelValue`.
+Ahora que estamos recorriendo correctamente nuestros componentes radio, probablemente sepa lo que sigue después de construir varios de estos componentes básicos. Es hora de permitir que este componente maneje el vínculo bidireccional del `v-model`.
+
+
+## Propiedad `modelValue`
+
+Como siempre, agregaremos la propiedad `modelValue`.
 
 📃`AppRadioGroup.vue`
 ```vue{5,15}
@@ -122,6 +129,8 @@ Esta vez vamos a hacer tambíen la propiedad `required`, ya que los grupos de ra
 
 ¡No olvide vincular también la propiedad `modelValue` a cada elemento `AppRadio` en el bucle!.
 
+## Evento `update:modelValue`
+
 A continuación, comencemos a escuchar el evento `update:modelValue` de cada uno de los elementos `AppRadio` y emitámoslo directamente al padre de `AppRadioGroup`.
 
 📃`AppRadioGroup.vue`
@@ -139,6 +148,8 @@ A continuación, comencemos a escuchar el evento `update:modelValue` de cada uno
 </template>
 ```
 
+## Formulario `TasksForm.vue`
+
 Ahora volvamos a nuestro `TasksForm.vue` y reemplacemos los elementos `AppRadio` de la sección **_'Task situation'_** con un nuevo `AppRadioGroup`.
 
 📃`TasksForm.vue`
@@ -155,13 +166,12 @@ Ahora volvamos a nuestro `TasksForm.vue` y reemplacemos los elementos `AppRadio`
 También vamos a agregar una nuevo arreglo `situationOptions` **no reactivo** a nuestro componente. Estará vinculado a la propiedad de `options` en nuestro `AppRadioGroup` para este conjunto de radios.
 
 📃`TaskForm.vue`
-```vue
+```vue{10,11,12,13,14}
 <script setup lang="ts">
 import { reactive } from "vue"
 
 const props = defineProps<{
-  task: object,
-  frequencies: array
+  // omitted for brevity ...
 }>()
 
 const form = reactive(props.task)
@@ -175,6 +185,8 @@ const situationOptions = [
 ```
 Ahora podemos ir al navegador y disfrutar de la gloria de nuestro grupo de radios de aspecto no muy agradable. Pero antes, recuerde importar el componente `AppRadioGroup` globalmente como lo hicimos en [lecciones anteriores](../guide/app-checkbox.html#complemento-global).
 
+![app-radio-group](./img/app-radio-group.jpg)
+
 🤔 parece que vamos a tener que hacer un poco de trabajo extra para que quede bien!
 
 ## Permitiendo diferentes diseños
@@ -187,7 +199,7 @@ Para nuestro `AppRadioGroup` nos gustaría crear la posibilidad de alinear las r
 
 Para que su uso sea lo más sencillo posible, todos estos cambios estarán controlados por una sola propiedad nueva, `vertical`. Por defecto, el diseño de los radios en nuestro `AppRadioGroup` será horizontal, por lo que esta propiedad será de tipo `boolean` y, por defecto, será `false`.
 
-Es una práctica muy común cuando se crean componentes para establecer propiedades que están destinados a activarse y desactivarse - también conocidos como **_'flags'_** - a un valor predeterminado en `false`. Eso nos permite poder establecerlos en `"on"` con una sintaxis muy limpia en la instancia del componente.
+>Es una práctica muy común cuando se crean componentes para establecer propiedades que están destinados a activarse y desactivarse - también conocidos como **_'flags'_** - a un valor predeterminado en `false`. Eso nos permite poder establecerlos en `"on"` con una sintaxis muy limpia en la instancia del componente.
 
 Por ejemplo, con nuestra propiedad `vertical`, si el usuario desea que su grupo se distribuya verticalmente, simplemente agregaría la palabra clave a la instancia de la siguiente manera:
 
