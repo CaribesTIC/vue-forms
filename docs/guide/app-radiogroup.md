@@ -185,7 +185,7 @@ const situationOptions = [
 ```
 Ahora podemos ir al navegador y disfrutar de la gloria de nuestro grupo de radios de aspecto no muy agradable. Pero antes, recuerde importar el componente `AppRadioGroup` globalmente como lo hicimos en [lecciones anteriores](../guide/app-checkbox.html#complemento-global).
 
-![app-radio-group](./img/app-radio-group.jpg)
+![app-radio-group](./img/app-radio-group1.jpg)
 
 🤔 parece que vamos a tener que hacer un poco de trabajo extra para que quede bien!
 
@@ -230,10 +230,12 @@ withDefaults(defineProps<{
 
 Ahora, para usar nuestra propiedad `vertical`, tenemos que envolver nuestro bucle `AppRadioGroup` en un componente propio. Cuando los radios son verticales queremos que sea un `div`, y cuando son horizontales usaremos un `span`.
 
-Por supuesto, hay muchas maneras de resolver este problema en particular, pero esta solución en particular me permite mostrarle cómo aprovechar el poder de `<component :is>` para sus componentes de formulario dinámico. Comenzaremos envolviendo todo en un elemento `<component>` y moviendo el bucle `v-for` sobre él.
+Por supuesto, hay muchas maneras de resolver este problema peculiar, pero esta solución en particular nos permite mostrarle cómo aprovechar el poder de `<component :is>` para sus [componentes dinámicos](https://vuejs.org/guide/essentials/component-basics.html#dynamic-components) de formulario.
+
+Comenzaremos envolviendo todo en un elemento `<component>` y moviendo el bucle `v-for` sobre él.
 
 📃`AppRadioGroup.vue`
-```vue
+```vue{3,4}
 <template>
   <component
     v-for="option in options"
@@ -265,15 +267,15 @@ Ahora tenemos que determinar la lógica de la propiedad `is` del `component`. Cu
 >
 ```
 
-Dado que esta no es una lógica muy compleja, podemos salirnos con la nuestra dejándolo todo en el `template`. Aquí estamos comprobando si la propiedad `vertical` es `true`, luego establecemos un `div` si no un `span` como determinamos hace un momento.
+Dado que esta no es una lógica muy compleja, podemos salirnos con la nuestra dejándolo todo en el `template`. Aquí estamos comprobando si la propiedad `vertical` es `true`, luego establecemos un `div` sino un `span` como determinamos hace un momento.
 
-Tenga en cuenta que tanto `'div'` como `'span'` están envueltas entre comillas simples, ya que deben ser cadenas.
+>Tenga en cuenta que tanto `'div'` como `'span'` están envueltas entre comillas simples, ya que deben ser cadenas.
 
 Si establecemos la bandera `vertical` para nuestro `AppRadioGroup` ahora en `TaskForm.vue` y lo verificamos en el navegador, todo parece funcionar como se esperaba.
 
 Sin embargo, hay un ajuste más que debemos hacer para el diseño horizontal. Necesitamos agregar un poco de estilo para separar un poco los elementos.
 
-Agreguemos una clase css `horizontal` y aplíquela cuando el elemento use un diseño `horizontal`. O en términos de código, cuando no es `vertical`.
+Agreguemos una clase CSS `horizontal` para aplicarla cuando el elemento use un diseño `horizontal`. O en términos de código, cuando no es `vertical`.
 
 📃`AppRadioGroup.vue`
 ```vue{10,11,12,25,26,27}
@@ -302,16 +304,18 @@ Agreguemos una clase css `horizontal` y aplíquela cuando el elemento use un dis
 
 <style scoped>
 .horizontal {
-  margin-right: 20px;
+  @apply mr-5;
 }
 </style>
 ```
 
-Dentro de la etiqueta del componente, estamos configurando un nuevo vínculo de clase y usando la sintaxis del objeto para activar y desactivar las clases.
+Dentro de la etiqueta `component`, estamos configurando un nuevo vínculo `class` y usando la sintaxis de objeto para activarlo y desactivarlo.
 
 Siempre que la condición `!vertical` se evalúe como `true`, entonces, cuando `vertical` sea `false`, querremos aplicar nuestra clase CSS `horizontal`.
 
 Eliminemos la bandera `vertical` de nuestro `AppRadioGroup` de `TasksForm.vue` y luego verifiquemos el navegador una vez más.
+
+![app-radio-group](./img/app-radio-group2.jpg)
 
 ¡Parece que todo está funcionando bien!
 
