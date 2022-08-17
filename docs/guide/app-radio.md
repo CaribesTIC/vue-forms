@@ -8,13 +8,15 @@ Los botones `radio` en HTML tienen una característica única que debemos tener 
 
 Según el estado del grupo, un botón `radio` puede estar activo o inactivo en relación con los de su propio grupo.
 
-Debido a esta peculiaridad particular en el funcionamiento de los botones `radio`, el componente `AppRadio` también tendrá otro componente para agruparlos, el `AppRadioGroup`.
+Debido a esta peculiaridad particular en el funcionamiento de los botones `radio`, el componente `AppRadio` también tendrá otro componente para agruparlos, el [`AppRadioGroup`](../guide/app-radiogroup.html).
 
 ## Primero, el `AppRadio`
 
-Comenzaremos la lección creando nuestro componente `AppRadio`. El objetivo es tener un componente reutilizable flexible que envuelva una sola instancia de un `<input type='radio'>`, junto con su `<label>`.
+Comenzaremos la lección creando nuestro componente `AppRadio`. 
 
-Como antes, primero crearemos nuestro archivo de componentes, `AppRadio.vue`, dentro de la carpeta `components`. Luego copie el primer par de `input-label` para una de nuestros `radios` de `ComponentsForm.vue` y péguelo en el bloque `<template>` del componente.
+>El objetivo es tener un componente reutilizable flexible que envuelva una sola instancia de un `<input type='radio'>`, junto con su `<label>`.
+
+Como antes, primero crearemos nuestro archivo de componentes, `AppRadio.vue`, dentro de la carpeta `components`. Luego copie el primer par de `input-label` para una de nuestros `radios` de `TasksForm.vue` y péguelo en el bloque `<template>` del componente.
 
 
 📃`AppRadio.vue`
@@ -29,16 +31,19 @@ Como antes, primero crearemos nuestro archivo de componentes, `AppRadio.vue`, de
   <label>Unstarted</label>
 </template>
 ```
+A continuación, vamos a abordar primero el `label`.
 
-A continuación, vamos a abordar primero el `label`. Entonces, sigamos adelante y creemos nuestra propiedad `label`, y vincúlelo a el elemento `<label>` como lo hemos hecho en lecciones anteriores.
+## El `label`
+
+Entonces, sigamos adelante y creemos nuestra propiedad `label`, y vincúlelo a el elemento `<label>` como lo hemos hecho en lecciones anteriores.
 
 📃`AppRadio.vue`
 ```vue{3,5,16}
 <script setup lang="ts">
 withDefaults(defineProps<{
-  label?: string  
+  label?: string
 }>(), {
-  label: ''  
+  label: ''
 })
 </script>
 
@@ -54,6 +59,8 @@ withDefaults(defineProps<{
 ```
 
 Ahora que el `label` es dinámico y está vinculado, avancemos y asegurémonos de que nuestro componente pueda responder a los vínculos de `v-model`.
+
+## El `v-model`
 
 Comenzaremos creando nuestra propiedad `modelValue`.
 
@@ -129,7 +136,11 @@ withDefaults(defineProps<{
 </template>
 ```
 
-¡Casi ahí! Ahora necesitamos agregar la segunda parte de nuestro contrato `v-model`, la emisión de eventos `update`. Los botones `radio` desencadenan eventos `change` cuando se convierten en la opción seleccionada, así que configuremos un detector de eventos `change` con nuestra emisión `update:modelValue`.
+¡Casi ahí! Ahora necesitamos agregar la segunda parte de nuestro contrato `v-model`, la emisión de eventos `update`.
+
+## El `emit` del `update:modelValue`
+
+Los botones `radio` desencadenan eventos `change` cuando se convierten en la opción seleccionada, así que configuremos un detector de eventos `change` con nuestra emisión `update:modelValue`.
 
 
 📃`AppRadio.vue`
