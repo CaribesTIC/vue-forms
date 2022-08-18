@@ -108,6 +108,33 @@ En este código se puede ver que estamos importando dos constantes. Tenga en cue
 
 Copie este código, péguelo dentro de una carpeta que llamaremos `composables` y continuemos.
 
+Tenga en cuenta además, que el IDE infiere automáticamente el tipo de constantes respectivamente. En el caso de la constante `frequencies` infiere el tipo `string[]`, y para la constante reactiva `task` infiere un tipo de objeto particular.
+
+Ambos tipos serán requeridos más adelante por nuestro IDE cuando declaremos las propiedades del formulario. Por lo tanto, para el caso del objeto particular `Task` es conveniente establecer su correspondiente tipo en un archivo aparte y exportarlo.
+
+## Tipo de objeto `Task`
+
+Avancemos y creemos entonces el archivo `Task.ts` con la declaración y exportación del objeto respectivo el cual será importado más adelante como uno de los tipos de propiedades del formulario. Lo colocaremos en una nueva carpeta `types` en la raiz de nuestro proyecto.
+
+📃`Tasks.ts`
+
+```ts
+interface Task {
+  frequency: string
+  name: string
+  description: string
+  situation: number
+  supervision: {
+    reviewed: boolean,
+    approved: boolean
+  }
+}
+
+export default Task
+```
+
+Con esta declaración y exportación de tipo estamos prácticamente listos para continuar con el formulario simple `TasksForm.vue` que nos servirá de ejemplo para el tutorial.
+
 
 ## Componente `TasksForm.vue`
 
@@ -116,13 +143,14 @@ Avancemos con el componente `TasksForm.vue` que colocaremos en la carpeta `compo
 
 📃`TasksForm.vue`
 
-```vue{5,6,9}
+```vue{6,7,10}
 <script setup lang="ts">
 import { reactive } from "vue"
+import type Task from "@/types/Task"
 
 const props = defineProps<{
-  task: object,
-  frequencies: array
+  task: Task,
+  frequencies: string[]
 }>()
 
 const form = reactive(props.task)
@@ -215,13 +243,13 @@ const form = reactive(props.task)
   </form>    
 </template>
 ```
-Tenga en cuenta que estamos recibiendo las dos propiedades como era de esperarse: el objeto `task` y el arreglo `frequencies`. Note también que las declaramos de la manera recomendada por Vue cuando se hace uso de `<script setup>` y TypeScript. A su vez se declaró la constante `form` reactiva a partir de la propiedad `task`. Esto con el objetivo de no forzar la reactividad en las propiedades.
+Tenga en cuenta que estamos recibiendo las dos propiedades como era de esperarse: el objeto `task` tipo `Task` y el arreglo `frequencies` tipo `string[]`. Note también que las declaramos de [la manera recomendada por Vue cuando se hace uso de `<script setup>` y TypeScript](https://vuejs.org/guide/typescript/composition-api.html#typing-component-props). A su vez se declaró la constante `form` reactiva a partir de la propiedad `task`. Esto con el objetivo de no forzar la reactividad en las propiedades.
 
 El formulario simple `TasksForm.vue` ya es funcional pero aún falta agregar el estilo, vamos a eso.
 
-## El Estilo
+## El `Style`
 
-Para dar algo de estilo al formulario actualicemos el archivo `app.css` ubicado en la carpeta `assets` con lo siguiente.
+Para dar un poco de estilo con Tailwind a nuestro formulario actualicemos el archivo `app.css` ubicado en la carpeta `assets` con lo siguiente.
 
 📃`index.css`
 ```css
