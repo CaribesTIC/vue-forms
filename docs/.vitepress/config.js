@@ -27,7 +27,9 @@ export default {
           { text: 'Componente Textarea', link: '/guide/app-textarea' },    
           { text: 'Enviando Formularios', link: '/guide/submitting-forms' },
           { text: 'Accesibilidad', link: '/guide/accessibility' },
-          { text: 'Identificadores', link: '/guide/identifiers' },          
+          { text: 'Identificadores', link: '/guide/identifiers' },
+          { text: 'Errores Accesibles', link: '/guide/accessible-errors' },
+          { text: 'Componente ErrorMessage', link: '/guide/error-message' }     
         ]
       },{
         text: 'Bonus',

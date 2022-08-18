@@ -6,7 +6,9 @@ Al final de la última lección, discutimos la importancia de incorporar la acce
 
 En este curso, decidimos mantenerlo separado por razones educativas, introduciendo un concepto a la vez y construyendo sobre esos conceptos de manera incremental. Ahora tenemos la base conceptual establecida para agregar nuestras funciones de accesibilidad.
 
-Repasaremos lo que consideramos algunos de los conceptos básicos de accesibilidad que debe tener en cuenta al desarrollar formularios. Estos conceptos no son técnicamente específicos de Vue, pero aprenderemos cómo aplicarlos en el contexto de nuestros componentes de formulario Vue.
+Repasaremos lo que consideramos algunos de los conceptos básicos de accesibilidad que debe tener en cuenta al desarrollar formularios.
+
+>Estos conceptos no son técnicamente específicos de Vue, pero aprenderemos cómo aplicarlos en el contexto de nuestros componentes de formulario Vue.
 
 **Vamos a sumergirnos.**
 
@@ -112,7 +114,7 @@ Para nuestro formulario actual en `TasksForm.vue`, podemos envolver nuestras sec
     >
       Submit
     </button>
-  </form>    
+  </form>
 </template>
 ```
 
@@ -139,7 +141,11 @@ legend {
 </style>
 ```
 
-Cabe señalar que **FireFox** tiene una herramienta de inspección de `accessibility` muy buena. Revisando la pestaña de `accessibility`, puede ver como ahora la agrupación lógica de nuestro formulario será entendida por los lectores de pantalla.
+Cabe señalar que **FireFox** tiene una herramienta de inspección de `Accessibility` muy buena.
+
+Revisando la pestaña de `Accessibility`, puede ver como ahora la agrupación lógica de nuestro formulario será entendida por los lectores de pantalla.
+
+![accessibility](./img/accessibility1.jpg)
 
 ## NO confíe en `placeholders`
 
@@ -153,11 +159,13 @@ En lo que respecta a los lectores de pantalla, cada lector de pantalla puede tra
 
 Hablando de etiquetas, hablemos de una característica de accesibilidad realmente poderosa que, lamentablemente, se usa muy poco o mal en los formularios.
 
-Si navegamos a **FireFox** nuevamente en la pestaña de `accessibility` e inspeccionamos nuestra entrada **Name**, podemos ver un ícono ⚠️ justo al lado. Esto significa que tenemos un problema.
+Si navegamos a **FireFox** nuevamente en la pestaña de `Accessibility` e inspeccionamos nuestra entrada **Name**, podemos ver un ícono ⚠️ justo al lado. Esto significa que tenemos un problema.
 
-Echemos un vistazo al panel de información. La sección de Comprobaciones ya nos dice el problema: **_“Form elements should have a visible text label”_**.
+![accessibility](./img/accessibility2.jpg)
 
-Esto puede ser una sorpresa, ya que nuestro campo **Name** claramente tiene una etiqueta encima que describe lo que pretendemos para esta entrada.
+Echemos un vistazo al panel de información. La sección `Checks` ya nos dice el problema: **_“Form elements should have a visible text label”_**.
+
+Esto puede ser una sorpresa, ya que nuestro campo **'Name'** claramente tiene una etiqueta encima que describe lo que pretendemos para esta entrada.
 
 
 Para nuestros usuarios videntes, sin embargo, esto no es evidente. Todavía no hemos vinculado estos dos elementos **HTML**, y esa es una suposición que un lector de pantalla no puede darse el lujo de hacer. ¡Afortunadamente, esta es una solución muy fácil!
@@ -171,5 +179,5 @@ Hay algunas formas de vincular un elemento `input` con su `label`, la primera es
 </label>
 ```
 
-Esta es una de las formas más fáciles de asegurarse de que su `input` siempre esté correctamente vinculado al `label` relacionado, pero queremos profundizar en la segunda y generalmente más _"común"_ forma de relacionar elementos **HTML** porque será útil más adelante cuando veamos los mensajes de `error`. Este método implica el uso de identificaciones.
+Esta es una de las formas más fáciles de asegurarse de que su `input` siempre esté correctamente vinculado al `label` relacionado, pero queremos profundizar en la segunda y generalmente más _"común"_ forma de relacionar elementos **HTML** porque será útil más adelante cuando veamos los componentes [`ErrorMessage`](../guide/error-message.html). Este método implica el uso de identificaciones.
 
