@@ -2,13 +2,13 @@
 
 ## ¡Bienvenido de nuevo!
 
-Con todos los componentes que hemos construido en las últimas lecciones, podemos construir cualquier tipo de formularios basados en componentes. Pero, ¿de qué sirve un formulario a menos que podamos enviar las entradas del usuario para que sean procesadas o almacenadas en nuestro _backend_?
+>Con todos los componentes que hemos construido en las últimas lecciones, podemos construir cualquier tipo de formularios basados en componentes. Pero, ¿de qué sirve un formulario a menos que podamos enviar las entradas del usuario para que sean procesadas o almacenadas en nuestro _backend_?
 
 En el estado actual del desarrollo de interfaz, el enfoque más común para enviar datos de formulario a nuestro servidor es a través de **XMLHTTPRequests** o **XHR** para abreviar. Hablaremos más sobre esto en un momento, pero por ahora solo sepa que [Axios](https://axios-http.com/docs/intro) es una biblioteca que le permitirá crear solicitudes **XHR** sin tener que lidiar con la **API JavaScript Vanilla XHR**, que es un poco engorrosa.
 
 ## Primero lo primero
 
-Hay algunos conceptos básicos de formularios que debemos aprender y comprender antes de sumergirnos en conectar **Axios** a nuestra aplicación para comenzar a realizar nuestras solicitudes **XHR**. Analicemos los valores predeterminados del comportamiento de los formularios y algunos conceptos fundamentales de accesibilidad.
+>Hay algunos conceptos básicos de formularios que debemos aprender y comprender antes de sumergirnos en conectar **Axios** a nuestra aplicación para comenzar a realizar nuestras solicitudes **XHR**. Analicemos los valores predeterminados del comportamiento de los formularios y algunos conceptos fundamentales de accesibilidad.
 
 El comportamiento predeterminado de un formulario en **HTML** es enviar un montón de datos a una **URL** específica activando un evento de navegación del navegador. Lo que esto significa es que sin el uso de una biblioteca como **Axios**, sus formularios **HTML** harán que el navegador cargue una página completamente nueva de forma predeterminada.
 
@@ -18,7 +18,7 @@ Cada formulario individual, necesita una etiqueta envolvente `<form>`. Los lecto
 
 Hay muchas formas de activar el envío de un formulario. Un usuario puede hacer `click` o tabular en un botón de envío y hacer `click` en él o pulsar `Intro`. Un usuario también puede presionar la tecla `Intro` dentro de uno de nuestros campos. Los lectores de pantalla buscarán botones con el tipo `type="submit"` en ellos.
 
-Entonces, ¿cómo capturamos correctamente el intento del usuario de enviar nuestro formulario?
+>Entonces, ¿cómo capturamos correctamente el intento del usuario de enviar nuestro formulario?
 
 ## El evento `submit`
 
@@ -47,14 +47,15 @@ Ahora podemos ir a nuestra etiqueta de formulario y comenzar a escuchar el event
 
 Tenga en cuenta que estamos usando el modificador de eventos `.prevent` en el detector de eventos `@submit`. Este modificador llamará a [`preventDefault`](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault) en el evento `submit` para nosotros, de modo que nuestro método `sendForm` pueda enfocarse exclusivamente en la lógica de envío de nuestro formulario, y no en el manejo de eventos.
 
-Establecer `preventDefault` en un evento `submit` para un elemento `form` bloqueará el comportamiento predeterminado de hacer que el formulario envíe los datos por sí mismo y vuelva a cargar el navegador. Queremos mantener el control sobre cómo se procesa nuestro formulario y queremos hacer `post` de nuestros datos usando **Axios** — por lo que evitar este comportamiento predeterminado es exactamente lo que necesitamos.
+>Establecer `preventDefault` en un evento `submit` para un elemento `form` bloqueará el comportamiento predeterminado de hacer que el formulario envíe los datos por sí mismo y vuelva a cargar el navegador. Queremos mantener el control sobre cómo se procesa nuestro formulario y queremos hacer `post` de nuestros datos usando **Axios** — por lo que evitar este comportamiento predeterminado es exactamente lo que necesitamos.
 
 Ahora que estamos escuchando el evento, avancemos y agreguemos nuestro nuevo método `sendForm` dentro de la sección `script` de nuestro componente.
 
 📃`TasksForm.vue`
-```vue{14,15,16}
+```vue{15,16,17}
 <script setup lang="ts">
 import { reactive } from "vue"
+import type Task from "@/types/Task"
 
 const props = defineProps<{
   // omitted for brevity ...
@@ -67,7 +68,7 @@ const situationOptions = [
 ]
 
 const sendForm = () => {
-
+ // here inside will be the code of this method
 }
 </script>
 ```
@@ -79,16 +80,19 @@ Llegado a este punto, es momento de recordar las dos premisas útiles de diseño
 
 En este sentido se preguntará **¿qué lógica ocupará el método `sendForm`?**
 
-La respuesta por si sola nos lleva a pensar que la responsabilidad del componente `TasksForm.vue` es la un formulario como tal, por lo que la regla de negocio debe ser transparente para él. Al efecto, su responsabilidad solo será capturar las entradas del usuario y emitir la carga útil al componente padre. Asimismo su responsabilidad encapsulada hará que las correspondientes pruebas unitarias sean más fáciles de _testear_.
+La respuesta por si sola nos lleva a pensar que la responsabilidad del componente `TasksForm.vue` es la un formulario como tal, por lo que la regla de negocio debe ser transparente para él. Al efecto, su responsabilidad solo será capturar las entradas del usuario y emitir la carga útil al componente padre.
+
+>Asimismo su responsabilidad encapsulada hará que las correspondientes pruebas unitarias sean más fáciles de _testear_.
 
 ## Emitiendo `sendForm`
 
-Avancemos definiendo el método `sendForm` cómo `emit` recibiendo un objeto `task` de carga útil. Luego ocupamos el método `sendForm` invocando la emisión del dicho método y pasando la carga útil, el objeto `form`.
+Entonces avancemos definiendo el método `sendForm` cómo `emit` recibiendo un objeto `task` de carga útil. Luego ocupamos el método `sendForm` invocando la emisión del dicho método y pasando la carga útil, el objeto `form`.
 
 📃`TasksForm.vue`
-```vue{2,14,15,16,18,19,20}
+```vue{2,15,16,17,19,20,21}
 <script setup lang="ts">
 import { reactive, toRaw } from "vue"
+import type Task from "@/types/Task"
 
 const props = defineProps<{
   // omitted for brevity ...
@@ -101,7 +105,7 @@ const situationOptions = [
 ]
 
 const emit = defineEmits<{
-  (e: 'sendForm', task): void
+  (e: 'sendForm', task: Task): void
 }>()
 
 const sendForm = () => {
@@ -110,7 +114,9 @@ const sendForm = () => {
 </script>
 ```
 
-Tenga presente que en este caso la carga útil no necesita ser reactiva. Por ello envolvimos el objeto reactivo `form` dentro del método [`toRaw`](https://vuejs.org/api/reactivity-advanced.html#toraw) cuando emitimos `sendForm`. Ahora si nos ocuparemos de la regla de negocio que nos interesa.
+Tenga presente que en este caso la carga útil no necesita ser reactiva. Por ello envolvimos el objeto reactivo `form` dentro del método [`toRaw`](https://vuejs.org/api/reactivity-advanced.html#toraw) cuando emitimos `sendForm`.
+
+Ahora si nos ocuparemos de la regla de negocio que nos interesa.
 
 ## Volviendo a `useTask.ts`
 
@@ -130,8 +136,8 @@ export default () => {
     // omitted for brevity ...
   ]
   
-  const sendForm = (payload) => {
-    // Here inside will be sendForm method code
+  const sendForm = (payload: any) => {
+    // here inside will be sendForm method code
   }
 
   return {
@@ -162,7 +168,7 @@ export default () => {
     // omitted for brevity ...
   ]
   
-  const sendForm = (payload) => {    
+  const sendForm = (payload: any) => {    
     postTask(payload).then((response) => {
       console.log('Response', response)
     }).catch((err) => {
@@ -180,7 +186,7 @@ export default () => {
 
 Como habrá notado, estamos desestructurando el módulo `TaskService` para implementar el método `postTask`. Este método será el encargado de _postear_ tareas a nuestra API. 
 
-Una cosa importante que debe saber es que los métodos de Axios devuelven [promesas javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), por lo tanto, el resultado del método `postTask` es una promesa. Esto significa que podemos agregar un método `then` a nuestra llamada posterior que devolverá el `response` del servidor para que podamos trabajar con ella, y un método `catch` que podemos usar para manejar cualquier `error` que pueda ocurrir al enviar los datos. Para los propósitos de esta lección, solo vamos a registrar los resultados en la consola aquí para ver estos dos métodos en acción.
+>Una cosa importante que debe saber es que los métodos de Axios devuelven [promesas javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), por lo tanto, el resultado del método `postTask` es una promesa. Esto significa que podemos agregar un método `then` a nuestra llamada posterior que devolverá el `response` del servidor para que podamos trabajar con ella, y un método `catch` que podemos usar para manejar cualquier `error` que pueda ocurrir al enviar los datos. Para los propósitos de esta lección, solo vamos a registrar los resultados en la consola aquí para ver estos dos métodos en acción.
 
 Ahora ha llegado el tiempo de ver que hay dentro del módulo `TasksService`.
 
@@ -204,7 +210,7 @@ request.interceptors.response.use(
   (error) => Promise.reject(error)
 );
 
-export const postTask = (payload) => {
+export const postTask = (payload: any) => {
   return request.post('/posts', payload)  
 }
 
@@ -241,7 +247,7 @@ import axios from "axios";
 
 // omitted for brevity ...
 
-export const postTask = (payload) => {
+export const postTask = (payload: any) => {
   return request.post('/posts', payload)  
 }
 
@@ -252,6 +258,18 @@ El primer argumento que requiere es la `URL` a donde va a enviar la información
 >Tenga en cuenta que, en este caso, la URL es igual al contenido de la propiedad `baseURL` del objeto `request` concatenado con la cadena `'/posts'`.
 
 El segundo argumento es el `payload`, un objeto que contiene toda la información que queremos enviar a nuestro servidor. Dado que ya tenemos toda la información del formulario ordenadamente envuelta en nuestro `payload`, podemos usarla directamente aquí y simplemente enviarla tal como está al servidor.
+
+>Tenga en cuenta que las declaraciones tipo `any` son malas prácticas que deben ser evitadas. Si desea establecer un tipo más específico para el caso del argumento `payload` podría usar algo como lo siguiente:
+```ts
+type Paiload = string
+  | { [key: string]: any } // GenericObject
+  | ArrayBuffer
+  | ArrayBufferView 
+  | URLSearchParams
+  | FormData
+  | File 
+  | Blob;
+```
 
 :::warning ¡Cuidado!
 En un escenario de la vida real, querrá validar la entrada de sus usuarios antes de enviarla al servidor, incluso si su `backend` va a realizar la validación del lado del servidor. 
@@ -264,7 +282,7 @@ Ahora que tenemos **Axios** configurado, necesitamos crear un punto final que re
 En aras del aprendizaje, vamos a utilizar My JSON Server - una forma gratuita de crear nuestro propio punto final en línea falso - para que podamos aprender a postear nuestro formulario.
 
 
-## My JSON Server
+## Mi Servidor JSON
 
 Cuando hablamos de [My JSON Server](https://my-json-server.typicode.com/) se trata de un servidor REST en línea falso.
 
@@ -276,10 +294,40 @@ Cuando abra el servidor, notará que en recursos tenemos una lista de eventos, c
 
 En particular, al guardar los datos de un formulario, casi siempre querrá realizar un tipo particular de solicitud: una solicitud `POST`, que nos permite enviar una parte de los datos al servidor con ella.
 
+## La vista `Tasks`
+
+Llegado a este punto, solo nos falta escuchar desde el componente padre `Tasks.vue` el evento `sendForm` emitido por el componente hijo `TasksForm`. Actualicemos entonces.
+
+📃`Tasks.vue`
+```vue{9,19}
+<script setup lang="ts">
+import useTasks from '@/composables/useTasks'
+import TasksForm from '@/components/TasksForm.vue'
+
+const {
+  frequencies,
+  task,
+  
+  sendForm
+} = useTasks()
+</script>
+
+<template>
+  <div>
+    <h1>Create an task</h1>
+    <TasksForm
+      :task='task'
+      :frequencies='frequencies'
+      @sendForm='sendForm'    
+    />
+    <pre>{{ task }}</pre>
+  </div>
+</template>
+```
+
+Ahora que nuestra función de envío `sendForm` está lista, y después de haber aprendido toda esa teoría, finalmente estamos listos para volver al navegador y probar nuestro formulario.
 
 ## Volver al navegador
-
-Ahora que nuestra función de envío está lista, y después de haber aprendido toda esa teoría, finalmente estamos listos para volver al navegador y probar nuestro formulario.
 
 Sirva su proyecto y complete el formulario, asegúrese de tener la pestaña `Network` abierta en su navegador para que pueda ver las solicitudes que se envían, y finalmente presione el botón **_Submit_** para ver toda la información enviada rápidamente a nuestra **API**.
 
@@ -287,11 +335,9 @@ En la pestaña `Network` podemos ver nuestra solicitud exitosa y la respuesta, r
 
 ## Terminando
 
-¡Eso fue mucha teoría! Pero ahora tenemos un formulario completamente funcional que envía datos a nuestro servidor.
+¡Eso fue mucha teoría! Pero ahora tenemos un formulario completamente funcional que envía datos a nuestro servidor. Sin embargo, hay una cosa más, posiblemente una de las partes más importantes de todas.
 
-Sin embargo, hay una cosa más, posiblemente una de las partes más importantes de todas.
+Hace algunas lecciones mencionamos que nuestros componentes no eran accesibles, y aunque en un escenario de la vida real la accesibilidad debería ser una consideración principal al desarrollar sus componentes, simplemente era demasiada información para agregarla a nuestras lecciones anteriores.
 
-Hace algunas lecciones mencioné que nuestros componentes no eran accesibles, y aunque en un escenario de la vida real la accesibilidad debería ser una consideración principal al desarrollar sus componentes, simplemente era demasiada información para agregarla a nuestras lecciones anteriores.
-
-Ahora estamos listos para regresar y echar un vistazo a algunos conceptos básicos de accesibilidad que siempre debe tener en cuenta al crear formularios en Vue.
+>Ahora estamos listos para regresar y echar un vistazo a algunos conceptos básicos de accesibilidad que siempre debe tener en cuenta al crear formularios en Vue.
 

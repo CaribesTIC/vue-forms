@@ -48,10 +48,10 @@ const radioOptions = [
 Luego usaremos el `label` como la etiqueta de cada uno de nuestros radios, y el `value` como el valor de cada radio.
 
 📃`AppRadioGroup.vue`
-```vue
+```vue{3,9,11,12}
 <script setup lang="ts">
 defineProps<{
-  options: array  
+ options: { label: string; value: number; }[]  
 }>()  
 </script>
 
@@ -78,7 +78,7 @@ Por lo tanto, sigamos adelante y agreguemos nuestra segunda propiedad, la propie
 ```vue{4,14}
 <script setup lang="ts">
 defineProps<{
-  options: array 
+  options: { label: string; value: number; }[]
   name: string
 }>()
 </script>
@@ -107,7 +107,7 @@ Como siempre, agregaremos la propiedad `modelValue`.
 ```vue{5,15}
 <script setup lang="ts">
 defineProps<{
-  options: array 
+  options: { label: string; value: number; }[]
   name: string
   modelValue: string | number
 }>()
@@ -218,7 +218,7 @@ Volvamos a `AppRadioGroup.vue` y agreguemos nuestra propiedad `vertical` y comen
 ```vue{6,8}
 <script setup lang="ts">
 withDefaults(defineProps<{
-  options: array 
+  options: { label: string; value: number; }[]
   name: string
   modelValue: string | number
   vertical?: boolean

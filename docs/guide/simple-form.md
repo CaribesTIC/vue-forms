@@ -4,7 +4,7 @@
 
 A lo largo de este curso, estamos creando un conjunto de componentes de formulario reutilizables y explorando las mejores prácticas en el camino. Para construirlos, necesitaremos un formulario de demostración para usar como punto de partida.
 
-## Componente `App.vue`
+## Componente `App`
 
 >Hemos preparado un formulario simple para que podamos saltar directamente a él. Sin embargo, antes debemos considerar cierto escenario.
 
@@ -27,7 +27,7 @@ Avancemos borrando el contenido de este archivo y coloquemos el siguiente códig
 
 En este ejemplo, habrá una sección donde simplemente construiremos una vista llamada `Tasks` la cual envolverá el formulario que nos servirá para lograr el objetivo del tutorial.
 
-## Componente `Tasks.vue`
+## Componente `Tasks`
 
 Continuamos con el contenido del componente `Tasks.vue` el cual será creado dentro de una carpeta llamada `views`.
 
@@ -63,9 +63,9 @@ Tenga en cuenta que empezamos a implementar dos conceptos útiles de diseño:
 
 Avancemos revisando de qué se trata la regla de negocio inyectada al formulario.
 
-## Composable `useTasks.ts`
+## Composable `useTasks`
 
-En el código anterior vimos que se ha importado el _composable_ `useTasks` el cual es desestructurado en `{ frequencies, task }`.
+En el código anterior vimos que se ha importado el _composable_ `useTasks.ts` el cual es desestructurado en `{ frequencies, task }`.
 
 Ahora avancemos dándole una lectura.
 
@@ -101,12 +101,12 @@ export default () => {
 }
 ```
 
-En este código se puede ver que estamos importando dos constantes. Tenga en cuenta lo siguiente:
+En este código se puede ver que estamos retornando dos constantes. Tenga en cuenta lo siguiente:
 
-- La constante `task` es un objeto reactivo y se trata de los datos que serán cargados en el formulario. Seguramente luego serán enviados y guardados a una API en particular.
-- La constante `frequencies` es un arreglo que no necesita reactividad, ya que simplemente será útil para impulsar el elemento `select`.
+1. La constante `task` es un objeto reactivo y se trata de los datos que serán cargados en el formulario. Seguramente luego serán enviados y guardados a una API en particular.
+2. La constante `frequencies` es un arreglo que no necesita reactividad, ya que simplemente será útil para impulsar el elemento `select`.
 
-Copie este código, péguelo dentro de una carpeta que llamaremos `composables` y continuemos.
+>Copie este código, péguelo dentro de una carpeta que llamaremos `composables` y continuemos.
 
 Tenga en cuenta además, que el IDE infiere automáticamente el tipo de constantes respectivamente. En el caso de la constante `frequencies` infiere el tipo `string[]`, y para la constante reactiva `task` infiere un tipo de objeto particular.
 
@@ -133,10 +133,10 @@ interface Task {
 export default Task
 ```
 
-Con esta declaración y exportación de tipo estamos prácticamente listos para continuar con el formulario simple `TasksForm.vue` que nos servirá de ejemplo para el tutorial.
+Con esta declaración y exportación de tipo estamos prácticamente listos para completar el formulario simple `TasksForm.vue` que nos servirá de ejemplo para el tutorial.
 
 
-## Componente `TasksForm.vue`
+## Componente `TasksForm`
 
 Avancemos con el componente `TasksForm.vue` que colocaremos en la carpeta `components` ya que no se trata de una vista (o pagina) llamada desde el enrutador. Sino todo lo contrario, es un componente hijo importado por la vista padre `Tasks.vue`.
 

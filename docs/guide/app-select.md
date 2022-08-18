@@ -185,8 +185,8 @@ Para que nuestro componente `AppSelect` funcione con cualquier conjunto de opcio
 <script setup lang="ts">
 withDefaults(defineProps<{
   label?: string
-  modelValue?: string | number
-  options: array
+  modelValue?: string | number  
+  options: string[]
 }>(), {
   label: '',
   modelValue: ''

@@ -4,7 +4,7 @@ En nuestras últimas dos lecciones, importamos nuestros componentes `AppInput` y
 
 Hay varias maneras de hacerlo, una bién ordenada y limpia es la que usamos en nuestro _scaffolding_ [LaraVuel-ApiSpa](https://caribestic.github.io/laravuel-apispa/vue/vue-global-plugins.html), separando los distintos tipos de complementos en módulos e importándolos solo cuando sea necesario de manera asíncrona.
 
-Otra forma, mucho más mágica implementando una librería de terceros ([Lodash](https://lodash.com/)), es la que está en el [código fuente](https://github.com/Code-Pop/Vue-3-Forms/blob/master/src/main.js) donde nace este tutoríal.
+Otra forma, mucho más mágica implementando una librería de terceros ([Lodash](https://lodash.com/)), es la que está en el [repositorio](https://github.com/Code-Pop/Vue-3-Forms/blob/master/src/main.js) donde nació este tutoríal.
 
 Pero, para no alejarnos del objetivo del tutorial vamos hacerlo de la manera más simple.
 
