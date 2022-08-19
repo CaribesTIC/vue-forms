@@ -55,7 +55,7 @@ withDefaults(defineProps<{
 
 Tenga en cuenta que hemos agregado una condición `v-if` para verificar que la propiedad `label` esté establecida antes de representar el elemento `<label>`. No hay una razón real para representar un elemento `<label>` vacío y, lo que es peor, ¡no queremos etiquetarlo como una cadena vacía!
 
->Hay varias consideraciones de accesibilidad cuando se habla de etiquetas y entradas, y lo que hemos estado haciendo hasta ahora en su mayoría no será accesible. Sin embargo, en una lección posterior revisaremos estos componentes cuando echemos un vistazo a los conceptos básicos de [accesibilidad](../guide/accessibility.html) en los formularios.
+>Hay varias consideraciones de accesibilidad cuando se habla de etiquetas y entradas, y lo que hemos estado haciendo hasta ahora en su mayoría no será accesible. Sin embargo, en una lección posterior revisaremos estos componentes cuando echemos un vistazo a los conceptos básicos de [accesibilidad](../tuto/accessibility.html) en los formularios.
 
 ## Haciéndolo compatible con `v-model`
 
@@ -138,7 +138,7 @@ Solo falta importarlo como complemento.
 
 ## Complemento Global
 
-Vamos a importarlo globalmente, igual como se dijo en la [lección anterior](../guide/global-components.html).
+Vamos a importarlo globalmente, igual como se dijo en la [lección anterior](../tuto/global-components.html).
 
 📃`main.ts`
 ```ts{5,12}

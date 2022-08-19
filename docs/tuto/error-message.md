@@ -84,7 +84,7 @@ Finalmente solo nos falta remplazar, en el componente padre, el correspondiente 
 </template>
 ```
 
-Solo nos falta declarar `AppErrorMessage.vue` como [complemento global](../guide/app-checkbox.html#complemento-global) para que esto funcione.
+Solo nos falta declarar `AppErrorMessage.vue` como [complemento global](../tuto/app-checkbox.html#complemento-global) para que esto funcione.
 
 ## Componente Button
 
@@ -111,10 +111,10 @@ Y listo, ya podemos volver a nuestro `TasksForm.vue` y reemplazar el elemento `<
 </AppButton>
 ```
 
-Recuerde declarar `AppButton.vue` como [complemento global](../guide/app-checkbox.html#complemento-global).
+Recuerde declarar `AppButton.vue` como [complemento global](../tuto/app-checkbox.html#complemento-global).
 
 ## Terminando
 
 **!! En enhorabuena y parabién hemos llegado al final de este tutorial !!**
 
-Nos despedimos, no sin antes invitarle a disfrutar del [**Bonus**](../tests/testing-components.html) que hemos preparado especialmente para ti...
+Nos despedimos, no sin antes invitarle a disfrutar del [**Bonus**](../bonus/testing-components.html) que hemos preparado especialmente para ti...

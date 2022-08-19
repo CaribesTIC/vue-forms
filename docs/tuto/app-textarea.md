@@ -150,7 +150,7 @@ Reemplacemos el `textarea` entrada de `Description` en nuestro formulario con nu
 />
 ```
 
-Solo nos falta declarar `AppTextarea.vue` como [complemento global](../guide/app-checkbox.html#complemento-global) para que esto funcione.
+Solo nos falta declarar `AppTextarea.vue` como [complemento global](../tuto/app-checkbox.html#complemento-global) para que esto funcione.
     
 ## Terminando
 

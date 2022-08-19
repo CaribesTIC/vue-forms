@@ -183,7 +183,7 @@ const situationOptions = [
 ]
 </script>
 ```
-Ahora podemos ir al navegador y disfrutar de la gloria de nuestro grupo de radios de aspecto no muy agradable. Pero antes, recuerde importar el componente `AppRadioGroup` globalmente como lo hicimos en [lecciones anteriores](../guide/app-checkbox.html#complemento-global).
+Ahora podemos ir al navegador y disfrutar de la gloria de nuestro grupo de radios de aspecto no muy agradable. Pero antes, recuerde importar el componente `AppRadioGroup` globalmente como lo hicimos en [lecciones anteriores](../tuto/app-checkbox.html#complemento-global).
 
 ![app-radio-group](./img/app-radio-group1.jpg)
 

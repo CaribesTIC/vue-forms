@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Comenzar
-      link: /guide/introduction
+      link: /tuto/introduction
     - theme: alt
       text: GitHub
       link: https://github.com/CaribesTIC/vue-forms

@@ -8,7 +8,7 @@ Los botones `radio` en HTML tienen una característica única que debemos tener 
 
 Según el estado del grupo, un botón `radio` puede estar activo o inactivo en relación con los de su propio grupo.
 
-Debido a esta peculiaridad particular en el funcionamiento de los botones `radio`, el componente `AppRadio` también tendrá otro componente para agruparlos, el [`AppRadioGroup`](../guide/app-radiogroup.html).
+Debido a esta peculiaridad particular en el funcionamiento de los botones `radio`, el componente `AppRadio` también tendrá otro componente para agruparlos, el [`AppRadioGroup`](../tuto/app-radiogroup.html).
 
 ## Primero, el `AppRadio`
 
@@ -219,7 +219,7 @@ Ahora que nuestro componente está listo, podemos volver a nuestro `TasksForm.vu
 </div>
 ```
 
-Solo nos falta declarar `AppRadio.vue` como [complemento global](../guide/app-checkbox.html#complemento-global) para que esto funcione.
+Solo nos falta declarar `AppRadio.vue` como [complemento global](../tuto/app-checkbox.html#complemento-global) para que esto funcione.
 
 
 
