@@ -3,14 +3,23 @@
 ## `appSelect.spec.ts`
 
 ```ts
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import AppSelect from '@/components/AppSelect.vue'
 
 describe('AppSelect', () => {
-  it('should be initialized blank and no title', () => {
-    const wrapper = mount(AppSelect, {
-      props: { options: [] }
+  const factory = (props = {}, attrs = {}) => {
+    return mount(AppSelect, {      
+      props: {
+        options: [],
+        ...props
+      },
+      attrs: { ...attrs } 
     })
+  }
+  
+  it('should be initialized blank and no title', () => {
+    const wrapper = factory()
     
     expect(wrapper.html()).not.toContain('Title')
     expect(wrapper.find('label').exists()).toBe(false)
@@ -20,23 +29,17 @@ describe('AppSelect', () => {
   })
   
   it('should render label by passing property to', () => {
-    const wrapper = mount(AppSelect, {
-      props: {
-        label: 'Title',
-        options: []        
-      }
-    })
+    const wrapper = factory({ label: 'Title' })
 
     expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').html()).toContain('Title')    
+    expect(wrapper.find('label').html()).toContain('Title')
     expect(wrapper.props().label).toEqual('Title')    
   })
   
   it('should emit empty value by default when fire', async () => {
-    const wrapper = mount(AppSelect, {
-      props: { options: [] }
-    })
-    const select = wrapper.find('select')   
+    const wrapper = factory()
+
+    const select = wrapper.find('select')
 
     await select.trigger('change')
 
@@ -46,11 +49,8 @@ describe('AppSelect', () => {
   })
   
   it('should emit value which is set manually and fire', async () => {
-    const wrapper = mount(AppSelect, {
-      props: {
-        options: ['bar', 'baz', 'foo']
-      }
-    })    
+    const wrapper = factory({ options: ['bar', 'baz', 'foo'] })
+
     const select = wrapper.find('select')    
     await select.setValue('baz')
 
@@ -62,15 +62,14 @@ describe('AppSelect', () => {
   })
   
   it('should emit value which is set by property and fire', async () => {
-    const wrapper = mount(AppSelect, {
-      props: {      
-        modelValue: 'baz',
-        options: ['bar', 'baz', 'foo']
-      }
+    const wrapper = factory({
+      modelValue: 'baz',
+      options: ['bar', 'baz', 'foo']
     })
+
     const select = wrapper.find('select')
     
-    await select.trigger('change')    
+    await select.trigger('change')
 
     expect(
       wrapper.emitted()['update:modelValue'][0][0]
@@ -78,12 +77,8 @@ describe('AppSelect', () => {
   })
   
   it('should set the attributes to the select element', () => {
-    const wrapper = mount(AppSelect, {     
-      props: {
-        label:'Title',
-        options: []
-      }      
-    })
+    const wrapper = factory({ label:'Title' })
+
     const select = wrapper.find('select')
     const label = wrapper.find('label')
     
@@ -94,15 +89,8 @@ describe('AppSelect', () => {
   })
   
   it('this should set the attributes to the input element too', () => {
-    const wrapper = mount(AppSelect, {
-      attrs: {
-        id: '#id'
-      },
-      props: {
-        label:'Title',
-        options: []
-      }      
-    })
+    const wrapper = factory( {label: 'Title'}, {id: '#id'} )
+
     const select = wrapper.find('select')
     const label = wrapper.find('label')    
     
@@ -113,12 +101,11 @@ describe('AppSelect', () => {
   })
   
   it('setSelected demo', async () => {
-    const wrapper = mount(AppSelect,{
-      props: {      
-        modelValue: 'baz',
-        options: ['bar', 'baz', 'foo']
-      }
+    const wrapper = factory({
+      modelValue: 'baz',
+      options: ['bar', 'baz', 'foo']
     })
+
     const options = wrapper.find('select').findAll('option')
 
     await options.at(1).setSelected()

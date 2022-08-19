@@ -1,97 +1,92 @@
 # Testeando Input
 
-## `appInputA.spec.ts`
+## `appInput.spec.ts`
 
 ```ts
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
+import AppErrorMessage from '@/components/AppErrorMessage.vue'
 import AppInput from '@/components/AppInput.vue'
 
-describe('AppInput', () => {
+describe('AppInput with UUID', () => {
+  const factory = (props = {}, attrs = {} ) => {
+    return mount(AppInput, {
+      global: { components: { AppErrorMessage } },
+      props: { ...props },
+      attrs: { ...attrs }
+    })
+  }
+
   it('should be initialized blank all and no title', () => {
-    const wrapper = mount(AppInput)
+    const wrapper = factory()
     
     expect(wrapper.html()).not.toContain('Title')
-    expect(wrapper.find('label').exists()).toBe(false)      
-    expect(wrapper.props()).toEqual({ error: '', label: '', modelValue: '' })        
+    expect(wrapper.find('label').exists()).toBe(false)
+    expect(wrapper.props()).toEqual({ error: '', label: '', modelValue: '' })
+    expect(wrapper.find('input').attributes().id).toBe('1')
   })
 
   it('should render label by passing property to', () => {
-    const wrapper = mount(AppInput, {
-      props: { label: 'Title' }
-    })
+    const wrapper = factory({ label: 'Title' })    
 
     expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').html()).toContain('Title')    
-    expect(wrapper.find('input').html()).toContain('Title')    
+    expect(wrapper.find('label').html()).toContain('Title')
+    expect(wrapper.find('input').html()).toContain('Title')
+    expect(wrapper.find('input').attributes().id).toBe('2')
   })
 
   it('should emit empty string by default when fire', async () => {
-    const wrapper = mount(AppInput)
+    const wrapper = factory()
     const input = wrapper.find('input')
     
     await input.trigger('input')
 
     expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('')
+    expect(wrapper.find('input').attributes().id).toBe('3')
   })
 
   it('should emit string which is set manually and fire', async () => {
-    const wrapper = mount(AppInput)
-    const input = wrapper.find('input')    
+    const wrapper = factory()
+    const input = wrapper.find('input')
     
-    input.element.value = 'My title'    
+    input.element.value = 'My name'
     await input.trigger('input')
     
-    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('My title')
+    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('My name')
+    expect(wrapper.find('input').attributes().id).toBe('4')
   })
 
   it('should emit string which is set by property and fire', async () => {
-    const wrapper = mount(AppInput, {
-      props: {
-        modelValue: 'My other title'
-      }
-    })   
+    const wrapper = factory({ modelValue: 'Other name' })    
 
     const input = wrapper.find('input')
-    await input.trigger('input')    
+    await input.trigger('input')
 
-    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('My other title')  
+    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('Other name')
+    expect(wrapper.find('input').attributes().id).toBe('5')
   })
-})
-```
 
-## appInputB.spec.ts
+  it('should set the attributes to the input element', () => {
+    const wrapper = factory({},{ type: 'text' })
 
-```ts
-import { mount } from '@vue/test-utils'
-import AppInput from '@/components/AppInput.vue'
-
-describe('AppInput', () => {
-  it('should set the attributes to the input element', () => {  
-    const wrapper = mount(AppInput, {
-      attrs: { type: 'text' }
-    })        
-
-    expect(wrapper.find('label').exists()).toBe(false)     
-    expect(wrapper.find('input').attributes()).toEqual({      
+    expect(wrapper.find('label').exists()).toBe(false)
+    expect(wrapper.find('input').attributes()).toEqual({
       type: 'text',
       placeholder: '', // without label prop
       class: 'field',
-      id: '1' // uuid
+      id: '6' // uuid
     })    
   })
 
-  it('this should set the attributes to the input element too', () => {     
-    const wrapper = mount(AppInput, {
-      props: { label: 'Title' },
-      attrs: { disabled: '' }
-    })     
+  it('this should set the attributes to the input element too', () => {
+    const wrapper = factory({ disabled: '' }, { label: 'Name' })
     
-    expect(wrapper.find('label').attributes()).toEqual({for:'2'})
+    expect(wrapper.find('label').attributes()).toEqual({for:'7'})
     expect(wrapper.find('input').attributes()).toEqual({
-      disabled: '',      
-      placeholder: 'Title', // with label prop
+      disabled: '',
+      placeholder: 'Name', // with label prop
       class: 'field',
-      id: '2' // uuid
+      id: '7' // uuid
     })
   })
 })

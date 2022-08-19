@@ -3,15 +3,24 @@
 ## `appRadio.spec.ts`
 
 ```ts
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import AppRadio from '@/components/AppRadio.vue'
 
 describe('AppRadio', () => {
-  it('should be initialized blank and no title', () => {
-    const wrapper = mount(AppRadio,{
-      props:{ value: '0' }
+  const factory = (props = {}, attrs = {} ) => {
+    return mount(AppRadio, {
+      props: {
+        value: '0',
+        ...props
+      },
+      attrs: { ...attrs } 
     })
-    
+  }
+  
+  it('should be initialized blank and no title', () => {
+    const wrapper = factory()
+
     expect(wrapper.html()).not.toContain('Title')
     expect(wrapper.find('label').exists()).toBe(false)
     expect(wrapper.props()).toEqual(
@@ -20,22 +29,16 @@ describe('AppRadio', () => {
   })
 
   it('should render label by passing property to', () => {
-    const wrapper = mount(AppRadio, {
-      props: {
-        label: 'Title',
-        value: '0'
-      }
-    })
+    const wrapper = factory({ label: 'Title' })
 
     expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').html()).toContain('Title')    
-    expect(wrapper.props().label).toEqual('Title')    
+    expect(wrapper.find('label').html()).toContain('Title')
+    expect(wrapper.props().label).toEqual('Title')
   })
 
   it('should emit 0 value by default when fire', async () => {
-    const wrapper = mount(AppRadio, {
-      props:{ value: '0' }
-    })
+    const wrapper = factory()
+
     //const radioInput = wrapper.find('input[type="radio"]')
     const radioInput = wrapper.find('input')
 
@@ -47,72 +50,54 @@ describe('AppRadio', () => {
   })
 
   it('should be truthy when set checked', async () => {
-    const wrapper = mount(AppRadio, {           
-      props: { value: '0' }      
-    })    
+    const wrapper = factory()
+
     const radioInput = wrapper.find('input')
 
     await radioInput.setChecked()
-    
+
     expect(radioInput.element.checked).toBeTruthy()
   })
 
   it('should be truthy when value is equal to modelValue', async () => {
-    const wrapper = mount(AppRadio, {               
-      props: {
-        value: '0',
-        modelValue: '0'                   
-      }      
-    })    
-    const radioInput = wrapper.find('input')    
-    
-    expect(radioInput.element.checked).toBeTruthy()    
+    const wrapper = factory({ modelValue: '0' })
+ 
+    const radioInput = wrapper.find('input')
+
+    expect(radioInput.element.checked).toBeTruthy()
   })
 
   it('should be falsy when value is not equal to modelValue', async () => {
-    const wrapper = mount(AppRadio, {               
-      props: {
-        value: '0',
-        modelValue: '1'                   
-      }      
-    })    
-    const radioInput = wrapper.find('input')    
-    
-    expect(radioInput.element.checked).toBeFalsy()    
+    const wrapper = factory({ modelValue: '1' })
+
+    const radioInput = wrapper.find('input')
+
+    expect(radioInput.element.checked).toBeFalsy()
   })
 
   it('should be truthy when value is checked', async () => {
-    const wrapper = mount(AppRadio, {
-      attrs: { checked: true },
-      props: { value: '0' }      
-    })    
-    const radioInput = wrapper.find('input')    
-    
-    expect(radioInput.element.checked).toBeTruthy()    
-  })
-  
-  it('should be falsy when value is unchecked', async () => {
-    const wrapper = mount(AppRadio, {
-      attrs: { checked: false },
-      props: { value: '0' }      
-    })    
-    const radioInput = wrapper.find('input')    
-    
-    expect(radioInput.element.checked).toBeFalsy()    
-  })
-  
-  it('should set the attributes to the input-radio element', () => {
-    const wrapper = mount(AppRadio, {
-      attrs: { name: 'radioName' },
-      props: {
-        label: 'ddd',
-        value: '0'
-      }      
-    })    
-    const label = wrapper.find('label')
-    const radioInput = wrapper.find('input')    
+    const wrapper = factory({}, { checked: true })
 
-    expect(radioInput.attributes().name).toEqual('radioName')    
+    const radioInput = wrapper.find('input')
+
+    expect(radioInput.element.checked).toBeTruthy()
+  })
+
+  it('should be falsy when value is unchecked', async () => {
+    const wrapper = factory({}, { checked: false })
+
+    const radioInput = wrapper.find('input')
+
+    expect(radioInput.element.checked).toBeFalsy()
+  })
+
+  it('should set the attributes to the input-radio element', () => {
+    const wrapper = factory({ label: 'label' }, { name: 'name' })
+    
+    const label = wrapper.find('label')
+    const radioInput = wrapper.find('input')
+
+    expect(radioInput.attributes().name).toEqual('name')
     expect(label.attributes()).toEqual({})
   })  
 })

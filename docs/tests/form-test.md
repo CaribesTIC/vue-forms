@@ -3,7 +3,10 @@
 ## `taskForm.spec.ts`
 
 ```ts
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
+import AppButton from '@/components/AppButton.vue'
+import AppErrorMessage from '@/components/AppErrorMessage.vue'
 import AppInput from '@/components/AppInput.vue'
 import AppSelect from '@/components/AppSelect.vue'
 import AppCheckbox from '@/components/AppCheckbox.vue'
@@ -14,9 +17,11 @@ import TasksForm from '@/components/TasksForm.vue'
 
 describe('TasksForm', () => {
   it('should be initialized blank all and no title', async () => {
-    const wrapper = mount(TasksForm,{
+    const wrapper = mount(TasksForm, {
       global: {
         components: {
+          AppButton,
+          AppErrorMessage,
           AppInput,
           AppSelect,
           AppCheckbox,
@@ -29,7 +34,7 @@ describe('TasksForm', () => {
         task: {
           frequency: '',
           name: '',
-          description: '',    
+          description: '',
           situation: 0,
           supervision: {
             reviewed: false,
@@ -47,13 +52,13 @@ describe('TasksForm', () => {
           'weekly'
         ]
       }
-    })
+    }) 
  
     await wrapper.find('select').setValue('daily')
     await wrapper.find('input[type=text]').setValue('My task')
     await wrapper.find('textarea').setValue('Lorem ipsum dolor sit amet...')
     await wrapper.find('input[type=radio][value="1"]').setValue()
-    await wrapper.findAll('input[type=checkbox]')[0].setValue() 
+    await wrapper.findAll('input[type=checkbox]')[0].setValue()
 
     await wrapper.find('button').trigger('submit')
 
@@ -63,7 +68,7 @@ describe('TasksForm', () => {
       description: 'Lorem ipsum dolor sit amet...',
       situation: 1,
       supervision: { reviewed: true, approved: false }
-    })    
+    })
   })
 })
 ```
