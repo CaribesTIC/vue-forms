@@ -138,7 +138,7 @@ Solo falta importarlo como complemento.
 
 ## Complemento Global
 
-Vamos a importarlo globalmente, igual como se dijo en la [lección anterior](../guide/importing-components.html).
+Vamos a importarlo globalmente, igual como se dijo en la [lección anterior](../guide/global-components.html).
 
 📃`main.ts`
 ```ts{5,12}

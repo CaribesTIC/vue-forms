@@ -1,4 +1,4 @@
-# Importando Componentes
+# Componentes Globales
 
 En nuestras últimas dos lecciones, importamos nuestros componentes `AppInput` y `AppSelect` manualmente. Recordemos que cuanto más componentes  reutilizables que vayamos a utilizar, repetidas veces, a lo largo de nuestro proyecto es conveniente pasarlos a Vue como complementos. Es decir, convertirlos en **Componentes Globales**.
 

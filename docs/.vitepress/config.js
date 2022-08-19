@@ -20,7 +20,7 @@ export default {
           { text: 'Formulario Simple', link: '/guide/simple-form' },
           { text: 'Componente Input', link: '/guide/app-input' },
           { text: 'Componente Select', link: '/guide/app-select' },
-          { text: 'Importando Componentes', link: '/guide/importing-components' },
+          { text: 'Componentes Globales', link: '/guide/global-components' },
           { text: 'Componente Checkbox', link: '/guide/app-checkbox' },   
           { text: 'Componente Radio', link: '/guide/app-radio' },
           { text: 'Componente RadioGroup', link: '/guide/app-radiogroup' },
