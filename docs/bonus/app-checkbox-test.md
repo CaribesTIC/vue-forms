@@ -26,20 +26,20 @@ describe('AppCheckbox', () => {
   })
   
   it('should render label by passing property to', () => {
-    const wrapper = factory({ label: 'Title' })    
+    const wrapper = factory({ label: 'Title' })
+    const label = wrapper.find('label')
 
-    expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').html()).toContain('Title')
+    expect(label.exists()).toBe(true)
+    expect(label.html()).toContain('Title')
     expect(wrapper.props().label).toEqual('Title')    
   })
   
   it('should emit empty value by default when fire', async () => {
     const wrapper = factory()
+    // const checkbox = wrapper.find('input[type="checkbox"]')
+    const checkbox = wrapper.find('input')
 
-    // const checkboxInput = wrapper.find('input[type="checkbox"]')
-    const checkboxInput = wrapper.find('input')
-
-    await checkboxInput.trigger('change')
+    await checkbox.trigger('change')
 
     expect(
       wrapper.emitted()['update:modelValue'][0][0]
@@ -47,12 +47,11 @@ describe('AppCheckbox', () => {
   })
   
   it('should emit value which is set manually and fire', async () => {
-    const wrapper = factory()
-  
-    const checkboxInput = wrapper.find('input')
-    await checkboxInput.setValue(true)
-
-    await checkboxInput.trigger('change')
+    const wrapper = factory()  
+    const checkbox = wrapper.find('input')
+    
+    await checkbox.setValue(true)
+    await checkbox.trigger('change')
 
     expect(
       wrapper.emitted()['update:modelValue'][0][0]
@@ -61,10 +60,9 @@ describe('AppCheckbox', () => {
   
   it('should emit value which is set by property and fire', async () => {
     const wrapper = factory({ modelValue: true })
-
-    const checkboxInput = wrapper.find('input')
+    const checkbox = wrapper.find('input')
     
-    await checkboxInput.trigger('change')
+    await checkbox.trigger('change')
 
     expect(
       wrapper.emitted()['update:modelValue'][0][0]
@@ -73,24 +71,22 @@ describe('AppCheckbox', () => {
 
   it('should set the attributes to the input element', () => {
     const wrapper = factory({ label:'Title' })
-
-    const checkboxInput = wrapper.find('input')
+    const checkbox = wrapper.find('input')
     const label = wrapper.find('label')
     
     expect(label.attributes()).toEqual({})
-    expect(checkboxInput.attributes()).toEqual(
+    expect(checkbox.attributes()).toEqual(
       { class: 'field', type: 'checkbox' }
     )
   })
 
   it('this should set the attributes to the input element too', () => {
     const wrapper = factory({ label:'Title' }, { id: '#id' })
-
-    const checkboxInput = wrapper.find('input')
+    const checkbox = wrapper.find('input')
     const label = wrapper.find('label')
     
     expect(label.attributes()).toEqual({})
-    expect(checkboxInput.attributes()).toEqual(
+    expect(checkbox.attributes()).toEqual(
       { class: 'field', id: '#id', type: 'checkbox' }
     )
   })

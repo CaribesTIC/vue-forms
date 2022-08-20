@@ -8,7 +8,7 @@ import { mount } from '@vue/test-utils'
 import AppSelect from '@/components/AppSelect.vue'
 
 describe('AppSelect', () => {
-  const factory = (props = {}, attrs = {}) => {
+  const factory = (props = {}, attrs = {} ) => {
     return mount(AppSelect, {      
       props: {
         options: [],
@@ -30,18 +30,17 @@ describe('AppSelect', () => {
   
   it('should render label by passing property to', () => {
     const wrapper = factory({ label: 'Title' })
+    const label = wrapper.find('label')
 
-    expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').html()).toContain('Title')
+    expect(label.exists()).toBe(true)
+    expect(label.html()).toContain('Title')
     expect(wrapper.props().label).toEqual('Title')    
   })
   
   it('should emit empty value by default when fire', async () => {
-    const wrapper = factory()
+    const wrapper = factory()     
 
-    const select = wrapper.find('select')
-
-    await select.trigger('change')
+    await wrapper.find('select').trigger('change')
 
     expect(
       wrapper.emitted()['update:modelValue'][0][0]
@@ -50,10 +49,9 @@ describe('AppSelect', () => {
   
   it('should emit value which is set manually and fire', async () => {
     const wrapper = factory({ options: ['bar', 'baz', 'foo'] })
-
-    const select = wrapper.find('select')    
+    const select = wrapper.find('select')
+    
     await select.setValue('baz')
-
     await select.trigger('change')
 
     expect(
@@ -66,7 +64,6 @@ describe('AppSelect', () => {
       modelValue: 'baz',
       options: ['bar', 'baz', 'foo']
     })
-
     const select = wrapper.find('select')
     
     await select.trigger('change')
@@ -78,7 +75,6 @@ describe('AppSelect', () => {
   
   it('should set the attributes to the select element', () => {
     const wrapper = factory({ label:'Title' })
-
     const select = wrapper.find('select')
     const label = wrapper.find('label')
     
@@ -89,8 +85,7 @@ describe('AppSelect', () => {
   })
   
   it('this should set the attributes to the input element too', () => {
-    const wrapper = factory( {label: 'Title'}, {id: '#id'} )
-
+    const wrapper = factory( { label: 'Title' }, { id: '#id' } )
     const select = wrapper.find('select')
     const label = wrapper.find('label')    
     
@@ -105,7 +100,6 @@ describe('AppSelect', () => {
       modelValue: 'baz',
       options: ['bar', 'baz', 'foo']
     })
-
     const options = wrapper.find('select').findAll('option')
 
     await options.at(1).setSelected()

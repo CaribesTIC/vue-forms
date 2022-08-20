@@ -27,36 +27,34 @@ describe('AppRadioGroup', () => {
 
   it('should be vertical', () => {
     const wrapper = factory({ vertical: true} )
-
-    const radioLabels = wrapper.findAll('label')
-    const radioInputs = wrapper.findAll('input[type="radio"]')       
+    const labels = wrapper.findAll('label')
+    const radios = wrapper.findAll('input[type="radio"]')       
     const divs = wrapper.findAll('div')
     const spans = wrapper.findAll('span')
     
     expect(wrapper.props().vertical).toBeTruthy()
     expect(divs.length).toBe(2)
     expect(spans.length).toBe(0)
-    expect(radioLabels[0].html()).toContain('Yes')
-    expect(radioInputs[0].attributes().value).toEqual('1')
-    expect(radioLabels[1].html()).toContain('No')
-    expect(radioInputs[1].attributes().value).toBe('0')
+    expect(labels[0].html()).toContain('Yes')
+    expect(radios[0].attributes().value).toEqual('1')
+    expect(labels[1].html()).toContain('No')
+    expect(radios[1].attributes().value).toBe('0')
   })
   
   it('should be horizontal', () => {
-    const wrapper = factory({}, true)   
-
-    const radioInputs = wrapper.findAll('app-radio-stub')
+    const wrapper = factory({}, true)
+    const radios = wrapper.findAll('app-radio-stub')
     const spans = wrapper.findAll('span')
     const divs = wrapper.findAll('div')
     
     expect(wrapper.props().vertical).toBeFalsy()
-    expect(radioInputs.length).toBe(2)
+    expect(radios.length).toBe(2)
     expect(spans.length).toBe(2)
     expect(divs.length).toBe(0)
-    expect(radioInputs[0].attributes().label).toBe('Yes')
-    expect(radioInputs[0].attributes().value).toEqual('1')
-    expect(radioInputs[1].attributes().label).toBe('No')
-    expect(radioInputs[1].attributes().value).toBe('0')
+    expect(radios[0].attributes().label).toBe('Yes')
+    expect(radios[0].attributes().value).toEqual('1')
+    expect(radios[1].attributes().label).toBe('No')
+    expect(radios[1].attributes().value).toBe('0')
   })
 
   it('should be checked', async() => {

@@ -28,11 +28,13 @@ describe('AppInput with UUID', () => {
 
   it('should render label by passing property to', () => {
     const wrapper = factory({ label: 'Title' })    
+    const label = wrapper.find('label')
+    const input = wrapper.find('input')
 
-    expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').html()).toContain('Title')
-    expect(wrapper.find('input').html()).toContain('Title')
-    expect(wrapper.find('input').attributes().id).toBe('2')
+    expect(label.exists()).toBe(true)
+    expect(label.html()).toContain('Title')
+    expect(input.attributes().placeholder).toBe('Title')
+    expect(input.attributes().id).toBe('2')
   })
 
   it('should emit empty string by default when fire', async () => {
@@ -42,28 +44,28 @@ describe('AppInput with UUID', () => {
     await input.trigger('input')
 
     expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('')
-    expect(wrapper.find('input').attributes().id).toBe('3')
+    expect(input.attributes().id).toBe('3')
   })
 
   it('should emit string which is set manually and fire', async () => {
     const wrapper = factory()
-    const input = wrapper.find('input')
-    
+    const input = wrapper.find('input')    
     input.element.value = 'My name'
+
     await input.trigger('input')
     
     expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('My name')
-    expect(wrapper.find('input').attributes().id).toBe('4')
+    expect(input.attributes().id).toBe('4')
   })
 
   it('should emit string which is set by property and fire', async () => {
-    const wrapper = factory({ modelValue: 'Other name' })    
-
+    const wrapper = factory({ modelValue: 'Other name' })
     const input = wrapper.find('input')
+
     await input.trigger('input')
 
     expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual('Other name')
-    expect(wrapper.find('input').attributes().id).toBe('5')
+    expect(input.attributes().id).toBe('5')
   })
 
   it('should set the attributes to the input element', () => {

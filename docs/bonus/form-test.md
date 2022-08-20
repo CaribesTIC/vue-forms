@@ -59,7 +59,6 @@ describe('TasksForm', () => {
     await wrapper.find('textarea').setValue('Lorem ipsum dolor sit amet...')
     await wrapper.find('input[type=radio][value="1"]').setValue()
     await wrapper.findAll('input[type=checkbox]')[0].setValue()
-
     await wrapper.find('button').trigger('submit')
 
     expect(wrapper.emitted('sendForm')[0][0]).toEqual({

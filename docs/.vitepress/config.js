@@ -35,9 +35,9 @@ export default {
         text: 'Bonus',
         path: '/bonus/',
         collapsible: true,
-        collapsed: true,      
+        collapsed: false,      
         items: [
-          { text: 'Testeando Componentes', link: '/bonus/testing-components' },
+          { text: 'Testeando Códigos', link: '/bonus/testing-codes' },
           { text: 'Testeando UniqueID', link: '/bonus/unique-id-test' },
           { text: 'Testeando Input', link: '/bonus/app-input-test' },
           { text: 'Testeando Select', link: '/bonus/app-select-test' },

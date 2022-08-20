@@ -30,19 +30,19 @@ describe('AppRadio', () => {
 
   it('should render label by passing property to', () => {
     const wrapper = factory({ label: 'Title' })
+    const label = wrapper.find('label')
 
-    expect(wrapper.find('label').exists()).toBe(true)
-    expect(wrapper.find('label').html()).toContain('Title')
+    expect(label.exists()).toBe(true)
+    expect(label.html()).toContain('Title')
     expect(wrapper.props().label).toEqual('Title')
   })
 
   it('should emit 0 value by default when fire', async () => {
     const wrapper = factory()
+    //const radio = wrapper.find('input[type="radio"]')
+    const radio = wrapper.find('input')
 
-    //const radioInput = wrapper.find('input[type="radio"]')
-    const radioInput = wrapper.find('input')
-
-    await radioInput.trigger('change')
+    await radio.trigger('change')
 
     expect(
       wrapper.emitted()['update:modelValue'][0][0]
@@ -51,54 +51,48 @@ describe('AppRadio', () => {
 
   it('should be truthy when set checked', async () => {
     const wrapper = factory()
+    const radio = wrapper.find('input')
 
-    const radioInput = wrapper.find('input')
+    await radio.setChecked()
 
-    await radioInput.setChecked()
-
-    expect(radioInput.element.checked).toBeTruthy()
+    expect(radio.element.checked).toBeTruthy()
   })
 
   it('should be truthy when value is equal to modelValue', async () => {
-    const wrapper = factory({ modelValue: '0' })
- 
-    const radioInput = wrapper.find('input')
+    const wrapper = factory({ modelValue: '0' }) 
+    const radio = wrapper.find('input')
 
-    expect(radioInput.element.checked).toBeTruthy()
+    expect(radio.element.checked).toBeTruthy()
   })
 
   it('should be falsy when value is not equal to modelValue', async () => {
     const wrapper = factory({ modelValue: '1' })
+    const radio = wrapper.find('input')
 
-    const radioInput = wrapper.find('input')
-
-    expect(radioInput.element.checked).toBeFalsy()
+    expect(radio.element.checked).toBeFalsy()
   })
 
   it('should be truthy when value is checked', async () => {
     const wrapper = factory({}, { checked: true })
+    const radio = wrapper.find('input')
 
-    const radioInput = wrapper.find('input')
-
-    expect(radioInput.element.checked).toBeTruthy()
+    expect(radio.element.checked).toBeTruthy()
   })
 
   it('should be falsy when value is unchecked', async () => {
     const wrapper = factory({}, { checked: false })
+    const radio = wrapper.find('input')
 
-    const radioInput = wrapper.find('input')
-
-    expect(radioInput.element.checked).toBeFalsy()
+    expect(radio.element.checked).toBeFalsy()
   })
 
   it('should set the attributes to the input-radio element', () => {
-    const wrapper = factory({ label: 'label' }, { name: 'name' })
-    
+    const wrapper = factory({ label: 'label' }, { name: 'name' })    
     const label = wrapper.find('label')
-    const radioInput = wrapper.find('input')
+    const radio = wrapper.find('input')
 
-    expect(radioInput.attributes().name).toEqual('name')
+    expect(radio.attributes().name).toEqual('name')
     expect(label.attributes()).toEqual({})
-  })  
+  })
 })
 ```
