@@ -27,7 +27,7 @@ features:
   - title: Componente Radio
     details: Componente reutilizable a partir del elemento <input type="radio">
   - title: Componente RadioGroup
-    details: Componente reutilizable para agrupar los RadioGroup por nombre
+    details: Componente reutilizable para agrupar elementos <input type="radio"> por nombre
   - title: Componente Textarea
     details: Componente reutilizable a partir del elemento <textarea>
 footer: MIT Licensed | Copyleft © 2022-present Ernesto Canquiz
