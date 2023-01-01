@@ -10,7 +10,7 @@ Si todavía no está familiarizado con [TypeScript](https://www.typescriptlang.o
 
 Así que, en la terminal nos dirigimos a la carpeta donde queremos crear el proyecto y ejecutamos el siguiente comando:
 
-```
+```sh
 npm init vue@latest
 ```
 
@@ -19,7 +19,7 @@ npm init vue@latest
 
 Inmediatamente se establecerá un diálogo con el terminal:
 
-```
+```sh
 Vue.js - The Progressive JavaScript Framework
 
 ? Project name: › vue-project
@@ -27,7 +27,7 @@ Vue.js - The Progressive JavaScript Framework
 
 Lo primero que nos preguntará será definir el nombre del proyecto, en mi caso le colocaré `vue-forms`, usted puede colocar el nombre que desee:
 
-```
+```sh
 Vue.js - The Progressive JavaScript Framework
 
 ? Project name: › vue-forms
@@ -35,7 +35,7 @@ Vue.js - The Progressive JavaScript Framework
 
 Luego el terminal nos hará una serie de preguntas a las cuales responderemos afirmativamente solo para seleccionar lo que está aquí resaltado (**TypeScript** y **Vitest**), lo demás no lo necesitaremos para el objetivo de este tutorial.
 
-```{4,7}
+```sh{4,7}
 Vue.js - The Progressive JavaScript Framework
 
 ✔ Project name: … vue-forms
@@ -48,7 +48,7 @@ Vue.js - The Progressive JavaScript Framework
 ```
 Finlamente, seguimos las siguientes intrucciones:
 
-```
+```sh
 Scaffolding project in ../vue-forms...
 
 Done. Now run:
@@ -62,7 +62,7 @@ Done. Now run:
 
 Instale tailwindcss y sus dependencias de pares a través de `npm` y luego ejecute el comando `init` para generar tanto `tailwind.config.js` como `postcss.config.js`.
 
-```
+```sh
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
@@ -110,7 +110,7 @@ Note que para el objetivo del tutorial no necesitaremos el archivo `./assets/mai
 
 Para instalar Vue Test Utils, simplemente ejecute en su terminal el siguiente comando.
 
-```
+```sh
 npm i -D @vue/test-utils@next
 ```
 

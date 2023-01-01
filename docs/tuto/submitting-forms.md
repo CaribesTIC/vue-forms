@@ -231,7 +231,7 @@ Sigamos avanzando.
 
 Diríjase a su terminal en la raíz del proyecto y ejecute el siguiente comando para agregar **Axios** a su proyecto con su administrador de paquetes favorito.
 
-```
+```sh
 npm install axios
 
 // OR

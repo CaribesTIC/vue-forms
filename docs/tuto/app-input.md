@@ -292,7 +292,7 @@ En componentes con un solo elemento envolvente, también conocidos como componen
 
 En los componentes multirraíz, como nuestro `AppInput`, Vue no puede averiguar sin nuestra ayuda a cuál de los nodos o fragmentos debe inyectar los atributos, por lo que Vue simplemente se da por vencido y emite una advertencia.
 
-```
+```sh
 [Vue warn]: Extraneous non-props attributes (type) were passed to component but could not be automatically inherited because component renders fragment or text root nodes. 
   at <AppInput modelValue="" onUpdate:modelValue=fn label="Location"  ... > 
   at <TasksForm> 
