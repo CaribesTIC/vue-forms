@@ -1,13 +1,16 @@
-export default {
+import { defineConfig } from 'vitepress'
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig({
   title: 'Vue-Form',
   description: 'Vue Form.',
-  base: '/vue-forms/', //  The default path during deployment / secondary address / base can be used/
+  base: '/vue-forms/', //  The default path during deployment / secondary address / base can be used/,
   themeConfig: {
+    // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Inicio', link: '/' },      
+      { text: 'Inicio', link: '/' },
       { text: 'Tutorial', link: '/tuto/introduction' },
-      { text: 'CaribesTIC', link: 'https://caribestic.github.io/' },
-      { text: 'GitHub', link: 'https://github.com/CaribesTIC/vue-forms' }      
+      { text: 'CaribesTIC', link: 'https://caribestic.github.io/' }      
     ],
     sidebar: [{
         text: 'Tutorial',        
@@ -49,6 +52,9 @@ export default {
           { text: 'Testeando Button', link: '/bonus/app-button-test' }
         ]
       }
+    ],    
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/CaribesTIC/vue-forms' }
     ]
   }
-}
+})
